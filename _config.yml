@@ -9,8 +9,8 @@ permalink:           pretty
 relative_permalinks: true
 
 # Setup
-title:               'Dezoito '
-tagline:             'Thoughts on Software Engineering, IBMs I-2, and other random() subjects'
+title:               'Dezoito &nbsp;'
+tagline:             'Coding, Software Engineering, IBMs I-2, and other random() subjects'
 description:         'Articles on web-centric development using Python, Django, Flask and ColdFusion, the I-2 suit, and custom Intelligence Analysis software.'
 url:                 http://dezoito.github.io
 baseurl:             /
