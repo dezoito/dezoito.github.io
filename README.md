@@ -1,6 +1,4 @@
-### I never saw a wild thing sorry for itself. 
-### A small bird will drop frozen 
-### dead from a bough 
-### without ever having felt sorry for itself.
+## A Jekyll powered Github Blog
 
-[D. H. Lawrence](http://www.biography.com/people/dh-lawrence-17175776)
+Based on [Barry Clark's excellent tutorial](http://www.smashingmagazine.com/2014/08/01/build-blog-jekyll-github-pages/)
+and using the [Lanyon Theme](http://lanyon.getpoole.com/).
