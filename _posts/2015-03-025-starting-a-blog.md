@@ -9,5 +9,5 @@ title: Starting a Blog
 ### dead from a bough
 ### without ever having felt sorry for itself.
 
-- [D. H. Lawrence](http://www.biography.com/people/dh-lawrence-17175776)
+[D. H. Lawrence](http://www.biography.com/people/dh-lawrence-17175776)
 
