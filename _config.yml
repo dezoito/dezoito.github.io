@@ -10,8 +10,8 @@ relative_permalinks: true
 
 # Setup
 title:               Dezoito
-tagline:             'Thoughts on development using Python, ColdFusion and maybe some unrelated ramblings.'
-description:         'Articles on web-centric development using Python, Django, Flask and ColdFusion, for now....'
+tagline:             'Thoughts on Software Engineering, IBM's I-2, and other random() subjects'
+description:         'Articles on web-centric development using Python, Django, Flask and ColdFusion, the I-2 suit, and custom Intelligence Analysis software.'
 url:                 http://dezoito.github.io
 baseurl:             /
 paginate:            5
