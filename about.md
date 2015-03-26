@@ -3,4 +3,6 @@ layout: page
 title: About
 ---
 
-About placeholder.
+This is not much for an "online presence" is it?
+
+
