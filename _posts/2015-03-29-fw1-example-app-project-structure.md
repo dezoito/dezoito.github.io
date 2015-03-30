@@ -17,5 +17,12 @@ Here's the list of topics:
  - Accessing an External Service
  - BDD and Integration Tests.
 
- # FW/1 Project Structure
+ ###FW/1 Project Structure
 
+```
+{% highlight js %}
+// Example code using highlight
+x = 0;
+
+{% endhighlight %}
+```
