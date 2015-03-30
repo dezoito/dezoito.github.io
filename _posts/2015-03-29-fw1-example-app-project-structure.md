@@ -7,9 +7,10 @@ This is the first in a series of articles on how to build a
 [ColdFusion and FW/1 Example Application](https://dezoito.github.io/2015/03/26/fw1-example-app-released/).
 
 I'll assume you are not new to CFML, so don't take this as a detailed guide or
-tutorial, but more of a starting point (I'll be a little more detailed in the article on tests).
+tutorial, but more of a 'getting started' reference on using this MVC framework
+to create Object-Oriented ColdFusion apps.
 
-Here's the list of topics:
+The articles will cover these topics:
 
  - Project Structure
  - Forms and Validation Patterns
@@ -91,25 +92,25 @@ You should not use this configuration in a web-accessible environment.
 Here's the interesting bits of code:
 
 {% highlight js %}
-    // ------------------------ APPLICATION SETTINGS ------------------------ //
-    this.name = "clipping_app";
-    this.sessionManagement = true;
-    this.sessionTimeout = createTimeSpan(0,2,0,0);
-    this.dataSource = "dtb_clipping";
-    this.test_datasource = "dtb_clipping_test";
-    this.ormEnabled = true;
-    this.ormsettings = {
-        // cfclocation="./model/beans",
-        dbcreate="update",
-        dialect="MySQL",
-        eventhandling="False",
-        eventhandler="root.home.model.beans.eventhandler",
-        logsql="true",
-        flushAtRequestEnd = "false"
-    };
+// ------------------------ APPLICATION SETTINGS ------------------------ //
+this.name = "clipping_app";
+this.sessionManagement = true;
+this.sessionTimeout = createTimeSpan(0,2,0,0);
+this.dataSource = "dtb_clipping";
+this.test_datasource = "dtb_clipping_test";
+this.ormEnabled = true;
+this.ormsettings = {
+    // cfclocation="./model/beans",
+    dbcreate="update",
+    dialect="MySQL",
+    eventhandling="False",
+    eventhandler="root.home.model.beans.eventhandler",
+    logsql="true",
+    flushAtRequestEnd = "false"
+};
 {% endhighlight %}
 
-Seems pretty straight forward, right? Notice that we also set a `'test_datasource'` above,
+Seems pretty straight forward, right? Notice that we also set a `'test_datasource'` variable,
 to be used exclusively when running tests.
 
 {% highlight js %}
@@ -125,22 +126,22 @@ app's specific folder (I like this approach since it makes source control and di
 Framework settings below:
 
 {% highlight js %}
-    // ------------------------ FW/1 SETTINGS ------------------------ //
-    variables.framework = {
-        reloadApplicationOnEveryRequest = true, //use only in dev
-        trace = false,
-        // places where you don't want to load the framework
-        unhandledPaths = '/clipping/tests/',
-            .....
-            .....
-        // enable the use of subsystems
-        usingSubsystems = true,
-        defaultSubsystem = 'home',
-        siteWideLayoutSubsystem = 'common',
+// ------------------------ FW/1 SETTINGS ------------------------ //
+variables.framework = {
+    reloadApplicationOnEveryRequest = true, //use only in dev
+    trace = false,
+    // places where you don't want to load the framework
+    unhandledPaths = '/clipping/tests/',
+        .....
+        .....
+    // enable the use of subsystems
+    usingSubsystems = true,
+    defaultSubsystem = 'home',
+    siteWideLayoutSubsystem = 'common',
 
-        // changes for FW/1 3.0
-        diLocations = "./home/model/"
-    }
+    // changes for FW/1 3.0
+    diLocations = "./home/model/"
+}
 {% endhighlight %}
 
 `unhandled paths` is a list of subdirectories where we don't want to use FW/1.
@@ -155,37 +156,37 @@ In this case, it's referencing the path to the models in the 'home' subsystem.
 Here's a way to define settings according to environment:
 
 {% highlight js %}
-   // ------------------------ ENVIRONMENT DEFINITIONS ------------------------ //
-    public function getEnvironment() {
-       if ( findNoCase( "localhost", CGI.SERVER_NAME ) ) return "prod";
-       if ( findNoCase( "127.0.0.1", CGI.SERVER_NAME ) ) return "dev";
-       else return "prod";
-    }
+// ------------------------ ENVIRONMENT DEFINITIONS ------------------------ //
+public function getEnvironment() {
+   if ( findNoCase( "localhost", CGI.SERVER_NAME ) ) return "prod";
+   if ( findNoCase( "127.0.0.1", CGI.SERVER_NAME ) ) return "dev";
+   else return "prod";
+}
 
-    variables.framework.environments = {
-       dev = { reloadApplicationOnEveryRequest = true,  trace = true,},
-       prod = { password = "supersecret" }
-    }
+variables.framework.environments = {
+   dev = { reloadApplicationOnEveryRequest = true,  trace = true,},
+   prod = { password = "supersecret" }
+}
 {% endhighlight %}
 
 Setting application scoped variables when the app starts:
 
 {% highlight js %}
-    function setupApplication() {
+function setupApplication() {
 
-        // copy dsn names to application scope
-        application.datasource = this.datasource;
-        application.recordsPerPage = 12 //pagination setting, used in all services and tests
+    // copy dsn names to application scope
+    application.datasource = this.datasource;
+    application.recordsPerPage = 12 //pagination setting, used in all services and tests
 
-        // include UDF functions
-        // the functions inside the CFC cann be referred by application.UDFs.functionName()
-        application.UDFs = createObject("component", "lib.functions");
+    // include UDF functions
+    // the functions inside the CFC cann be referred by application.UDFs.functionName()
+    application.UDFs = createObject("component", "lib.functions");
 
-        // settings used in tests
-        application.test_datasource = this.test_datasource;
-        application.testsRootMapping = "/clipping/tests/specs";
-        application.testsBrowseURL = "http://" & CGI.HTTP_HOST & "/clipping";
-    }
+    // settings used in tests
+    application.test_datasource = this.test_datasource;
+    application.testsRootMapping = "/clipping/tests/specs";
+    application.testsBrowseURL = "http://" & CGI.HTTP_HOST & "/clipping";
+}
 {% endhighlight %}
 
 Please notice how the line `application.UDFs = createObject("component", "lib.functions");`
@@ -195,10 +196,10 @@ so those functions can be used anywhere.
 Finally:
 
 {% highlight js %}
-    function setupSession(){
-        // CSRF Token, unique for each user/session
-        session.csrftoken = CSRFGenerateToken();
-    }
+function setupSession(){
+    // CSRF Token, unique for each user/session
+    session.csrftoken = CSRFGenerateToken();
+}
 {% endhighlight %}
 
 This generates a CSRF Token at the start of the user's session.
