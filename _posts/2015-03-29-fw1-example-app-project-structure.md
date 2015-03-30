@@ -19,11 +19,12 @@ Here's the list of topics:
 
 # FW/1 Project Structure
 
+Reading pre-requisites: [Developing Applications with FW/1](https://github.com/framework-one/fw1/wiki/Developing-Applications-Manual).
 
 The Clipping app was designed with
 **[Subsystems](https://github.com/framework-one/fw1/wiki/Using-Subsystems)** enabled.
 Using those is completely optional, but I decided to use them so that, in the future,
-it will be eaqsier to add functionality, by incorporating third party apps.
+it will be easier to add functionality, by incorporating third party apps.
 
 So here's the basic project structure:
 
@@ -60,11 +61,26 @@ So here's the basic project structure:
 
 With the `/clipping` folder being the project's root, we have:
 
-| Folder | Description |
-| --- | --- |
-
 **`/common`** - This folder holds the layout files that will be used in **every** subsystem.
 
 **`/customtags`** - This is where CFML tags are stored. I added a mapping in Application.cfc pointing to this folder.
 
-**`/home`** - The directory that contains **the clipping application**, which is also the **default subsystem**
+**`/home`** - The directory that contains **the clipping application** - which is also the **default subsystem** -
+containing it's own controllers, models and views.
+
+**`/lib`** - Stores User Defined Functions and Libraries, that will be available to all subsystems.
+
+**`/setup`** - Stores SQL scripts used to prepare the databases
+(those files are **not** used by the application, so feel free to delete this).
+
+**`/static`** - Keeps all static files, separated in /js, /css, /images and /ckeditor subfolders.
+
+**`/tests`** - This is where we keep and run 'unit' and integration tests (more on that later.)
+
+Important:
+The **`/testbox`** and **`/CFSelenium`** folders are int the webserver's root for simplicity.
+You should not use this configuration in a web-accessible environment.
+
+
+
+
