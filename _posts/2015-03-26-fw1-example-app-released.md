@@ -11,7 +11,7 @@ built using the FW/1 framework in its latest version:
 It's a simple app to store articles and clippings from on and offline sources,
 using a single model/database table, but handling a series of interesting topics:
 
- - Project Structure
+ - [Project Structure](/2015/03/29/fw1-example-app-project-structure/)
  - Forms and Validation Patterns
  - Use of User Defined Function Libraries
  - Accessing an External Service
