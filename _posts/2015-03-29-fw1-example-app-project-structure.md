@@ -17,7 +17,9 @@ Here's the list of topics:
  - Accessing an External Service
  - BDD and Integration Tests.
 
-# FW/1 Project Structure
+ -----
+
+## FW/1 Project Structure
 
 Reading pre-requisites: [Developing Applications with FW/1](https://github.com/framework-one/fw1/wiki/Developing-Applications-Manual).
 
@@ -77,9 +79,135 @@ containing it's own controllers, models and views.
 
 **`/tests`** - This is where we keep and run 'unit' and integration tests (more on that later.)
 
-Important:
+**Important:**
+
 The **`/testbox`** and **`/CFSelenium`** folders are int the webserver's root for simplicity.
 You should not use this configuration in a web-accessible environment.
+
+-----
+
+## FW/1 Application.cfc file
+
+Here's the interesting bits of code:
+
+{% highlight js %}
+    // ------------------------ APPLICATION SETTINGS ------------------------ //
+    this.name = "clipping_app";
+    this.sessionManagement = true;
+    this.sessionTimeout = createTimeSpan(0,2,0,0);
+    this.dataSource = "dtb_clipping";
+    this.test_datasource = "dtb_clipping_test";
+    this.ormEnabled = true;
+    this.ormsettings = {
+        // cfclocation="./model/beans",
+        dbcreate="update",
+        dialect="MySQL",
+        eventhandling="False",
+        eventhandler="root.home.model.beans.eventhandler",
+        logsql="true",
+        flushAtRequestEnd = "false"
+    };
+{% endhighlight %}
+
+Seems pretty straight forward, right? Notice that we also set a `'test_datasource'` above,
+to be used exclusively when running tests.
+
+{% highlight js %}
+    // mappings and other settings
+    this.mappings["/root"] = getDirectoryFromPath(getCurrentTemplatePath());
+    this.customTagPaths = this.mappings["/root"] & "customtags"
+    this.triggerDataMember = true // so we can access properties directly (no need for getters and setters)
+{% endhighlight %}
+
+The second mapping tells our application server to look for custom tags in this
+app's specific folder (I like this approach since it makes source control and distribution easier)
+
+Framework settings below:
+
+{% highlight js %}
+    // ------------------------ FW/1 SETTINGS ------------------------ //
+    variables.framework = {
+        reloadApplicationOnEveryRequest = true, //use only in dev
+        trace = false,
+        // places where you don't want to load the framework
+        unhandledPaths = '/clipping/tests/',
+            .....
+            .....
+        // enable the use of subsystems
+        usingSubsystems = true,
+        defaultSubsystem = 'home',
+        siteWideLayoutSubsystem = 'common',
+
+        // changes for FW/1 3.0
+        diLocations = "./home/model/"
+    }
+{% endhighlight %}
+
+`unhandled paths` is a list of subdirectories where we don't want to use FW/1.
+In this case it's only the `tests` folder, but I can see this being used when
+integrating with legacy apps, for example.
+
+`diLocations`, according to the docs, is "<em>the set of folders that DI/1, AOP/1,
+or WireBox will scan for CFCs.</em>" - This parameter was added in version 3.0.
+In this case, it's referencing the path to the models in the 'home' subsystem.
+
+
+Here's a way to define settings according to environment:
+
+{% highlight js %}
+   // ------------------------ ENVIRONMENT DEFINITIONS ------------------------ //
+    public function getEnvironment() {
+       if ( findNoCase( "localhost", CGI.SERVER_NAME ) ) return "prod";
+       if ( findNoCase( "127.0.0.1", CGI.SERVER_NAME ) ) return "dev";
+       else return "prod";
+    }
+
+    variables.framework.environments = {
+       dev = { reloadApplicationOnEveryRequest = true,  trace = true,},
+       prod = { password = "supersecret" }
+    }
+{% endhighlight %}
+
+Setting application scoped variables when the app starts:
+
+{% highlight js %}
+    function setupApplication() {
+
+        // copy dsn names to application scope
+        application.datasource = this.datasource;
+        application.recordsPerPage = 12 //pagination setting, used in all services and tests
+
+        // include UDF functions
+        // the functions inside the CFC cann be referred by application.UDFs.functionName()
+        application.UDFs = createObject("component", "lib.functions");
+
+        // settings used in tests
+        application.test_datasource = this.test_datasource;
+        application.testsRootMapping = "/clipping/tests/specs";
+        application.testsBrowseURL = "http://" & CGI.HTTP_HOST & "/clipping";
+    }
+{% endhighlight %}
+
+Please notice how the line `application.UDFs = createObject("component", "lib.functions");`
+saves an instance of the 'functions' library to the application scope,
+so those functions can be used anywhere.
+
+Finally:
+
+{% highlight js %}
+    function setupSession(){
+        // CSRF Token, unique for each user/session
+        session.csrftoken = CSRFGenerateToken();
+    }
+{% endhighlight %}
+
+This generates a CSRF Token at the start of the user's session.
+We are going to be using this when forms are submitted, to prevent
+[CSRF attacks](https://www.owasp.org/index.php/Cross-Site_Request_Forgery_%28CSRF%29).
+
+There are other setup methods available to be used in the **Application.cfc**.
+They are optional but I left them in the code for future reference.
+
 
 
 
