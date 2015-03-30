@@ -1,6 +1,6 @@
 ---
 layout: post
-title: ColdFusion FW/1 Example Application released
+title: ColdFusion FW/1 Example Application Project
 ---
 
 I just released a [ColdFusion Example Application](https://github.com/dezoito/fw1-clipping),
