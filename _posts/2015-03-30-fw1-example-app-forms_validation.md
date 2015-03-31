@@ -27,7 +27,7 @@ on the Framework-One Group.
 
 The proposed pattern used in this project has these goals:
 
- - Use the save view to display Create, Update and delete forms
+ - Use the same view to display Create, Update and Delete forms
  - Perform validation at "entity level" (meaning that the validation rules are
  written within the entity definition component, keeping things in a single file)
  - When a validation error occurs, reload the form, with the data last typed by
@@ -35,7 +35,6 @@ The proposed pattern used in this project has these goals:
  - Perform CSRF validation
 
  ![](https://github.com/dezoito/dezoito.github.io/blob/master/public/images/clipping_form_validation.png?raw=true)
-
  <small>View of a failed form submission</small>
 
 -----
@@ -127,7 +126,9 @@ dismissable alert box.
 {% endhighlight %}
 
 
-This is how the form fields are setup. They'll be filled with existing data
+This is how the form fields are setup.
+
+They'll be filled with existing data
 (or whatever data the user attempted to use before submission).
 
 {% highlight cfm %}
@@ -167,7 +168,7 @@ clipping controller
     |
 clipping service
     |
-clipping model
+clipping bean
     |
 clipping service
     |
@@ -176,9 +177,40 @@ clipping controller
    view
 </pre>
 
-Controller: `clipping.save()`:
+**Clipping controller**: `save()`:
 
-{% highlight cfm %}
+{% highlight js %}
+function save( struct rc ) {
+    framework.frameworkTrace( "<b>Save Method on Clipping Controller</b>");
+
+    // abort execution in case of CRSF attack (use UDF defined in lib.functions.cfc)
+    application.UDFs.abortOnCSRFAttack( rc );
+
+    // save (insert or update) this object
+    // using the clippingService
+    rc.Clipping = variables.clippingService.save(rc);
+
+    // passed validation?
+    if(rc.Clipping.validate().isValid){
+        // since there's no clipping.save view, we have to redirect somewhere
+        // (in this case, to the main list)
+        framework.redirect("main.default");
+    } else {
+        // Invalid data!
+        // copy errors to struct in RC and display form again
+        rc.stErrors = rc.Clipping.validate().stErrors
+        framework.redirect("clipping.form", "all");
+    }
+}
+{% endhighlight %}
+The controller verifies the CSRF token (aborts on failure) then invokes the `clippingService`,
+attempting to save the form's data.
+
+It will return to the main page if succssfull, or reload the form if validation fails.
+
+**ClippingService**: `save()`:
+
+{% highlight js %}
 public any function save(struct rc) {
     transaction {
 
@@ -213,4 +245,69 @@ public any function save(struct rc) {
     return c;
 }
 {% endhighlight %}
+
+In the code above, we instantiate and populate a Clipping object
+using the submitted data and then run two methods:
+
+- `c.clean()` - Sanitizes strings and dates so they can be safely inserted
+or Updated in the DB. It uses the function library saved in the application scope
+(see `Application.cfc`).
+- `c.validate()` - Checks the cleaned data against a set of rules.
+
+`Validate()` returns an `isValid` boolean, indicating whether data can be saved
+or not, and a 'stErrors' struct, with keys/values representing fields that failed
+validation and their fail error messages.
+
+These methods are defined in the Clipping bean:`/home/models/beans/clipping.cfc`.
+
+**Clipping Bean**:
+
+{% highlight js %}
+component persistent="true" table="tbl_clipping" accessors="true" {
+
+    property name="clipping_id" generator="native" ormtype="integer" fieldtype="id";
+    property name="clipping_titulo" ormtype="string" length="255" notnull="true";
+    .......
+
+    public function clean(){
+        UDFs = application.UDFs
+        this.setClipping_titulo(UDFs.prepara_string(UDFs.stripHTML(variables.clipping_titulo)));
+        this.setClipping_texto(UDFs.safetext(variables.clipping_texto, true));
+        this.setClipping_link(UDFs.prepara_string(UDFs.stripHTML(variables.clipping_link)));
+        this.setClipping_fonte(UDFs.prepara_string(UDFs.stripHTML(variables.clipping_fonte)));
+
+        // try to format only if the user submitted a valid eurodate
+        if(isValid("eurodate", variables.Published)){
+            this.setPublished(dateformat(variables.Published, "dd/mm/yyyy")); // handle eurodates
+        }
+    }
+
+    public function validate() {
+        stValidation = {};
+        stErrors = {};
+
+        if(!len(trim(variables.clipping_titulo))) {
+            structInsert(stErrors,"clipping_titulo","You must include a title for your clipping.");
+        }
+
+        ....
+
+        if(!len(trim(variables.published)) || !isValid("eurodate", trim(variables.published))) {
+            structInsert(stErrors,"published","You must specify a valid publishing date.");
+        }
+
+        stValidation.isValid = !val(structCount(stErrors)); // true if no errors
+        stValidation.stErrors = stErrors;
+        return stValidation;
+    }
+}
+{% endhighlight %}
+
+Having a `clean()` and `validate()` defined in the model is <del>stolen</del>borrowed from the
+Django framework and makes it easier to keep rules consistent across different
+services and controllers.
+
+
+
+
 
