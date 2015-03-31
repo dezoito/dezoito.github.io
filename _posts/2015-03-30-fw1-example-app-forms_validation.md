@@ -31,6 +31,10 @@ The proposed pattern used in this project has these goals:
  - When a validation error occurs, reload the form, with the data last typed by
  the user, and inline error messages next to the form fields.
 
+ ![](https://github.com/dezoito/dezoito.github.io/blob/master/public/images/clipping_form_validation.png?raw=true)
+
+ <small>View of a failed form submission</small>
+
 -----
 
 ## Form Controller Code
