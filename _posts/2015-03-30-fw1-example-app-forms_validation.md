@@ -1,6 +1,7 @@
 ---
 layout: post
 title: FW/1 Example Application - Forms and Validation
+excerpt_separator: <!--more-->
 ---
 
 This is the second in a series of articles on how to build a
@@ -27,15 +28,17 @@ on the Framework-One Group.
 
 The proposed pattern used in this project has these goals:
 
- - Use the same view to display Create, Update and Delete forms
- - Perform validation at "entity level" (meaning that the validation rules are
- written within the entity definition component, keeping things in a single file)
- - When a validation error occurs, reload the form, with the data last typed by
- the user, and inline error messages next to the form fields.
- - Perform CSRF validation
+- Use the same view to display Create, Update and Delete forms
+- Perform validation at "entity level" (meaning that the validation rules are
+written within the entity definition component, keeping things in a single file)
+- When a validation error occurs, reload the form, with the data last typed by
+the user, and inline error messages next to the form fields.
+- Perform CSRF validation
 
- ![](https://github.com/dezoito/dezoito.github.io/blob/master/public/images/clipping_form_validation.png?raw=true)
- <small>View of a failed form submission</small>
+![](https://github.com/dezoito/dezoito.github.io/blob/master/public/images/clipping_form_validation.png?raw=true)
+<small>View of a failed form submission</small>
+
+<!--more-->
 
 -----
 

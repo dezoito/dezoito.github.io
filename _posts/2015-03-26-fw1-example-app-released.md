@@ -1,6 +1,7 @@
 ---
 layout: post
 title: ColdFusion FW/1 Example Application Project
+excerpt_separator: <!--more-->
 ---
 
 I just released a [ColdFusion Example Application](https://github.com/dezoito/fw1-clipping),

@@ -1,6 +1,7 @@
 ---
 layout: post
 title: FW/1 Example Application - Project Structure
+excerpt_separator: <!--more-->
 ---
 
 This is the first in a series of articles on how to build a
