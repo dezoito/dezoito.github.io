@@ -14,7 +14,12 @@ title: Home
 
     <span class="post-date">{{ post.date | date_to_string }}</span>
     <!-- excerpts - http://jekyllrb.com/docs/posts/ -->
-    {{ post.excerpt | truncatewords:75 }}
+    {{ post.excerpt | truncatewords:100 }}
+    <span>
+      <a href="{{ post.url }}">
+        View Full Post
+      </a>
+    </span>
   </div>
   {% endfor %}
 </div>
