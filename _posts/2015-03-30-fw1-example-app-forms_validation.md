@@ -14,6 +14,8 @@ These articles follow this sequence:
  - Accessing an External Service
  - BDD and Integration Tests.
 
+Familiarity with FW/1's request lifecycle is necessary.
+
  -----
 
 ## FW/1 - Patterns for Forms and Validation
@@ -30,6 +32,7 @@ The proposed pattern used in this project has these goals:
  written within the entity definition component, keeping things in a single file)
  - When a validation error occurs, reload the form, with the data last typed by
  the user, and inline error messages next to the form fields.
+ - Perform CSRF validation
 
  ![](https://github.com/dezoito/dezoito.github.io/blob/master/public/images/clipping_form_validation.png?raw=true)
 
@@ -75,8 +78,102 @@ function form (struct rc){
 }
 {% endhighlight %}
 
+The `if(!structKeyExists(rc, "Clipping"))` code checks to see if we previously saved
+an instance of a Clipping on the `Request Context` struct. If we did, it means that we
+attempted to save a form sdata to that instance, but some field(s) failed to be validated.
+
+In this case, we can skip instantiating the object and go straight into displaying the form.
+
+-----
+
+## Form View Code
+We use a single file to display the form, written in `/home/views/clipping/form.cfm`.
+
+Instead of displaying the whole thing, I'll just highlight the important parts:
+
+Using FW/1 syntax to set the `action` attribute - form data will be handled by
+the `save()` method in the `clipping` controller.
+
+{% highlight cfm %}
+<form action="#buildURL('clipping.save')#"
+    method="post"
+    role="form"
+    class="form-horizontal"
+    id="f_clipping">
+
+    <input name="csrftoken" type="hidden" value="#session.csrfToken#">
+
+    ........
+{% endhighlight %}
+
+Noticed that we also set a hidden field with the `session.csrfToken` we
+defined in the `application.cfc`.
+
+This value will be checked to avoid CSRF attacks.
 
 
+Below, we check the RC struct for validation errors and display them in a
+dismissable alert box.
+{% highlight cfm %}
+<!---    display alert if there were errors     --->
+<cfif structKeyExists(rc, "stErrors") and (structCount(rc.stErrors) gt 0)>
+    <div class="alert alert-danger">
+        <a href="#" class="close" data-dismiss="alert">&times;</a>
+            <b>Your article could not be posted!</b><br/>
+            Please fix the errors below:
+    </div>
+</cfif>
+
+{% endhighlight %}
+
+
+This is how the form fields are setup. They'll be filled with existing data
+(or whatever data the user attempted to use before submission).
+
+{% highlight cfm %}
+    <div class="form-group">
+        <label for="clipping_titulo" class="control-label col-sm-2">Title <span class="required">*</span></label>
+        <div class="col-sm-9">
+            <input type="text" name="clipping_titulo" id="clipping_titulo"
+                value="#HTMLEditFormat(rc.Clipping.getClipping_titulo())#" size="100" class="form-control">
+                <!---    display errors?    --->
+                #view("helpers/_field_error", {field="clipping_titulo"})#
+        </div>
+    </div>
+
+{% endhighlight %}
+
+
+We also invoke the `helpers/_field_error`, passing the fieldname,
+and it will display the appropriate error message if needed:
+
+{% highlight cfm %}
+<!--- /home/views/clipping/helpers/_field_error.cfm --->
+<cfif isDefined("rc.stErrors.#local.field#")>
+    <cfoutput><p class="alert alert-danger">#rc.stErrors[local.field]#</p></cfoutput>
+</cfif>
+{% endhighlight %}
+
+-----
+
+## Saving Form Data
+After a form is submitted, the request follows this route:
+
+<pre>
+request data
+    |
+clipping controller
+    |
+clipping service
+    |
+clipping model
+    |
+clipping service
+    |
+clipping controller
+    |
+   view
+</pre>
 
 
 
