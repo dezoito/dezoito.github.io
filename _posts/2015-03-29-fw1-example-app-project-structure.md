@@ -13,7 +13,7 @@ to create Object-Oriented ColdFusion apps.
 The articles will cover these topics:
 
  - Project Structure
- - Forms and Validation Patterns
+ - [Forms and Validation Patterns](/2015/03/30/fw1-example-app-forms_validation/)
  - Use of User Defined Function Libraries
  - Accessing an External Service
  - BDD and Integration Tests.
