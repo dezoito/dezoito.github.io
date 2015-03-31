@@ -23,7 +23,7 @@ Familiarity with FW/1's request lifecycle is necessary.
 
 Unlike [Django](https://www.djangoproject.com/), the FW/1 framework doesn't come
 with a "native" way of writing forms, or performing data validation before commiting
-changes to the database, so I wrote my own after researching and asking for opinions
+changes to the database, so I wrote my own after researching and asking for guidance
 on the Framework-One Group.
 
 The proposed pattern used in this project has these goals:
