@@ -1,0 +1,13 @@
+/*
+ * Overwrites some of the theme's classes
+ *
+ */
+
+/* reduced font-size to 80% */
+pre code {
+  padding: 0;
+  font-size: 80%;
+  color: inherit;
+  background-color: transparent;
+}
+
