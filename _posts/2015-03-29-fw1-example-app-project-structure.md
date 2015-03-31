@@ -25,11 +25,11 @@ The articles will cover these topics:
 Reading pre-requisites: [Developing Applications with FW/1](https://github.com/framework-one/fw1/wiki/Developing-Applications-Manual).
 
 The Clipping app was designed with
-**[Subsystems](https://github.com/framework-one/fw1/wiki/Using-Subsystems)** enabled.
+[Subsystems](https://github.com/framework-one/fw1/wiki/Using-Subsystems) enabled.
 Using those is completely optional, but I decided to use them so that, in the future,
 it will be easier to add functionality, by incorporating third party apps.
 
-So here's the basic project structure:
+The basic project structure:
 
 ```
 /clipping
@@ -64,25 +64,25 @@ So here's the basic project structure:
 
 With the `/clipping` folder being the project's root, we have:
 
-**`/common`** - This folder holds the layout files that will be used in **every** subsystem.
+`/common` - This folder holds the layout files that will be used in **every** subsystem.
 
-**`/customtags`** - This is where CFML tags are stored. I added a mapping in Application.cfc pointing to this folder.
+`/customtags` - This is where CFML tags are stored. I added a mapping in Application.cfc pointing to this folder.
 
-**`/home`** - The directory that contains **the clipping application** - which is also the **default subsystem** -
-containing it's own controllers, models and views.
+`/home` - The directory that contains the clipping application's code -  A.K.A. the `default subsystem` -
+with its own controllers, models and views.
 
-**`/lib`** - Stores User Defined Functions and Libraries, that will be available to all subsystems.
+`/lib` - Stores User Defined Functions and Libraries, that will be available to all subsystems.
 
-**`/setup`** - Stores SQL scripts used to prepare the databases
+`/setup` - Stores SQL scripts used to prepare the databases
 (those files are **not** used by the application, so feel free to delete this).
 
-**`/static`** - Keeps all static files, separated in /js, /css, /images and /ckeditor subfolders.
+`/static` - Keeps all static files, separated in /js, /css, /images and /ckeditor subfolders.
 
-**`/tests`** - This is where we keep and run 'unit' and integration tests (more on that later.)
+`/tests` - This is where we keep and run 'unit' and integration tests (more on that later.)
 
 **Important:**
 
-The **`/testbox`** and **`/CFSelenium`** folders are int the webserver's root for simplicity.
+The `/testbox` and `/CFSelenium` folders are int the webserver's root for simplicity.
 You should not use this configuration in a web-accessible environment.
 
 -----
@@ -100,7 +100,6 @@ this.dataSource = "dtb_clipping";
 this.test_datasource = "dtb_clipping_test";
 this.ormEnabled = true;
 this.ormsettings = {
-    // cfclocation="./model/beans",
     dbcreate="update",
     dialect="MySQL",
     eventhandling="False",
@@ -110,8 +109,10 @@ this.ormsettings = {
 };
 {% endhighlight %}
 
-Seems pretty straight forward, right? Notice that we also set a `'test_datasource'` variable,
-to be used exclusively when running tests.
+Seems pretty straight forward, right? Notice that we also set a `'test_datasource'` variable
+(that should point to a mirror database), to be used exclusively when running tests.
+This is **completely optional**, and I'll write about some pros and cons in the "running tests" article.
+
 
 {% highlight js %}
     // mappings and other settings
@@ -176,10 +177,11 @@ function setupApplication() {
 
     // copy dsn names to application scope
     application.datasource = this.datasource;
-    application.recordsPerPage = 12 //pagination setting, used in all services and tests
+    application.recordsPerPage = 12 // pagination setting,
+                                    // used in all services and tests
 
     // include UDF functions
-    // the functions inside the CFC cann be referred by application.UDFs.functionName()
+    // functions inside the CFC can be referred by application.UDFs.functionName()
     application.UDFs = createObject("component", "lib.functions");
 
     // settings used in tests
@@ -206,7 +208,7 @@ This generates a CSRF Token at the start of the user's session.
 We are going to be using this when forms are submitted, to prevent
 [CSRF attacks](https://www.owasp.org/index.php/Cross-Site_Request_Forgery_%28CSRF%29).
 
-There are other setup methods available to be used in the **Application.cfc**.
+There are other setup methods available to be used in the `Application.cfc`.
 They are optional but I left them in the code for future reference.
 
 
