@@ -147,6 +147,7 @@ This is how the form fields are setup. They'll be filled with existing data
 We also invoke the `helpers/_field_error`, passing the fieldname,
 and it will display the appropriate error message if needed:
 
+
 {% highlight cfm %}
 <!--- /home/views/clipping/helpers/_field_error.cfm --->
 <cfif isDefined("rc.stErrors.#local.field#")>
@@ -160,7 +161,7 @@ and it will display the appropriate error message if needed:
 After a form is submitted, the request follows this route:
 
 <pre>
-request data
+request data (RC struct)
     |
 clipping controller
     |
@@ -175,6 +176,41 @@ clipping controller
    view
 </pre>
 
+Controller: `clipping.save()`:
 
+{% highlight cfm %}
+public any function save(struct rc) {
+    transaction {
 
+        //  Insert or Update?
+        if(val(arguments.rc.clipping_id)){
+            var c = entityLoadByPk("Clipping", arguments.rc.clipping_id);
+        } else {
+            var c = entityNew("clipping");
+        }
+
+        // populate clipping component
+        c.setClipping_titulo(arguments.rc.clipping_titulo);
+        c.setClipping_texto(arguments.rc.clipping_texto);
+        c.setClipping_link(arguments.rc.clipping_link);
+        c.setClipping_fonte(arguments.rc.clipping_fonte);
+        c.setPublished(arguments.rc.Published);
+
+        // cleans and formats fields so they can be validated/saved
+        c.clean();
+
+        // commit changes IF data is valid
+        if (c.validate().isValid) {
+            entitySave(c);
+            transactionCommit();
+        } else {
+            // since the data was invalid, don't save and
+            // rollback any pending transactions
+            // (we are checking for validation errors in the controller)
+            transactionRollback();
+        }
+    }
+    return c;
+}
+{% endhighlight %}
 
