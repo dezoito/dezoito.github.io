@@ -165,6 +165,8 @@ and it will display the appropriate error message if needed:
 After a form is submitted, the request follows this route:
 
 <pre>
+  form
+    |
 request data (RC struct)
     |
 clipping controller
@@ -213,7 +215,7 @@ It will return to the main page if succssfull, or reload the form if validation 
 
 **ClippingService**: `save()`:
 
-{% highlight js %}
+{% highlight js linenos %}
 public any function save(struct rc) {
     transaction {
 
