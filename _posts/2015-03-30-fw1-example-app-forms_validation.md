@@ -215,7 +215,7 @@ It will return to the main page if succssfull, or reload the form if validation 
 
 **ClippingService**: `save()`:
 
-{% highlight js linenos %}
+{% highlight js %}
 public any function save(struct rc) {
     transaction {
 
