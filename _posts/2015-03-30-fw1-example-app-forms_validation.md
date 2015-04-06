@@ -5,10 +5,9 @@ excerpt_separator: <!--more-->
 ---
 
 This is the second in a series of articles on how to build a
-[ColdFusion and FW/1 Example Application](https://dezoito.github.io/2015/03/26/fw1-example-app-released/).
-
-This articles discusses the topic of creating forms and validating submitted data
-in an efficient and DRY (Don't Repeat Yourself) way.
+[ColdFusion and FW/1 Example Application](https://dezoito.github.io/2015/03/26/fw1-example-app-released/),
+and it discusses the topic of creating forms and validating submitted data
+in an efficient and [DRY](http://programmer.97things.oreilly.com/wiki/index.php/Don%27t_Repeat_Yourself) (Don't Repeat Yourself) way.
 
 
  -----
