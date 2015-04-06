@@ -95,12 +95,12 @@ the `save()` method in the `clipping` controller.
     class="form-horizontal"
     id="f_clipping">
 
-    <input name="csrftoken" type="hidden" value="#session.csrfToken#">
+    <input name="csrftoken" type="hidden" value="#request.csrfToken#">
 
     ........
 {% endhighlight %}
 
-Noticed that we also set a hidden field with the `session.csrfToken` we
+Noticed that we also set a hidden field with the `request.csrfToken` we
 defined in the `application.cfc`.
 
 This value will be checked to avoid CSRF attacks.
