@@ -16,6 +16,7 @@ using a single model/database table, but handling a series of interesting topics
  - [Forms and Validation Patterns](/2015/03/30/fw1-example-app-forms_validation/)
  - Use of User Defined Function Libraries
  - Accessing an External Service
+ - BDD and Integration Tests.
 
  The project also has several examples on how to implement
  [BDD style testing](http://wiki.coldbox.org/wiki/TestBox.cfm)

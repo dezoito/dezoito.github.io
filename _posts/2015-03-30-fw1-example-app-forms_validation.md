@@ -20,7 +20,7 @@ on the Framework-One Group.
 
 The proposed pattern used in this project has these goals:
 
-- Use the same view to display Create, Update and Delete forms
+- Use a **single view** to display Create, Update and Delete forms
 - Perform validation at "entity level" (meaning that the validation rules are
 written within the entity definition component, keeping things in a single file)
 - When a validation error occurs, reload the form, with the data last typed by
