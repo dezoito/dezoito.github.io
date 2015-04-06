@@ -308,7 +308,7 @@ For more detailed information on this project, follow the other articles in this
 
  - [Project Structure](/2015/03/29/fw1-example-app-project-structure/)
  - Forms and Validation Patterns
- - Use of User Defined Function Libraries
+ - [Use of User Defined Function Libraries](/2015/04/06/fw1-example-user-defined-function-libraries/)
  - Accessing an External Service
  - BDD and Integration Tests.
 
