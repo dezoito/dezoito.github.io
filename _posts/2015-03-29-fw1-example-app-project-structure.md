@@ -198,13 +198,13 @@ so those functions can be used anywhere.
 Finally:
 
 {% highlight js %}
-function setupSession(){
-    // CSRF Token, unique for each user/session
-    session.csrftoken = CSRFGenerateToken();
-}
+    function setupRequest() {
+        // CSRF Token, unique for each user/request
+        request.csrftoken = CSRFGenerateToken();
+    }
 {% endhighlight %}
 
-This generates a CSRF Token at the start of the user's session.
+This generates a CSRF Token at the start of the every request.
 We are going to be using this when forms are submitted, to prevent
 [CSRF attacks](https://www.owasp.org/index.php/Cross-Site_Request_Forgery_%28CSRF%29).
 
