@@ -312,6 +312,6 @@ For more detailed information on this project, follow the other articles in this
  - Accessing an External Service
  - BDD and Integration Tests.
 
-For the source code, please the **[fw1-clipping](https://github.com/dezoito/fw1-clipping)**
+For the full source code, please visit the **[fw1-clipping](https://github.com/dezoito/fw1-clipping)**
 github project page.
 

@@ -34,3 +34,6 @@ A few notes **before I write articles detailing ways to handle these topics**.
  integration tests sooner...they are fun to write!
 It's also very satisfying to see selenium acting like a ghost, clicking links and filling forms
  "magically" for you.
+
+The full source code is hosted on the **[fw1-clipping](https://github.com/dezoito/fw1-clipping)** github
+project page.
