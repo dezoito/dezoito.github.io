@@ -4,20 +4,19 @@ title: FW/1 Example Application - Project Structure
 excerpt_separator: <!--more-->
 ---
 
-This is the first in a series of articles on how to build a
-[ColdFusion and FW/1 Example Application](https://dezoito.github.io/2015/03/26/fw1-example-app-released/).
-
-I'll assume you are not new to CFML, so don't take this as a detailed guide or
-tutorial, but more of a 'getting started' reference on using this MVC framework
-to create Object-Oriented ColdFusion apps.
-
-The articles will cover these topics:
+This article talks about the topic of project structure in a
+[ColdFusion and FW/1 Example Application](https://dezoito.github.io/2015/03/26/fw1-example-app-released/)
+and is the first one in the following series:
 
  - Project Structure
  - [Forms and Validation Patterns](/2015/03/30/fw1-example-app-forms_validation/)
  - Use of User Defined Function Libraries
  - Accessing an External Service
  - BDD and Integration Tests.
+
+It assumes you are not new to CFML, so don't take this as a detailed guide or
+tutorial, but more of a 'getting started' reference on using this MVC framework
+to create Object-Oriented ColdFusion apps.
 
  -----
 
@@ -211,6 +210,9 @@ We are going to be using this when forms are submitted, to prevent
 
 There are other setup methods available to be used in the `Application.cfc`.
 They are optional but I left them in the code for future reference.
+
+Please see the **[fw1-clipping](https://github.com/dezoito/fw1-clipping)** github
+project page for the full source code.
 
 
 

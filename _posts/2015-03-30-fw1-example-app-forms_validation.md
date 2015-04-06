@@ -7,21 +7,14 @@ excerpt_separator: <!--more-->
 This is the second in a series of articles on how to build a
 [ColdFusion and FW/1 Example Application](https://dezoito.github.io/2015/03/26/fw1-example-app-released/).
 
-These articles follow this sequence:
+This articles discusses the topic of creating forms and validating submitted data
+in an efficient and DRY (Don't Repeat Yourself) way.
 
- - [Project Structure](/2015/03/29/fw1-example-app-project-structure/)
- - Forms and Validation Patterns
- - Use of User Defined Function Libraries
- - Accessing an External Service
- - BDD and Integration Tests.
-
-Familiarity with FW/1's request lifecycle is necessary.
 
  -----
-
 ## FW/1 - Patterns for Forms and Validation
 
-Unlike [Django](https://www.djangoproject.com/), the FW/1 framework doesn't come
+Unlike [Django](https://www.djangoproject.com/), the [FW/1 framework](http://framework-one.github.io/) doesn't come
 with a "native" way of writing forms, or performing data validation before commiting
 changes to the database, so I wrote my own after researching and asking for guidance
 on the Framework-One Group.
@@ -38,7 +31,7 @@ the user, and inline error messages next to the form fields.
 ![](https://github.com/dezoito/dezoito.github.io/blob/master/public/images/clipping_form_validation.png?raw=true)
 <small>View of a failed form submission</small>
 
-<!--more-->
+
 
 -----
 
@@ -312,7 +305,14 @@ Having a `clean()` and `validate()` defined in the model is <del>stolen</del>bor
 Django framework and makes it easier to keep rules consistent across different
 services and controllers.
 
+For more detailed information on this project, follow the other articles in this series:
 
+ - [Project Structure](/2015/03/29/fw1-example-app-project-structure/)
+ - Forms and Validation Patterns
+ - Use of User Defined Function Libraries
+ - Accessing an External Service
+ - BDD and Integration Tests.
 
-
+For the source code, please the **[fw1-clipping](https://github.com/dezoito/fw1-clipping)**
+github project page.
 

@@ -13,7 +13,7 @@ It's a simple app to store articles and clippings from on and offline sources,
 using a single model/database table, but handling a series of interesting topics:
 
  - [Project Structure](/2015/03/29/fw1-example-app-project-structure/)
- - Forms and Validation Patterns
+ - [Forms and Validation Patterns](/2015/03/30/fw1-example-app-forms_validation/)
  - Use of User Defined Function Libraries
  - Accessing an External Service
 
