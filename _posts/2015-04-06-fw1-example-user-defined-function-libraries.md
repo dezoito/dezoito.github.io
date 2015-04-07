@@ -11,8 +11,7 @@ that can be **easily** accessed in any part of your project, whether it's a view
 controller, service or model.
 
 
- -----
-## FW/1 - Structuring a UDF library.
+### FW/1 - Structuring a UDF library.
 
 A UDF library is a like a toolbox for the developer, and while a few of these tools
 (functions) maybe used rarely, over time, many of them will endup being used in

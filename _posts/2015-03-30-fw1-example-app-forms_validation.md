@@ -10,8 +10,7 @@ and it discusses the topic of creating forms and validating submitted data
 in an efficient and [DRY](http://programmer.97things.oreilly.com/wiki/index.php/Don%27t_Repeat_Yourself) (Don't Repeat Yourself) way.
 
 
- -----
-## FW/1 - Patterns for Forms and Validation
+### FW/1 - Patterns for Forms and Validation
 
 Unlike [Django](https://www.djangoproject.com/), the [FW/1 framework](http://framework-one.github.io/) doesn't come
 with a "native" way of writing forms, or performing data validation before commiting
@@ -34,7 +33,7 @@ the user, and inline error messages next to the form fields.
 
 -----
 
-## Form Controller Code
+### Form Controller Code
 
 The Clipping Controller is written in `/home/controllers/clipping.cfc`, with the `form()`
 method being responsible for:
@@ -80,7 +79,7 @@ In this case, we can skip instantiating the object and go straight into displayi
 
 -----
 
-## Form View Code
+### Form View Code
 We use a single file to display the form, written in `/home/views/clipping/form.cfm`.
 
 Instead of displaying the whole thing, I'll just highlight the important parts:
@@ -153,7 +152,7 @@ and it will display the appropriate error message if needed:
 
 -----
 
-## Saving Form Data
+### Saving Form Data
 After a form is submitted, the request follows this route:
 
 <pre>
