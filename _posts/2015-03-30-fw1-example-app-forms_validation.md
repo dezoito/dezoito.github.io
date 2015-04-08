@@ -10,7 +10,7 @@ and it discusses the topic of creating forms and validating submitted data
 in an efficient and [DRY](http://programmer.97things.oreilly.com/wiki/index.php/Don%27t_Repeat_Yourself) (Don't Repeat Yourself) way.
 
 
-### FW/1 - Patterns for Forms and Validation
+### Patterns for Forms and Validation
 
 Unlike [Django](https://www.djangoproject.com/), the [FW/1 framework](http://framework-one.github.io/) doesn't come
 with a "native" way of writing forms, or performing data validation before commiting

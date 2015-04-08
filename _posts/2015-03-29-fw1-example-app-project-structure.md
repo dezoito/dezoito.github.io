@@ -20,7 +20,7 @@ to create Object-Oriented ColdFusion apps.
 
  -----
 
-## FW/1 Project Structure
+### Project Structure for a FW/1 Application
 
 Reading pre-requisites: [Developing Applications with FW/1](https://github.com/framework-one/fw1/wiki/Developing-Applications-Manual).
 
@@ -87,7 +87,7 @@ You should not use this configuration in a web-accessible environment.
 
 -----
 
-## FW/1 Application.cfc file
+### Application.cfc file
 
 Here's the interesting bits of code:
 

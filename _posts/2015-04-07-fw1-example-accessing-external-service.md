@@ -77,10 +77,12 @@ so I won't detail that here.
 
 ### Summary Method in Controller
 
-The controller merely invokes our remote summary service and
-outputs the resulting string. Technically, we could do that on the client side
-(using nothing but javascript), but following this example's logic, we could do
-something with the result, like storing summaries in the database.
+The controller simply invokes our remote summary service and
+outputs the resulting string.
+
+We could do that on the client side (using nothing but javascript),
+but following this example's logic, we allow the application to do something
+with the results, like storing summaries in the database.
 
 `/home/controllers/clipping.cfc`:
 
