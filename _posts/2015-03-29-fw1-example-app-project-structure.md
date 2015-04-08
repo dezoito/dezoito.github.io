@@ -11,7 +11,7 @@ and is the first one in the following series:
  - Project Structure
  - [Forms and Validation Patterns](/2015/03/30/fw1-example-app-forms_validation/)
  - [Use of User Defined Function Libraries](/2015/04/06/fw1-example-user-defined-function-libraries/)
- - [Interaction with an External Service](/2015/04/07/fw1-example-accessing-external-service/)
+ - [Interaction with a Remote Service](/2015/04/07/fw1-example-accessing-external-service/)
  - BDD and Integration Tests.
 
 It assumes you are not new to CFML, so don't take this as a detailed guide or

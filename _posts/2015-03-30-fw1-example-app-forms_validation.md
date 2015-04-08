@@ -308,7 +308,7 @@ For more detailed information on this project, follow the other articles in this
  - [Project Structure](/2015/03/29/fw1-example-app-project-structure/)
  - Forms and Validation Patterns
  - [Use of User Defined Function Libraries](/2015/04/06/fw1-example-user-defined-function-libraries/)
- - [Interaction with an External Service](/2015/04/07/fw1-example-accessing-external-service/)
+ - [Interaction with a Remote Service](/2015/04/07/fw1-example-accessing-external-service/)
  - BDD and Integration Tests.
 
 For the full source code, please visit the **[fw1-clipping](https://github.com/dezoito/fw1-clipping)**

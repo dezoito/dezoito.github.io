@@ -1,19 +1,19 @@
 ---
 layout: post
-title: FW/1 Example Application - Interaction with an External Service
+title: FW/1 Example Application - Interaction with a Remote Service
 excerpt_separator: <!--more-->
 ---
 
 On this fourth article on how to build a
 [ColdFusion and FW/1 Example Application](https://dezoito.github.io/2015/03/26/fw1-example-app-released/),
-I'll present a way to interact with an external service that performs some complex
+I'll present a way to interact with a Remote Service that performs some complex
 manipulations with the stored articles.
 
 The external service, in this case, is [flask-Summarizer](https://github.com/dezoito/flask-Summarizer)
 - an API written in Python/Flask, that receives
 paragraphs of text, and returns a string with a summary of that content.
 
-### Interacting with an External Service
+### Interacting with a Remote Service
 To make this project a little more challenging and interesting, I used an ajax call to load the
 summary into a modal window, when the user clicks on the "View Summary" link:
 
@@ -173,7 +173,7 @@ For more detailed information on this project, follow the other articles in this
  - [Project Structure](/2015/03/29/fw1-example-app-project-structure/)
  - [Forms and Validation Patterns](/2015/03/30/fw1-example-app-forms_validation/)
  - [Use of User Defined Function Libraries](/2015/04/06/fw1-example-user-defined-function-libraries/)
- - Interaction with an External Service
+ - Interaction with a Remote Service
  - BDD and Integration Tests.
 
 For the full source code, please visit the **[fw1-clipping](https://github.com/dezoito/fw1-clipping)**
