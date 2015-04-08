@@ -6,16 +6,16 @@ excerpt_separator: <!--more-->
 
 On this fourth article on how to build a
 [ColdFusion and FW/1 Example Application](https://dezoito.github.io/2015/03/26/fw1-example-app-released/),
-I'll present a way to access an external service that generate a succint summary
-for a selected article.
+I'll present a way to interact with an external service that performs some complex
+manipulations with the stored articles.
 
 The external service, in this case, is [flask-Summarizer](https://github.com/dezoito/flask-Summarizer)
-- an API written in Python/Flask, that receives a `POST` request with some
-paragraphs of text, and returns a string with a summarized version of that.
+- an API written in Python/Flask, that receives
+paragraphs of text, and returns a string with a summary of that content.
 
-### FW/1 - Interaction with an External Service
-To make this series a little more interesting, I used an ajax call to load the
-summary into a modal window, whenever the user clicks on the "View Summary" link:
+### Interacting with an External Service
+To make this project a little more challenging and interesting, I used an ajax call to load the
+summary into a modal window, when the user clicks on the "View Summary" link:
 
 ![](https://github.com/dezoito/dezoito.github.io/blob/master/public/images/view_summary.png?raw=true)
 
@@ -35,7 +35,7 @@ Yes, I understand that there's a lot going on, but bear with me:
 3. Loads a beautiful modal window with the output above.
 
 `#buildURL('clipping.summary')#` is a FW/1 framework function that generates the
- URL to a "section / item" pair. In this case, it calls the `summary()` method
+ URL to a controller or view. Here, it calls the `summary()` method
  in the `clipping` controller.
 
  `#Clipping.getClipping_Id()#` outputs the id of the current clipping object
@@ -64,16 +64,25 @@ function ajaxViewSummary(url, clipping_id){
 }
 {% endhighlight %}
 
+The complicated and unelegant javascript+cfml interaction above should display
+something like this:
+
+![](https://github.com/dezoito/dezoito.github.io/blob/master/public/images/modal_summary.png?raw=true)
+<small>A quicker to read version of the article.</small>
+
 Modal windows are provided by [Bootstrap CSS](http://getbootstrap.com/javascript/#modals),
-so I won't detail that.
+so I won't detail that here.
 
  ----
 
-### Summary Controller
+### Summary Method in Controller
 
-I apologize for the complicated javascript+cfml interaction above
-(it could be more elegant), but now that it's over, let's move on to
-what happens in the clipping controller - `/home/controllers/clipping.cfc`
+The controller merely invokes our remote summary service and
+outputs the resulting string. Technically, we could do that on the client side
+(using nothing but javascript), but following this example's logic, we could do
+something with the result, like storing summaries in the database.
+
+`/home/controllers/clipping.cfc`:
 
 {% highlight js %}
 component accessors="true" {
@@ -124,6 +133,7 @@ Here's a detailed breakdown:
  - `framework.renderData( contentType, rc.Summary );` renders the summary string
   (`rc.Summary `) as a "plain text" content, without any HTML layout.
 
+
 ### Summary Service
 
  The summary service is written in `/home/models/services/summaryService.cfc` and
@@ -149,11 +159,14 @@ component {
 }
 {% endhighlight %}
 
+Above, we make an `http` call to the API's endpoint URL - it requires a `POST` method,
+so we pass the article's full text as a formfield named `texto`.
 
-
+The result of this call is saved to the `st_summary` struct.
+We then check it for errors, and if there are none we return `st_summary.filecontent`
+a key containing the summary.
 
  ----
-
 
 For more detailed information on this project, follow the other articles in this series:
 
