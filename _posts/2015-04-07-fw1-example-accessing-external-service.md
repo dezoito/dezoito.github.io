@@ -28,7 +28,7 @@ The link above is constructed with the following code:
 
 Yes, I understand that there's a lot going on, but bear with me:
 
-`ajaxViewSummary()` is our customized javaScript function that:
+`ajaxViewSummary()` is our custom javascript function that:
 
 1. Passes the ID of a clipping article to the "summary" controller
 2. Receives the output of that controller (either a summarized text or an error message)
@@ -55,7 +55,7 @@ function ajaxViewSummary(url, clipping_id){
   // if no id was passed, set it to zero
   clipping_id = typeof clipping_id !== 'undefined' ? clipping_id : 0;
 
-  // load form view
+  // load modal window
   $.get( url + '&clipping_id=' + clipping_id, function( data ) {
     $( ".modal-body" ).html( data );
     $( ".modal-title" ).html( "Article Summary" );
@@ -72,7 +72,7 @@ so I won't detail that.
 ### Summary Controller
 
 I apologize for the complicated javascript+cfml interaction above
-(it could be a lot more elegant), but with the worst behind, let's move on to
+(it could be more elegant), but now that it's over, let's move on to
 what happens in the clipping controller - `/home/controllers/clipping.cfc`
 
 {% highlight js %}
@@ -111,7 +111,7 @@ component accessors="true" {
 Here's a detailed breakdown:
 
  - `function summary( struct rc ) ` receives `rc`, the FW/1's "Request Context" struct
- that contains whatever URL or FORM parameters have been passed this far;
+ that contains whatever URL or FORM parameters have been passed by the referrer;
 
 
  - `rc.Clipping = variables.clippingService.getClipping(rc.clipping_id);`
@@ -141,7 +141,7 @@ component {
         .....
 
         if (len(st_summary.errordetail) > 0) {
-            return "There was an error trying to use summary service :'(";
+            return "There was an error trying to use the summary service :'(";
         } else {
             return st_summary.filecontent;
         }
