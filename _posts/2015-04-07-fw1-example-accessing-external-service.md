@@ -176,7 +176,7 @@ For more detailed information on this project, follow the other articles in this
  - [Forms and Validation Patterns](/2015/03/30/fw1-example-app-forms_validation/)
  - [Use of User Defined Function Libraries](/2015/04/06/fw1-example-user-defined-function-libraries/)
  - Interaction with a Remote Service
- - BDD and Integration Tests.
+ - [BDD and Integration Tests](/2015/04/18/fw1-example-bdd-integration-testing/)
 
 For the full source code, please visit the **[fw1-clipping](https://github.com/dezoito/fw1-clipping)**
 github project page.
