@@ -44,6 +44,11 @@ Testing files are stored within the `/tests` folder:
 `Application.cfc` - inherits settings from the main application, and then sets
 some test-specific configs.
 
+Please note that one of these settings is a "tests only" datasource, pointing to
+a clone of the default database. I'm still evaluating the pros and cons of this
+approach and, honestly, it's not really something you need to replicate,
+but I left it this way for the sake of learning.
+
 `ìndex.cfm` - This is just a copy of the "test browser" that comes with TestBox.
 It lets you see and choose the tests available, or run all of them.
 
@@ -64,7 +69,7 @@ allowing TestBox to record what went as expected or not, and displaying the resu
 
 ![](https://github.com/dezoito/dezoito.github.io/blob/master/public/images/test_results.png?raw=true)
 
-### Writting Tests (this was actually fun!)
+### Writing Tests (this was actually fun!)
 
 The basic anatomy of a test can be seen in `Test_1_ExampleSpec.cfc`
 
@@ -110,7 +115,130 @@ for example, to remove test data from the database.
 6. Finally, `it()` is a single spec in that suite, and it might contain one or
 more <em>expectations</em>, that will dictate whether this spec passed, or failed.
 
-To be continued....
+The tests included in the [source code](https://github.com/dezoito/fw1-clipping/tree/master/tests/specs)
+are very much self-explanatory and provide many examples on how to set up and
+accomplish things, from "unit" testing your UDFs, to databases and remote services.
+
+### Integration Tests with Selenium
+[CFSelenium](https://github.com/teamcfadvance/CFSelenium) is a CFC wrapper for
+Selenium functionality, making it easy to use it inside CFML code.
+
+It allows you to script browser sessions and test the outputs and behaviours
+against what's expected. We are using it on top of TestBox, so the syntax is
+pretty much the same as the one above, and the results can be reported along the
+other tests we've done.
+
+Here's how we set it up in `tests/specs/Test_6_Integration_Selenium.cfc`:
+
+{% highlight js %}
+component extends="testbox.system.BaseSpec"{
+
+    // executes before all suites
+    function beforeAll(){
+        // set url of APP installation
+        browserURL = application.testsBrowseURL;
+        // set browser to be used for testing
+        browserStartCommand = "*googlechrome";
+
+        // create a new instance of CFSelenium
+        selenium = createobject("component", "CFSelenium.selenium").init();
+        // start Selenium server
+        selenium.start(browserUrl, browserStartCommand);
+        // set timeout period to be used when waiting for page to load
+        timeout = 120000;
+        // rebuild current App
+        httpService = new http();
+        httpService.setUrl(browserURL & "/index.cfm?rebuild=true");
+        httpService.send();
+
+        // create some random title string (we will use this to delete the article later)
+        str_random_title = createUUID();
+        // text to be used in articles
+        str_default_text = repeatString("<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. <br>Integer nec nulla ac justo viverra egestas.</p>", 10);
+    }
+
+    // executes after all suites
+    function afterAll(){
+        selenium.stop();
+        selenium.stopServer();
+    }
+{% endhighlight %}
+
+Function `beforeAll()` creates an instance of Selenium, telling it what browser
+to use and what URL to start with (it also sets some variables that will be used
+in the tests).
+
+When everything is done `afterAll()` stops the Selenium session and results are
+displayed in the report.
+
+The first actual tests makes sure that the starting page is titled "Clippings"
+(please note the BDD style language):
+
+{% highlight js %}
+describe("Loading home page", function(){
+
+    it("Should load and have the correct title", function(){
+        selenium.open(browserUrl);
+        selenium.waitForPageToLoad(timeout);
+        expect( selenium.getTitle() ).toBe( "Clippings" );
+    });
+});
+
+{% endhighlight %}
+
+Selenium opens the start URL and waits for the page to load. We then use
+`selenium.getTitle()` to extract the page's title so we can compare it to our
+expectation.
+
+Simple, right?
+
+Here's a little more complex interaction:
+
+{% highlight js %}
+//----------------------------------------------------------------------
+// Testing forms
+//----------------------------------------------------------------------
+describe("Testing the clipping form:", function(){
+
+    it("Clicking -add an article- link should load the form page", function(){
+        selenium.open(browserURL);
+        selenium.waitForPageToLoad(timeout);
+        selenium.click("link=Add an Article");
+        selenium.waitForPageToLoad(timeout);
+        expect( selenium.isElementPresent("id=f_clipping") ).toBe( true );
+        expect( selenium.isElementPresent("id=published") ).toBe( true );
+    });
+
+    it("The app must validade form entry (leave article TEXT empty)", function(){
+        selenium.open(browserURL & "?action=clipping.form");
+        selenium.waitForPageToLoad(timeout);
+        selenium.type("id=clipping_titulo", "test");
+        selenium.type("id=clipping_texto", "");
+        selenium.click("id=btn_save");
+        selenium.waitForPageToLoad(timeout);
+        // didn't fill all the required fields...should return with error
+        expect( selenium.isTextPresent("Your article could not be posted!") ).toBe( true );
+    });
+
+{% endhighlight %}
+
+ - First test makes Selenium "click" on a link and sees if a "New Article" form
+was loaded.
+
+ - Second one attempts to submit the form without filling all the required fields,
+making sure we get the apropriate error message.
+
+For brevity's sake I won't detail all the other tests performed, but the CFC
+contains several different examples:
+
+ - Using CSS and XPATH to find elements and values
+ - Using Javascript to fill form elements
+ - [Integrating CFML code for even more complex tests](https://github.com/dezoito/fw1-clipping/blob/cc694585f1435a1db1e32c5bad113c52611d3b11/tests/specs/Test_6_Integration_Selenium.cfc#L153)
+
+Again, I have to give credit to Simon Bingham and his excellent [Xind CMS project](https://github.com/simonbingham/xindi).
+I feel incredibly lucky that he made that repository public so I could see how he
+dealt with several issues that showed up during development.
+
  ----
 
 For more detailed information on this project, follow the other articles in this series:
