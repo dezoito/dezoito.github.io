@@ -4,7 +4,7 @@ title: FW/1 Example Application - Interaction with a Remote Service
 excerpt_separator: <!--more-->
 ---
 
-On this fourth article on how to build a
+In this fourth article on how to build a
 [ColdFusion and FW/1 Example Application](https://dezoito.github.io/2015/03/26/fw1-example-app-released/),
 I'll present a way to interact with a Remote Service that performs some complex
 manipulations with the stored articles.
