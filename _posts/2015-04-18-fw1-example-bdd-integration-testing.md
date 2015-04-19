@@ -65,6 +65,52 @@ allowing TestBox to record what went as expected or not, and displaying the resu
 ![](https://github.com/dezoito/dezoito.github.io/blob/master/public/images/test_results.png?raw=true)
 
 ### Writting Tests (this was actually fun!)
+
+The basic anatomy of a test can be seen in `Test_1_ExampleSpec.cfc`
+
+{% highlight js %}
+component extends="testbox.system.BaseSpec"{
+
+    // executes before all suites
+    function beforeAll(){}
+
+    // executes after all suites
+    function afterAll(){}
+
+    // All suites go in here
+    function run( testResults, testBox ){
+
+        describe("A suite", function(){
+            it("contains a very simple spec", function(){
+                expect( true ).toBeTrue();
+            });
+            ......
+        });
+    }
+}
+{% endhighlight %}
+
+TestBox has excellent reference material at [http://wiki.coldbox.org/wiki/TestBox.cfm](http://wiki.coldbox.org/wiki/TestBox.cfm),
+but to make things clear, here's what's happening:
+
+1. Our component extends TestBox's "BaseSpec" class, allowing us to use some of its methods
+
+2. Function `beforeAll()` allows us to dictate what will happen **before** the tests
+run (similar to a setup() method in other testing frameworks). We could use this,
+for example, to insert test data into the database.
+
+3. Function `afterAll()` allows us to dictate what will happen **after** the tests
+run (similar to a tearDown() method in other testing frameworks). We could use this,
+for example, to remove test data from the database.
+
+4. Function `run()` initiates the testing itself, running one "suite" at a time
+
+5. `Describe()` is how we define a test suite and its scope
+
+6. Finally, `it()` is a single spec in that suite, and it might contain one or
+more <em>expectations</em>, that will dictate whether this spec passed, or failed.
+
+To be continued....
  ----
 
 For more detailed information on this project, follow the other articles in this series:
