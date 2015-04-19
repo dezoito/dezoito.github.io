@@ -228,14 +228,14 @@ was loaded.
  - Second one attempts to submit the form without filling all the required fields,
 making sure we get the apropriate error message.
 
-For brevity's sake I won't detail all the other tests performed, but the CFC
+For the sake of brevity I won't detail all the other tests performed, but the CFC
 contains several different examples:
 
  - Using CSS and XPATH to find elements and values
  - Using Javascript to fill form elements
  - [Integrating CFML code for even more complex tests](https://github.com/dezoito/fw1-clipping/blob/cc694585f1435a1db1e32c5bad113c52611d3b11/tests/specs/Test_6_Integration_Selenium.cfc#L153)
 
-Again, I have to give credit to Simon Bingham and his excellent [Xind CMS project](https://github.com/simonbingham/xindi).
+Again, I have to give credit to Simon Bingham and his excellent [Xindi CMS project](https://github.com/simonbingham/xindi).
 I feel incredibly lucky that he made that repository public so I could see how he
 dealt with several issues that showed up during development.
 
