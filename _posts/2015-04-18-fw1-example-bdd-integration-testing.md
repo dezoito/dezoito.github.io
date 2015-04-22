@@ -61,8 +61,8 @@ Accessing `http://your-server/clipping/tests` should display a test browser page
 
 ![](https://github.com/dezoito/dezoito.github.io/blob/master/public/images/test_browser.png?raw=true)
 
-We start with `Test_1_ExampleSpec.cfc`, a most basic test, just to show the standard strdcture
-and progress to Test_6_Integration_Selenium.cfc , which adds the CFSelenium component.
+We start with `Test_1_ExampleSpec.cfc`, a most basic test, just to show the standard structure
+and progress to `Test_6_Integration_Selenium.cfc` , in which we use CFSelenium to perform full Integration tests.
 
 In a nutshell, Selenium starts a browser instance on your server and follows a "test script",
 allowing TestBox to record what went as expected or not, and displaying the results:
