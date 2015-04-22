@@ -22,7 +22,7 @@ using a single model/database table, but handling a series of interesting topics
  [BDD style testing](http://wiki.coldbox.org/wiki/TestBox.cfm)
  and [integration tests](http://cfselenium.riaforge.org/).
 
-A few notes **before I write articles detailing ways to handle these topics**.
+A few notes before the articles detailing ways to handle these topics:
 
  - As with most frameworks, there was a bit of a learning curve with
  [FW/1](http://framework-one.github.io/), but I now wish I could port all my CFML
