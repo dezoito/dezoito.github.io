@@ -29,7 +29,7 @@ The Clipping app was designed with
 Using those is completely optional, but I decided to use them so that, in the future,
 it will be easier to add functionality, by incorporating third party apps.
 
-The basic project structure:
+The suggested project structure is:
 
 ```
 /clipping
