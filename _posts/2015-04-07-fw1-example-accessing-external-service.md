@@ -9,7 +9,7 @@ On this fourth article on how to build a
 I'll present a way to interact with a Remote Service that performs some complex
 manipulations with the stored articles.
 
-The external service, in this case, is [flask-Summarizer](https://github.com/dezoito/flask-Summarizer)
+The external service, in this case, is [flask-Summariz_r](https://github.com/dezoito/flask_Summarizer)
 - an API written in Python/Flask, that receives
 paragraphs of text, and returns a string with a summary of that content.
 
