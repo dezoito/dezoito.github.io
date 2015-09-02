@@ -9,12 +9,12 @@ permalink:           pretty
 relative_permalinks: true
 
 # Setup
-title:               'Dezoito'
-tagline:             '&nbsp; Coding, Software Engineering, IBMs I-2, and other random() subjects'
+title:               'Analyst 18'
+tagline:             '&nbsp; Software Engineering, IBM I2, code, and other random() subjects'
 description:         'Articles on web-centric development using Python, Django, Flask and ColdFusion, the I-2 suit, and custom Intelligence Analysis software.'
 url:                 https://dezoito.github.io
 baseurl:             /
-paginate:            5
+paginate:            7
 
 # About/contact
 author:
