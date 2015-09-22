@@ -22,7 +22,7 @@ In this series of articles, I suggest a logical and **simple** test structure, w
 This methodology is aimed at getting your tests up and running quickly, so think of it as a starting point.
 Since there are better ways to do everything, I encourage you to do your own research once you find its limitations.
 
-### Folder Structure
+## Folder Structure
 
 Starting with a basic Django App structure, we can use a `/test` folder to store different tests and utilities
 
@@ -56,7 +56,7 @@ Starting with a basic Django App structure, we can use a `/test` folder to store
 
 ```
 
-### Different Test Types
+## Different Test Types
 
 For the purpose of this article, here's my rule of the thumb for different tests types - from fastest to slowest:
 
@@ -84,7 +84,7 @@ Since they are **much** slower than everything else, they are used only to test 
 Following the KISS principle, I'm keeping the Functional tests in their own folder, and everything else in the `/unit` folder, but of course you separate things even further as your app grows.
 
 ---
-### Code Examples and Explanations
+## Code Examples and Explanations
 
 First, let's start by describing a possible `testing_utilities.py` file.
 This should group logic that is used across test suites, so we can keep our tests DRY:
@@ -141,7 +141,7 @@ ng fixtures, [Factory Boy](https://factoryboy.readthedocs.org/en/latest/) or [Mo
 
 The other functions simply perform actions that can be called by the different tests.
 
-#### Request Test Examples
+### Request Test Examples
 
 `/unit/test_requests.py`
 
@@ -198,7 +198,7 @@ of RequestFactory and to populate our temporary test database.
 See the Official Django Refernce for more details on [django.test.RequestFactory](https://docs.djangoproject.com/en/1.8/topics/testing/advanced/#django.test.RequestFactory).
 
 
-#### Django's Test Client Examples
+### Django's Test Client Examples
 
 `/unit/test_views.py`
 
@@ -253,7 +253,7 @@ You can set `enforce_csrf_checks` to `False` if you want..I am just being extra-
 `test_form_new_thing()` - Shows how to test a Django view that requires an authenticated user.
 
 
-#### Testing POST Form Submissions
+### Testing POST Form Submissions
 
 `/unit/test_post.py`
 
@@ -327,7 +327,7 @@ In the above example, `setUp()` does a few things:
 `test_include_thing_ok()`- Tests what happens when all the fields are correctly filled.
 
 
-#### Functional Tests using Selenium
+### Functional Tests using Selenium
 `/functional/test_post.py`
 
 ```python
@@ -387,7 +387,7 @@ Again, we create a class - `FunctionalTest` - that groups our tests and helper m
  application finds the expected result.
 
 ---
-### Running Tests
+## Running Tests
 
 First, CD into your Apps root folder (the one where you can find `manage.py`)
 
@@ -417,7 +417,7 @@ Running a SINGLE test (notice that we specify the `FormTests` class before the t
 
 
 ---
-### References
+## References
 [Django's Official Tutorial](https://docs.djangoproject.com/en/1.8/intro/tutorial05/) and [Django's Testing Tools Docs](https://docs.djangoproject.com/en/1.8/topics/testing/tools/) - Comprehensive resources, but they made more sense to me after I understood the different test types.
 
 
