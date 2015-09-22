@@ -1,12 +1,12 @@
 ---
 layout: post
-title: How to Structure Testing in Django Applications - with Examples
+title: How to Structure Testing in Django Applications #1 - with Examples
 excerpt_separator: <!--more-->
 ---
 
 Creating an efficient testing structure can be overwhelming for a Django beginner, as authors often show different and contradictory approaches.
 
-In this article, I suggest a logical and **simple** test structure, with these goals:
+In this series of articles, I suggest a logical and **simple** test structure, with these goals:
 
  - Group Unit Tests, Request Tests, Django Client Tests, and Functional Tests so you can:
     - Run all tests in sequence, or just the ones you need, grouped or individually
@@ -15,7 +15,7 @@ In this article, I suggest a logical and **simple** test structure, with these g
 
  - Initialize your test database programmatically.
 
- - Get the ellapsed running time for individual tests (so you can easily see what's taking too long!)
+ - Get the elapsed running time for individual tests [Part 2]
 
 
 
@@ -83,7 +83,7 @@ Since they are **much** slower than everything else, they are used only to test 
 
 Following the KISS principle, I'm keeping the Functional tests in their own folder, and everything else in the `/unit` folder, but of course you separate things even further as your app grows.
 
-===
+---
 ### Code Examples and Explanations
 
 First, let's start by describing a possible `testing_utilities.py` file.
@@ -195,16 +195,18 @@ of RequestFactory and to populate our temporary test database.
 `test_ajax_search()` - Tests sending a request to a view where an AJAX call is expected.
 
 
-See the Official Django Refernce for more details on [django.test.RequestFacory](https://docs.djangoproject.com/en/1.8/topics/testing/advanced/#django.test.RequestFactory).
+See the Official Django Refernce for more details on [django.test.RequestFactory](https://docs.djangoproject.com/en/1.8/topics/testing/advanced/#django.test.RequestFactory).
+
 
 #### Django's Test Client Examples
+
 `/unit/test_views.py`
 
 ```python
 from django.core.urlresolvers import reverse
 from django.test import TestCase, Client
 from django.utils.http import urlencode
-from ..testing_utilities import populate_test_db, login_client_user, logout_client_user, print_test_time_elapsed
+from ..testing_utilities import populate_test_db, login_client_user, logout_client_user
 from my_application.models import Category
 
 class ViewTests(TestCase):
@@ -221,18 +223,16 @@ class ViewTests(TestCase):
             # cat_list is a querySet appended to the context dict.
             response.context['cat_list'],
             [
-                repr(r) for r in Categoria.objects.filter(cat_ative=True)
+                repr(r) for r in Category.objects.filter(cat_ative=True)
             ])
 
     def test_categoriy_view(self):
-        # response = self.client.get('/categoria/1')
         response = self.client.get(reverse('category',
                                            kwargs={'cat_id': 1}))
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, u"Widgets")
 
-    # Neste script, testes em forms servem apenas para verificar se
-    # podem ser visualizados
+
     def test_form_new_thing(self):
         # Authenticates User
         login_client_user(self)
@@ -250,16 +250,181 @@ You can set `enforce_csrf_checks` to `False` if you want..I am just being extra-
 
 `test_categoriy_view()` - Shows how to pass parameters to a view and test its response.
 
-`Test_form_new_thing()` - Shows how to test a Django view that requires an authenticated user.
+`test_form_new_thing()` - Shows how to test a Django view that requires an authenticated user.
 
 
+#### Testing POST Form Submissions
 
+`/unit/test_post.py`
+
+```python
+from django.test import TestCase, Client
+from django.core.urlresolvers import reverse
+from django.utils.http import urlencode
+from ..testing_utilities import populate_test_db, login_client_user
+
+class FormTests(TestCase):
+
+    def setUp(self):
+        self.client = Client(enforce_csrf_checks=False)
+        populate_test_db()
+        # Log user for all tests
+        login_client_user(self)
+
+        # define some form fields/values
+        self.thing_post_data = {
+            'category': '1',
+            'thing_desc': 'Name of the thing',
+            'thing_model': 'ABC5555',
+            'thing_brand': 'brand Y',
+            'thing_quantity': '2'
+        }
+
+
+        def test_include_thing_fail_validation(self):
+            """
+            Tests if Field Validations messages are displayed
+            """
+            form_addr = reverse('form_new_thing', kwargs={'cat_id': 1})
+            post_data = {}  # form does not send any data!
+            response = self.client.post(form_addr, post_data)
+            self.assertEqual(response.status_code, 200)
+            self.assertFormError(response, 'form', 'thing_desc',
+                                 u'Fill in the field Description')
+            self.assertFormError(response, 'form', 'thing_model',
+                                 u'Fill in the field Model')
+            self.assertFormError(response, 'form', 'thing_brand',
+                                 u'Fill in the field Brand')
+
+
+        def test_include_thing_ok(self):
+            """
+            Tests the response when the form is correctly filled
+            """
+            form_addr = reverse('form_new_thing', kwargs={'cat_id': 1})
+            # Use follow=true since there will be a redirect after processing
+            response = self.client.post(form_addr,
+                                        self.thing_post_data,
+                                        follow=True)
+            self.assertEqual(response.status_code, 200)
+            self.assertContains(response, u"Thing included successfully!")
+
+
+```
+
+In the above example, `setUp()` does a few things:
+
+1- Creates an instance of the test Client
+
+2- Populates the test database
+
+3- Logs in before every test (assume users have to be authenticated to submit forms)
+
+4- Defines a dict with the POST data (mirroring what would be sent by filling in the actual form fields.)
+
+`test_include_thing_fail_validation()` - Tests a submission that should **FAIL** (in this case, because the were unfilled form fields)
+
+`test_include_thing_ok()`- Tests what happens when all the fields are correctly filled.
+
+
+#### Functional Tests using Selenium
+`/functional/test_post.py`
+
+```python
+from selenium.webdriver.firefox import webdriver
+from selenium.webdriver.common.keys import Keys
+from django.core.urlresolvers import reverse
+from django.contrib.staticfiles.testing import StaticLiveServerTestCase
+from django.utils import formats
+from ..testing_utilities import populate_test_db
+
+
+class FunctionalTest(StaticLiveServerTestCase):
+    def setUp(self):
+        self.selenium = webdriver.WebDriver()
+        self.selenium.implicitly_wait(3)
+        populate_test_db()
+
+    def tearDown(self):
+        self.selenium.quit()
+
+    # Auxiliary function to add view subdir to URL
+    def _get_full_url(self, namespace):
+        return self.live_server_url + reverse(namespace)
+
+    def test_home_title(self):
+        """
+        Tests that Home is loading properly
+        """
+        self.selenium.get(self._get_full_url("home"))
+        self.assertIn(u'Title that you expect', self.selenium.title)
+
+    def test_ajax_search_thing(self):
+        self.selenium.get(self._get_full_url("home"))
+        search_input = self.selenium.find_element_by_name("search_input")
+        # testing search for thing
+        search_input.send_keys('XYZ1234')
+        tab_things = self.selenium.find_element_by_id("tab_things")
+        self.assertTrue(tab_things)
+        self.assertIn('XYZ1234', tab_things.text)
+
+```
+
+There's a couple of important things happening in the imports:
+
+ - We add selenium's webdriver and its `keys` package
+ - We import `StaticLiveServerTestCase` which frees us from having to have a running instance of the application.
+
+Again, we create a class - `FunctionalTest` - that groups our tests and helper methods:
+
+`setup()` - Starts a running instance of selenium's webdriver and populates the Test Database.
+
+`tearDown()` - After tests are run, this stops the running webdriver.
+
+`test_home_title()` - Opens the `home` view in a browser and tests the response.
+
+`test_ajax_search_thing()` - "Types" text in the Search Box and asserts that the
+ application finds the expected result.
+
+---
+### Running Tests
+
+First, CD into your Apps root folder (the one where you can find `manage.py`)
+
+To run ALL tests:
+
+`python manage.py test tests`
+
+If you are using Django 1.8+, you can keep a test database across tests, speeding things up a bit:
+
+`python manage.py test tests -k`
+
+Running ONLY the "unit" tests:
+
+`python manage.py test tests.unit [-k]`
+
+Running ONLY functional tests:
+
+`python manage.py test tests.functional [-k]`
+
+Running ONLY functional the POST tests:
+
+`python manage.py test tests.unit.test_post [-k]`
+
+Running a SINGLE test (notice that we specify the `FormTests` class before the test we want):
+
+`python manage.py test tests.unit.test_post.FormTests.test_include_thing_ok [-k]`
+
+
+---
 ### References
 [Django's Official Tutorial](https://docs.djangoproject.com/en/1.8/intro/tutorial05/) and [Django's Testing Tools Docs](https://docs.djangoproject.com/en/1.8/topics/testing/tools/) - Comprehensive resources, but they made more sense to me after I understood the different test types.
 
 
-[The Most Efficient Django Test](The Most Efficient Django Test) - If you could only write one single test for your Django App, this would be it.
+[The Most Efficient Django Test](http://blog.doismellburning.co.uk/the-most-efficient-django-test/) - If you could only write one single test for your Django App, this would be it.
 
 [Marina Mele's Django Tutorial](http://www.marinamele.com/taskbuster-django-tutorial/create-home-page-with-tdd-staticfiles-templates-settings#tdd-tests) - Not just a great Django tutorial, but also a good introduction on using `Selenium Webdriver` and `LiveServerTestCase` for functional tests.
 
 [Toast Drive's Guide to Testing in Django #2](http://toastdriven.com/blog/2011/apr/17/guide-to-testing-in-django-2/) - The reference used to testing POST requests.
+
+[Newspaper3k: Article scraping & curation](https://github.com/codelucas/newspaper) - Reference used to get the function that displays elapsed time (Part 2).
