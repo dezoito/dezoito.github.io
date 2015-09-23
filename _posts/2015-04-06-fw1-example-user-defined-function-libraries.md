@@ -1,5 +1,6 @@
 ---
 layout: post
+comments: true
 title: FW/1 Example Application - User Defined Function Libraries
 excerpt_separator: <!--more-->
 ---
