@@ -1,30 +1,31 @@
 ---
 layout: post
-title: How to Structure Testing in Django Applications #1 - with Examples
+title: Efficient Test Structure for Django Applications #1 - with Examples
 excerpt_separator: <!--more-->
 ---
 
-Creating an efficient testing structure can be overwhelming for a Django beginner, as authors often show different and contradictory approaches.
+This article aims to make it easy to define a flexible and efficient test structure, 
+so readers don't have to go through the many (and sometimes contradictory) 
+Django testing resources.
 
-In this series of articles, I suggest a logical and **simple** test structure, with these goals:
+This proposed structure allows developers to:
 
- - Group Unit Tests, Request Tests, Django Client Tests, and Functional Tests so you can:
-    - Run all tests in sequence, or just the ones you need, grouped or individually
+ - Organize and group different test types (unit, integration, functional tests, etc...).
+
+ - Run tests individually, or by group, or all of them.
 
  - Define logic that is common to all tests (e.g. client login/logout, utility functions)
 
- - Initialize your test database programmatically.
+ - Populate your test database programmatically.
 
  - Get the elapsed running time for individual tests [Part 2]
 
+This methodology is aimed at getting your tests up and running quickly, so think of it as a **starting point** (I encourage you to do your own research once you find its limitations).
 
-
-This methodology is aimed at getting your tests up and running quickly, so think of it as a starting point.
-Since there are better ways to do everything, I encourage you to do your own research once you find its limitations.
 
 ## Folder Structure
 
-Starting with a basic Django App structure, we can use a `/test` folder to store different tests and utilities
+Starting with a basic Django App structure, we can use a `/tests` folder to store different tests and utilities:
 
 ```
 /project_root
@@ -69,14 +70,13 @@ Those are usually the fastest running tests. Write them for functions that you w
 These are used to test Django views, and replicate a user request.
 If you only want to check if a view works with a `GET` request and there's no need for authentication, you can use `django.test.RequestFactory` as it's faster than using Django's client.
 
-
 **- Django Client Tests:**
 
 Client tests go through Settings, URL configs and middleware, so they take longer than the simpler resquest tests (technically speaking, they are integration tests).
 
 I use those to test authenticated views and form submissions - by setting up some form data and using self.client.post().
 
-**- Functional Tests (or Full Integration tests)**
+**- Functional Tests:**
 
 These are tests that use [Selenium](https://selenium-python.readthedocs.org/) to replicate a browser session.
 Since they are **much** slower than everything else, they are used only to test more complex user behavior (e.g. user clicks something that triggers an ajax response).
