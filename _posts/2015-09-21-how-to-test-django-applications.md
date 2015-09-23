@@ -57,6 +57,7 @@ Starting with a basic Django App structure, we can use a `/tests` folder to stor
 
 ```
 
+---
 ## Different Test Types
 
 For the purpose of this article, here's my rule of the thumb for different tests types - from fastest to slowest:
@@ -72,7 +73,7 @@ If you only want to check if a view works with a `GET` request and there's no ne
 
 **- Django Client Tests:**
 
-Client tests go through Settings, URL configs and middleware, so they take longer than the simpler resquest tests (technically speaking, they are integration tests).
+Client tests go through Settings, URL configs and middleware, so they take longer than the simpler request tests (technically speaking, they are integration tests).
 
 I use those to test authenticated views and form submissions - by setting up some form data and using self.client.post().
 
@@ -100,10 +101,10 @@ def populate_test_db():
     """
     Adds records to an empty test database
     """
-    cat = Category.objects.create(cat_nome='Widgets')
+    cat = Category.objects.create(cat_name='Widgets')
     cat_inactive = Category.objects.create(cat_name='Inactive Category',
                                             cat_active=False)
-    thing1 = Thing.objects.create(categoria=cat,
+    thing1 = Thing.objects.create(category=cat,
                                 thing_desc="Test Thing",
                                 thing_model="XYZ1234",
                                 thing_brand="Brand X")
@@ -132,12 +133,11 @@ def is_json(myjson):
         return False
     return True
 
-# more common funcionality below
+# more common functionality below
 
 ```
 
-The `populate_test_db()` function will run before each test suite and (re)create the records needed to perform our tests. For more complex applications, you should definitelly look into usi
-ng fixtures, [Factory Boy](https://factoryboy.readthedocs.org/en/latest/) or [Mocking](http://www.mattjmorrison.com/2011/09/mocking-django.html) (or [not](http://hernantz.github.io/mock-yourself-not-your-tests.html)).
+The `populate_test_db()` function will run before each test suite and (re)create the records needed to perform our tests. For more complex applications, you should definitely look into using fixtures, [Factory Boy](https://factoryboy.readthedocs.org/en/latest/) or [Mocking](http://www.mattjmorrison.com/2011/09/mocking-django.html) (or [not](http://hernantz.github.io/mock-yourself-not-your-tests.html)).
 
 The other functions simply perform actions that can be called by the different tests.
 
@@ -190,12 +190,12 @@ of RequestFactory and to populate our temporary test database.
 
 `test_home_view_without_client()` - This is the most basic test, sending a request to the view mapped to `'/'` and asserting that the response is returned as expected.
 
-`test_category_view()` -A slightly more complicated test, where we invoke a vire by its name (instead of URL mapping) and pass it parameters (using **kwargs).
+`test_category_view()` -A slightly more complicated test, where we invoke a view by its name (instead of URL mapping) and pass it parameters (using **kwargs).
 
 `test_ajax_search()` - Tests sending a request to a view where an AJAX call is expected.
 
 
-See the Official Django Refernce for more details on [django.test.RequestFactory](https://docs.djangoproject.com/en/1.8/topics/testing/advanced/#django.test.RequestFactory).
+See the Official Django Reference for more details on [django.test.RequestFactory](https://docs.djangoproject.com/en/1.8/topics/testing/advanced/#django.test.RequestFactory).
 
 
 ### Django's Test Client Examples
@@ -223,10 +223,10 @@ class ViewTests(TestCase):
             # cat_list is a querySet appended to the context dict.
             response.context['cat_list'],
             [
-                repr(r) for r in Category.objects.filter(cat_ative=True)
+                repr(r) for r in Category.objects.filter(cat_active=True)
             ])
 
-    def test_categoriy_view(self):
+    def test_category_view(self):
         response = self.client.get(reverse('category',
                                            kwargs={'cat_id': 1}))
         self.assertEqual(response.status_code, 200)
@@ -248,7 +248,7 @@ You can set `enforce_csrf_checks` to `False` if you want..I am just being extra-
 
 `test_home_view()` - Tests that the `Home` view loads correctly and also that a list of categories shows only those that are marked as **active**.
 
-`test_categoriy_view()` - Shows how to pass parameters to a view and test its response.
+`test_category_view()` - Shows how to pass parameters to a view and test its response.
 
 `test_form_new_thing()` - Shows how to test a Django view that requires an authenticated user.
 
@@ -389,7 +389,7 @@ Again, we create a class - `FunctionalTest` - that groups our tests and helper m
 ---
 ## Running Tests
 
-First, CD into your Apps root folder (the one where you can find `manage.py`)
+First, CD into your App's root folder (the one where you can find `manage.py`)
 
 To run ALL tests:
 
@@ -399,15 +399,15 @@ If you are using Django 1.8+, you can keep a test database across tests, speedin
 
 `python manage.py test tests -k`
 
-Running ONLY the "unit" tests:
+Running "unit" tests only:
 
 `python manage.py test tests.unit [-k]`
 
-Running ONLY functional tests:
+Running functional tests only:
 
 `python manage.py test tests.functional [-k]`
 
-Running ONLY functional the POST tests:
+Testing POST submissions only:
 
 `python manage.py test tests.unit.test_post [-k]`
 
@@ -427,4 +427,4 @@ Running a SINGLE test (notice that we specify the `FormTests` class before the t
 
 [Toast Drive's Guide to Testing in Django #2](http://toastdriven.com/blog/2011/apr/17/guide-to-testing-in-django-2/) - The reference used to testing POST requests.
 
-[Newspaper3k: Article scraping & curation](https://github.com/codelucas/newspaper) - Reference used to get the function that displays elapsed time (Part 2).
+[Newspaper3k: Article scraping & curation](https://github.com/codelucas/newspaper) - Reference on how to measure indivisual test's running times (Part 2).
