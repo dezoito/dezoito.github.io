@@ -22,8 +22,8 @@ This proposed structure allows developers to:
 
 This methodology is aimed at getting your tests up and running quickly, so think of it as a **starting point** (I encourage you to do your own research once you find its limitations).
 
-
-## Folder Structure
+---
+##Folder Structure
 
 Starting with a basic Django App structure, we can use a `/tests` folder to store different tests and utilities:
 
