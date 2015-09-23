@@ -8,6 +8,11 @@ layout: default
   {{ content }}
 </div>
 
+<!-- Disqus comments -->
+{% if page.comments %}
+  {% include disqus.html %}
+{% endif %}
+
 <div class="related">
   <h2>Related Posts</h2>
   <ul class="related-posts">
@@ -24,10 +29,7 @@ layout: default
   </ul>
 </div>
 
-<!-- Disqus comments -->
-{% if page.comments %}
-  {% include disqus.html %}
-{% endif %}
+
 
 
 
