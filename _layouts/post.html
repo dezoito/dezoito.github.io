@@ -25,6 +25,9 @@ layout: default
 </div>
 
 <!-- Disqus comments -->
-{% include disqus.html %}
+{% if page.comments %}
+  {% include disqus.html %}
+{% endif %}
+
 
 
