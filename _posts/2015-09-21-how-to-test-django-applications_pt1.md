@@ -92,7 +92,6 @@ First, let's start by describing a possible `testing_utilities.py` file.
 This should group logic that is used across test suites, so we can keep our tests DRY:
 
 ```python
-# -*- coding: utf-8 -*-
 import json
 import time
 from django.contrib.auth.models import User
