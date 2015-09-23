@@ -1,5 +1,6 @@
 ---
 layout: post
+comments: true
 title: Efficient Test Structure for Django Applications #1 - with Examples
 excerpt_separator: <!--more-->
 ---
@@ -428,3 +429,4 @@ Running a SINGLE test (notice that we specify the `FormTests` class before the t
 [Toast Drive's Guide to Testing in Django #2](http://toastdriven.com/blog/2011/apr/17/guide-to-testing-in-django-2/) - The reference used to testing POST requests.
 
 [Newspaper3k: Article scraping & curation](https://github.com/codelucas/newspaper) - Reference on how to measure indivisual test's running times (Part 2).
+
