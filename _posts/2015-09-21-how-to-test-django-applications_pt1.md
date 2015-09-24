@@ -7,7 +7,7 @@ excerpt_separator: <!--more-->
 
 This article aims to make it easy to define a flexible and efficient test structure, 
 so readers don't have to go through the many (and sometimes contradictory) 
-Django testing resources.
+Django testing resources available online.
 
 This proposed structure allows developers to:
 
@@ -21,7 +21,7 @@ This proposed structure allows developers to:
 
  - Get the elapsed running time for individual tests [Part 2]
 
-This methodology is aimed at getting your tests up and running quickly, so think of it as a **starting point** (I encourage you to do your own research once you find its limitations).
+This should get your tests up and running quickly, so think of it as a **starting point** (I encourage you to do your own research once you find its limitations).
 
 ---
 ##Folder Structure
@@ -65,11 +65,11 @@ For the purpose of this article, here's my rule of the thumb for different tests
 
 **- Unit Tests:**
 
-Those are usually the fastest running tests. Write them for functions that you wrote from scratch and don't involve output to be rendered, such as calculations or maybe custom model or view methods.
+Those are usually the fastest running tests and you should use them for functions that you wrote from scratch and don't involve output to be rendered, such as calculations or maybe some custom model or view methods.
 
 **- Request Tests:**
 
-These are used to test Django views, and replicate a user request.
+These are used to test Django views, by simulating a user request.
 If you only want to check if a view works with a `GET` request and there's no need for authentication, you can use `django.test.RequestFactory` as it's faster than using Django's client.
 
 **- Django Client Tests:**
@@ -80,7 +80,8 @@ I use those to test authenticated views and form submissions - by setting up som
 
 **- Functional Tests:**
 
-These are tests that use [Selenium](https://selenium-python.readthedocs.org/) to replicate a browser session.
+These are tests that use [Selenium](https://selenium-python.readthedocs.org/) to simulate a browser session.
+
 Since they are **much** slower than everything else, they are used only to test more complex user behavior (e.g. user clicks something that triggers an ajax response).
 
 Following the KISS principle, I'm keeping the Functional tests in their own folder, and everything else in the `/unit` folder, but of course you separate things even further as your app grows.
@@ -137,9 +138,9 @@ def is_json(myjson):
 
 ```
 
-The `populate_test_db()` function will run before each test suite and (re)create the records needed to perform our tests. For more complex applications, you should definitely look into using fixtures, [Factory Boy](https://factoryboy.readthedocs.org/en/latest/) or [Mocking](http://www.mattjmorrison.com/2011/09/mocking-django.html) (or [not](http://hernantz.github.io/mock-yourself-not-your-tests.html)).
+The `populate_test_db()` can be called by the test suites and (re)create the records needed to perform our tests. For more complex applications, you should definitely look into using fixtures, [Factory Boy](https://factoryboy.readthedocs.org/en/latest/) or [Mocking](http://www.mattjmorrison.com/2011/09/mocking-django.html) (or [not mocking](http://hernantz.github.io/mock-yourself-not-your-tests.html)).
 
-The other functions simply perform actions that can be called by the different tests.
+The other functions can also be called when needed (some tests need the client logged in, for example).
 
 ### Request Test Examples
 
@@ -254,6 +255,9 @@ You can set `enforce_csrf_checks` to `False` if you want..I am just being extra-
 
 
 ### Testing POST Form Submissions
+
+I use those to test how the application behaves **after** the user submits a form, 
+and not so much to make sure it's displayed correctly.
 
 `/unit/test_post.py`
 
@@ -427,5 +431,5 @@ Running a SINGLE test (notice that we specify the `FormTests` class before the t
 
 [Toast Drive's Guide to Testing in Django #2](http://toastdriven.com/blog/2011/apr/17/guide-to-testing-in-django-2/) - The reference used to testing POST requests.
 
-[Newspaper3k: Article scraping & curation](https://github.com/codelucas/newspaper) - Reference on how to measure indivisual test's running times (Part 2).
+[Newspaper3k: Article scraping & curation](https://github.com/codelucas/newspaper) - Great reference on scraping that also has an interesting approach on how to measure individual test's running times (Part 2).
 
