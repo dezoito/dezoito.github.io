@@ -1,15 +1,15 @@
 ---
 layout: post
 comments: true
-title: Efficient Test Structure for Django Applications #1 - with Examples
+title: Ready to use Structure for Django Tests + Examples (Pt. 1)
 excerpt_separator: <!--more-->
 ---
 
-This article aims to make it easy to define a flexible and efficient test structure, 
-so readers don't have to go through the many (and sometimes contradictory) 
-Django testing resources available online.
+This article proposes a flexible and efficient test structure, 
+so readers don't have to go through the many Django testing resources available 
+online before getting started.
 
-This proposed structure allows developers to:
+This structure allows developers to:
 
  - Organize and group different test types (unit, integration, functional tests, etc...).
 
