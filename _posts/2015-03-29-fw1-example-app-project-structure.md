@@ -33,34 +33,29 @@ it will be easier to add functionality, by incorporating third party apps.
 The suggested project structure is:
 
 ```
-/clipping
-    |
-    +- common
-        |
-        +- layouts
-    |
-    +- customtags
-    +- home
-        |
-        +- controllers
-        +- model
-            |
-            +- beans
-            +- services
-        |
-        +- views
-            |
-            +- clipping
-            +- helpers
-            +- main
-    |
-    +- lib
-    +- setup
-    +- static
-    +- tests
+    ├── clipping
+    │    |
+    │    ├── common
+    │    │   └── layouts
+    │    ├── customtags
+    │    ├── home
+    │    │   ├── controllers
+    │    │   ├── model
+    │    │   │   ├── beans
+    │    │   │   └── services
+    │    │   └── views
+    │    │       ├── clipping
+    │    │       ├── helpers
+    │    │       └── main
+    │    ├── lib
+    │    ├── setup
+    │    ├── static
+    │    └── tests
+    │        └── specs
+    │
+    ├── testbox
+    └── CFSelenium
 
-/testbox
-/CFSelenium
 ```
 
 With the `/clipping` folder being the project's root, we have:

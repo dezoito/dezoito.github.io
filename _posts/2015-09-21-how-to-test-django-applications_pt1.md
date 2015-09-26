@@ -29,32 +29,24 @@ This should get your tests up and running quickly, so think of it as a **startin
 Starting with a basic Django App structure, we can use a `/tests` folder to store different tests and utilities:
 
 ```
-/project_root
-    |
-    +- /my_application
-            |
-            +- /my_application
-                |
-                +- forms.py
-                +- models.p
-                +- etc....
-            |
-            +- /static
-            |
-            +- /templates
-            |
-            +- /admin
-            |
-            +- manage.py
-            |
-            +- /tests
-                |
-                +- /functional
-                |
-                +- /unit
-                |
-                +- __init__.py
-                +- testing_utilities.py
+    project_root
+    │
+    ├── my_application
+    │   ├── my_application
+    │   │   ├── settings
+    │   │   ├── forms.py
+    │   │   ├── models.py
+    │   │   └── etc....
+    │   ├── media
+    │   ├── static
+    │   ├── templates
+    │   ├── manage.py
+    │   └── tests 
+    │       ├── functional
+    │       ├── unit
+    │       ├── __init__.py
+    │       └── testing_utilities.py
+    └── requirements
 
 ```
 
