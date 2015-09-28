@@ -19,7 +19,7 @@ This structure allows developers to:
 
  - Populate your test database programmatically.
 
- - Get the elapsed running time for individual tests [Part 2]
+ - Get the [elapsed running time for individual tests](/2015/09/26/how-to-test-django-applications_pt2/) [see part 2].
 
 This should get your tests up and running quickly, so think of it as a **starting point** (I encourage you to do your own research once you find its limitations).
 
@@ -411,6 +411,7 @@ Running a SINGLE test (notice that we specify the `FormTests` class before the t
 
 `python manage.py test tests.unit.test_post.FormTests.test_include_thing_ok [-k]`
 
+Be sure to read [Part 2](/2015/09/26/how-to-test-django-applications_pt2/) to see how to get individual test times.
 
 ---
 ## References
