@@ -5,7 +5,7 @@ title: Ready to use Structure for Django Tests + Examples (Pt. 2)
 excerpt_separator: <!--more-->
 ---
 
-This article builds up from the [Structure for Django Tests](/2015/09/21/how-to-test-django-applications_pt1/) and shows how you can easily display individual running times for each test in a group or suite - and you can use in Flask tests too! - check out my [Flask App to generate summaries](https://github.com/dezoito/flask_Summarizer/).
+This article builds up on the [Structure for Django Tests](/2015/09/21/how-to-test-django-applications_pt1/) and shows how you can easily display individual running times for each test in a group or suite - and you can use in Flask tests too! - check out my [Flask App to generate summaries](https://github.com/dezoito/flask_Summarizer/).
 
 ## The Problem
 By default, Django will only display the execution time for the entire series of tests ran, for example:
@@ -36,14 +36,14 @@ Creating test database for alias 'default'...
     testing function 'setUp'
     [OK] in 'setUp' 9.12 sec
 
-    testing function 'test_ajax_search_exemplar'
-    [OK] in 'test_ajax_search_exemplar' 3.94 sec
+    testing function 'test_ajax_search_thing'
+    [OK] in 'test_ajax_search_thing' 3.94 sec
 .
     testing function 'setUp'
     [OK] in 'setUp' 10.81 sec
 
-    testing function 'test_ajax_search_modelo'
-    [OK] in 'test_ajax_search_modelo' 9.55 sec
+    testing function 'test_ajax_search_model'
+    [OK] in 'test_ajax_search_model' 9.55 sec
 .
 ----------------------------------------------------------------------
 Ran 2 tests in 34.270s
@@ -131,5 +131,5 @@ class RequestTests(TestCase):
 
 [Toast Drive's Guide to Testing in Django #2](http://toastdriven.com/blog/2011/apr/17/guide-to-testing-in-django-2/) - The reference used to testing POST requests.
 
-[Newspaper3k: Article scraping & curation](https://github.com/codelucas/newspaper) - Great reference on scraping that also has an interesting approach on how to measure individual test's running times (Part 2).
+[Newspaper3k: Article scraping & curation](https://github.com/codelucas/newspaper) - Great reference on scraping that also has an interesting approach on how to measure individual test's running times.
 

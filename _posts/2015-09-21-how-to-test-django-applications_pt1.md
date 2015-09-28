@@ -424,5 +424,5 @@ Be sure to read [Part 2](/2015/09/26/how-to-test-django-applications_pt2/) to se
 
 [Toast Drive's Guide to Testing in Django #2](http://toastdriven.com/blog/2011/apr/17/guide-to-testing-in-django-2/) - The reference used to testing POST requests.
 
-[Newspaper3k: Article scraping & curation](https://github.com/codelucas/newspaper) - Great reference on scraping that also has an interesting approach on how to measure individual test's running times (Part 2).
+[Newspaper3k: Article scraping & curation](https://github.com/codelucas/newspaper) - Great reference on scraping that also has an interesting approach on how to measure individual test's running times.
 
