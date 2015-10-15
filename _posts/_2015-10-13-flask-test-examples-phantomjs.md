@@ -1,7 +1,7 @@
 ---
 layout: post
 comments: true
-title: Flask: Test Examples and Structure with Phantom
+title: Flask: Test Examples and Structure - Unit Tests and PhantomJS
 excerpt_separator: <!--more-->
 ---
 
