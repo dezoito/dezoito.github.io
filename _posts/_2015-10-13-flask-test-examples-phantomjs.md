@@ -11,7 +11,9 @@ This article is similar to the [Ready to use Structure for Django Tests](/2015/0
  - provide a starting point for more complex tests
 
 We'll use my [Flask App to generate summaries](https://github.com/dezoito/flask_Summarizer/) as the test target (feel free to clone it).
- 
+
+<!--more-->
+
 ---
 ## Structure
 The proposed structure allows developers to:
@@ -23,10 +25,10 @@ The proposed structure allows developers to:
  - Define logic that is common to all tests (e.g. client login/logout, utility functions)
 
  - Get the elapsed running time for individual tests
- 
+
 So starting with a basic Flask App structure, we can use a `/tests` folder to store different tests and utilities:
 
-```
+```sh
 /flask_Summarizer
                 ├── app
                 │   ├── static
@@ -46,7 +48,6 @@ So starting with a basic Flask App structure, we can use a `/tests` folder to st
 ```
 
 ---
-
 ## Different Test Types
 
 For the purpose of this article, here's my rule of the thumb for different tests types - from fastest to slowest:
@@ -58,7 +59,7 @@ Those are usually the fastest running tests and you should use them for function
 
 **- Functional or Integration Tests:**
 
-These are tests that go through the Flask framework resources to assert if views and form submissions are working - They will probably go through configurations, database calls, extensions and libraries and thus take longer to run. 
+These are tests that go through the Flask framework resources to assert if views and form submissions are working - They will probably go through configurations, database calls, extensions and libraries and thus take longer to run.
 
 **- Selenium Tests:**
 
@@ -146,11 +147,11 @@ if __name__ == '__main__':
 
 ```
 
-The flask_Summarizer app has a `make_summary()` that does not output anything, but merely returns a summary of a text, using one of two algorithms: 
+The flask_Summarizer app has a `make_summary()` that does not output anything, but merely returns a summary of a text, using one of two algorithms:
 
  - Summarize (default)
  - TextRank
- 
+
 I don't want to tests the methods in these libraries (there's a rule that says "you should only test your own code"), so I'm just going to test if my function
 is using them correctly and not messing up anything along the way.
 
