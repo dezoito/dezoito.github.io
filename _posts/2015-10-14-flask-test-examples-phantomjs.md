@@ -23,11 +23,12 @@ The proposed structure allows developers to:
 
  - Define logic that is common to all tests (e.g. client login/logout, utility functions)
 
- - Get the elapsed running time for individual tests
+ - Display the elapsed running time for individual tests
 
 So starting with a basic Flask App structure, we can use a `/tests` folder to store different tests and utilities:
 
 ```sh
+
 /flask_Summarizer
                 ├── app
                 │   ├── static
@@ -75,6 +76,7 @@ First, let's start by describing a possible `utils.py` file.
 This should **group logic that is used across test suites**, so we can keep our tests DRY:
 
 ```python
+
 # -*- coding: utf-8 -*-
 import json
 import time
@@ -101,6 +103,7 @@ We will touch on the `print_test_time_elapsed()` later. The important part for n
 `/tests/tests_unit.py`:
 
 ```python
+
 # -*- coding: utf-8 -*-
 #!flask/bin/python
 
@@ -143,7 +146,7 @@ if __name__ == '__main__':
 
 ```
 
-The flask_Summarizer app has a `make_summary()` that does not output anything, but merely returns a summary of a text, using one of two algorithms:
+The application has a `make_summary()` function in the views.py file that does not output anything, but merely returns a summary of a text, using one of two algorithms:
 
  - Summarize (default)
  - TextRank
@@ -171,7 +174,8 @@ OK
 (TextRank is slow and this laptop is even slower!)
 
 ### Functional/Integration Test Examples
-Make sure application is running
+
+One of these tests will likely fail!
 
 `/tests/tests_functional.py`:
 
@@ -214,7 +218,8 @@ class StartingTestCase(TestCase):
 
     # --------------------------------------------------------------------------
     # Simple tests to make sure server is UP
-    # (does NOT use LiveServer)
+    # The Application MUST be running on the baseURL addr
+    # for this test to pass
     # --------------------------------------------------------------------------
     def test_real_server_is_up_and_running(self):
         response = urllib.request.urlopen(self.baseURL)
@@ -227,7 +232,6 @@ class StartingTestCase(TestCase):
     # --------------------------------------------------------------------------
     def test_view_form_resumo_get(self):
         rv = self.client.get('/')
-        # print(rv.data)
         assert rv.status_code == 200
         assert 'Please enter your text:' in str(rv.data)
 
@@ -271,24 +275,46 @@ if __name__ == '__main__':
     unittest.main()
 ```
 
+Most of the times I can understand things
+just by looking at source code, rather than reading explanations.
+
+Still, some brief notes:
+
+For the integration tests, we have to import the whole flask machinery
+(including config and test extensions) in the import section.
+
+`setUP()` prepares the test client from Flask-Testing and loads some sample strings
+that will be used in some of the tests.
+
+`create_app()` is a function required by Flask-Testing, and it starts the application
+before the testing client runs.
+
+`test_real_server_is_up_and_running()` simply tests if the application is actually running
+when you hit the `baseURL` address. It will fail if it was not previously started.
+
+The other examples are pretty self-explanatory, and show hot to test `GET` and `POST`
+requests, as well as `AJAX` calls.
+
+You will notice that `follow_redirects=True` when a view performs a redirect
+after a form submission.
+
 
 ### Selenium and phantomJS Test Examples
-Make sure application is running
+
+NOTE: The flask-Summarizer app must be running at `http://localhost:5000/`
+or the tests below will fail!
 
 `/tests/tests_phantomJS.py`:
 
 ```python
+
 import unittest
 import sys
-import time
 sys.path.append('..')
 import config
 import sample_strings
 from flask import Flask
 from selenium import webdriver
-from selenium.webdriver.common.by import By
-from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.support import expected_conditions as EC
 from app import app
 from utils import print_test_time_elapsed
 
@@ -321,8 +347,6 @@ class StartingTestCase(unittest.TestCase):
     def test_sample_text(self):
         self.driver.get(self.baseURL)
         self.driver.find_element_by_link_text("Sample 1").click()
-        # WebDriverWait(self.driver, 3).until(
-        #     EC.text_to_be_present_in_element((By.ID, "texto"), "a"))
         self.driver.find_element_by_id("btnSubmit").click()
         self.assertIn("Um suéter azul.",
                 self.driver.find_element_by_id("txt_resumo").text)
@@ -333,18 +357,69 @@ if __name__ == '__main__':
 
 ```
 
+Here we add the `Selenium webdriver` modules to our import section.
+We also import the `print_test_time_elapsed()` function we defined in the `utils.py`
+file in the beginning of this article.
+
+`setUP()` and `tearDown()` start and end Selenium and the phantomJS headless browser.
+
+`test_home()` simply browses to the starting page and checks if it has the correct title.
+
+`test_sample_text()` clicks on the "Sample 1" link (filling the textarea with lots of words),
+submits the form, and asserts that the summary contains an expected result.
+
+
+`test_home_envio_form()` performs a little more complex interaction: it types a string in the
+form textarea, submits it, and asserts if we get the expected result.
+
+### Printing Individual Test's Elapsed times
+
+The decorator `@print_test_time_elapsed` modifies the output of the tests results, so we can see the sequence in which tests were run and how long each one of then took to do its job:
+
+```sh
+
+[user@fasterlaptop tests]$ python -m unittest tests_phantomJS.py
+
+    testing function 'test_home'
+    [OK] in 'test_home' 0.26 sec
+.
+    testing function 'test_home_envio_form'
+    [OK] in 'test_home_envio_form' 0.48 sec
+.
+    testing function 'test_sample_text'
+    [OK] in 'test_sample_text' 0.56 sec
+.
+----------------------------------------------------------------------
+Ran 3 tests in 4.379s
+
+OK
+
+```
+
+This is incredibly useful and simple to implement, and you can read more about it
+in this [Django Testing Article](/2015/09/26/how-to-test-django-applications_pt2/).
+
+
 
 ### Running Tests
 
 From the `tests/` directory, run:
+
 ```sh
+
     python -m unittest discover
+
 ```
 
 You can also run individual test suites:
+
+
 ```sh
+
     python -m unittest tests_unit
     python -m unittest tests_functional
+    python -m unittest tests_phantomJS
+
 ```
 
 ---
@@ -363,5 +438,9 @@ A comprehensive in-depth guide to build Flask apps and how to perform more compl
 An introduction on automated testing with Python and Selenium
 
 [Selenium with Python](https://selenium-python.readthedocs.org/)
-Unofficial, but nonetheless excellent documentation.
+Unofficial, but nonetheless excellent Selenium documentation.
+
+[Newspaper3k: Article scraping & curation](https://github.com/codelucas/newspaper)
+Great reference on scraping that also has an interesting approach on how to
+measure individual test's running times.
 
