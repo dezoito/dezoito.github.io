@@ -1,7 +1,7 @@
 ---
 layout: post
 comments: true
-title: Flask - Test Examples and Structure - Unit Tests and PhantomJS
+title: Starting Tests for Flask Apps - Integration and PhantomJS Examples
 excerpt_separator: <!--more-->
 ---
 
