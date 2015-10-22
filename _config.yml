@@ -10,8 +10,8 @@ relative_permalinks: true
 
 # Setup
 title:               'Analyst 18'
-tagline:             '&nbsp; Software Engineering, IBM I2, code, and other random() subjects'
-description:         'Articles on web-centric development using Python, Django, Flask and ColdFusion, the I-2 suit, and custom Intelligence Analysis software.'
+tagline:             '&nbsp; Software Engineering, IBM i2, code, and other random() subjects'
+description:         'Articles on web-centric development using Python, Django, Flask and ColdFusion, the i2 suite, and custom Intelligence Analysis software.'
 url:                 https://dezoito.github.io
 baseurl:             /
 paginate:            7
