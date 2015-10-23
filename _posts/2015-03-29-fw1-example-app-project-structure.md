@@ -1,6 +1,6 @@
 ---
 layout: post
-comments: true
+comments: false
 title: FW/1 Example Application - Project Structure
 excerpt_separator: <!--more-->
 ---

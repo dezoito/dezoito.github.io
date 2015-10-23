@@ -1,6 +1,6 @@
 ---
 layout: post
-comments: true
+comments: false
 title: FW/1 Example Application - Testing your App with BDD and Integration Tests
 excerpt_separator: <!--more-->
 ---

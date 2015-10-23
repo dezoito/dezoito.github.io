@@ -1,6 +1,6 @@
 ---
 layout: post
-comments: true
+comments: false
 title: ColdFusion FW/1 Example Application Project
 excerpt_separator: <!--more-->
 ---
