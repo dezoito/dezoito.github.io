@@ -22,10 +22,10 @@ summary into a modal window, when the user clicks on the "View Summary" link:
 
 The link above is constructed with the following code:
 
-{% highlight cfm %}
+```cfm
 <a class="summaryLink"
     href="javascript: ajaxViewSummary('#buildURL('clipping.summary')#',#Clipping.getClipping_Id()#);">View Summary (Ajax)</a>
-{% endhighlight %}
+```
 
 Yes, I understand that there's a lot going on, but bear with me:
 
@@ -44,14 +44,14 @@ Yes, I understand that there's a lot going on, but bear with me:
 
  All these steps render an HTML output similar to:
 
-{% highlight html %}
+```html
 <a class="summaryLink"
 href="javascript: ajaxViewSummary('/clipping/index.cfm?action=clipping.summary',49);">View Summary (Ajax)</a>
-{% endhighlight %}
+```
 
 For your reference, here's the  function in `/static/js/clipping.js`:
 
-{% highlight js %}
+```cfc
 function ajaxViewSummary(url, clipping_id){
   // if no id was passed, set it to zero
   clipping_id = typeof clipping_id !== 'undefined' ? clipping_id : 0;
@@ -63,7 +63,7 @@ function ajaxViewSummary(url, clipping_id){
     $('#myModal').modal({show:true});
   });
 }
-{% endhighlight %}
+```
 
 The complicated and unelegant javascript+cfml interaction above should display
 something like this:
@@ -87,7 +87,7 @@ with the results, like storing summaries in the database.
 
 `/home/controllers/clipping.cfc`:
 
-{% highlight js %}
+```cfc
 component accessors="true" {
 
     /**
@@ -118,7 +118,7 @@ component accessors="true" {
         setting showdebugoutput='false';
         framework.renderData( contentType, rc.Summary );
     }
-{% endhighlight %}
+```
 
 Here's a detailed breakdown:
 
@@ -142,7 +142,7 @@ Here's a detailed breakdown:
  The summary service is written in `/home/models/services/summaryService.cfc` and
  is actually quite simple:
 
-{% highlight js %}
+```cfc
 component {
 
     public function getSummary(string clipping_texto){
@@ -160,7 +160,7 @@ component {
         }
     }
 }
-{% endhighlight %}
+```
 
 Above, we make an `http` call to the API's endpoint URL - it requires a `POST` method,
 so we pass the article's full text as a formfield named `texto`.
