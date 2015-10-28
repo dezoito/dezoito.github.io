@@ -87,7 +87,7 @@ You should not use this configuration in a web-accessible environment.
 
 Here's the interesting bits of code:
 
-{% highlight js %}
+```cfc
 // ------------------------ APPLICATION SETTINGS ------------------------ //
 this.name = "clipping_app";
 this.sessionManagement = true;
@@ -103,7 +103,7 @@ this.ormsettings = {
     logsql="true",
     flushAtRequestEnd = "false"
 };
-{% endhighlight %}
+```
 
 Seems pretty straight forward, right? Notice that we also set a `'test_datasource'` variable
 (that should point to a mirror database), to be used exclusively when running tests.
