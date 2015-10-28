@@ -1,6 +1,6 @@
 ---
 layout: post
-comments: true
+comments: false
 title: Ready to use Structure for Django Tests + Examples (Pt. 1)
 excerpt_separator: <!--more-->
 ---
@@ -324,7 +324,7 @@ In the above example, `setUp()` does a few things:
 
 
 ### Functional Tests using Selenium
-`/functional/test_post.py`
+`/functional/test_functional.py`
 
 ```python
 from selenium.webdriver.firefox import webdriver
@@ -410,6 +410,13 @@ Testing POST submissions only:
 Running a SINGLE test (notice that we specify the `FormTests` class before the test we want):
 
 `python manage.py test tests.unit.test_post.FormTests.test_include_thing_ok [-k]`
+
+**Important Note:**
+ If you run several tests that use `LiveServerTestCase` or `StaticLiveServerTestCase` (or tests in parallel), such as the case in the functional tests above, you can pass the test runner a comma-separated list of ports, or a range of ports, to avoid your tests failing due to the `Address already in use` error:
+
+`python manage.py test tests.functional -k --liveserver=localhost:8081-9000`
+
+See [this section](https://docs.djangoproject.com/en/1.8/topics/testing/tools/#liveservertestcase) of the Django docs for more information.
 
 Be sure to read [Part 2](/2015/09/26/how-to-test-django-applications_pt2/) to see how to get individual test times.
 
