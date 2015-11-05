@@ -89,6 +89,7 @@ As you can probably guess, the `beforeEach()` closure runs before every test in 
 The `it()` block details how to execute the `default` method in the main controller and how to test that the response is accurate.
 
 There you go! Now we can stick to using Selenium only when and where it's really needed.
+
 ---
 
 The source code for this project is hosted on the **[fw1-clipping](https://github.com/dezoito/fw1-clipping)** github page.
