@@ -1,7 +1,7 @@
 ---
 layout: post
 comments: false
-title: ColdFusion - Testing FW/1 Controllers with testBox
+title: ColdFusion - Testing FW/1 Controllers with TestBox
 excerpt_separator: <!--more-->
 ---
 
@@ -13,7 +13,7 @@ This picks up where my [FW/1 Example Application Articles](/2015/04/18/fw1-examp
 
 ### A Test Spec for controllers
 
-**[Test_7_Controllers.cfc](https://github.com/dezoito/fw1-clipping/blob/master/tests/specs/Test_7_Controllers.cfc)**:
+**`Test_7_Controllers.cfc`** [[view full source](https://github.com/dezoito/fw1-clipping/blob/master/tests/specs/Test_7_Controllers.cfc)]:
 
 ```cfc
 /**
@@ -24,7 +24,7 @@ component extends="testbox.system.BaseSpec"{
 
     // executes before all suites
     function beforeAll(){
-        // reinitialise ORM for the application
+        // reinitialize ORM for the application
         ORMReload();
 
         // invoke controller object
@@ -56,6 +56,8 @@ In TestBox `beforeAll()` runs once, before any test, so this is where we invoke 
 
 We also create a mock `rc` struct that will be used to pass data to and from the tested controller and insert some test data on the test database.
 
+Now for the test proper:
+
 ```cfc
 
 
@@ -84,9 +86,9 @@ We also create a mock `rc` struct that will be used to pass data to and from the
 
 ```
 
-As you can probably guess, the `beforeEach()` closure runs before every test in its `describe` block, and in this case it resets the `rc` struct so request data does not persist among tests (we only have one test here, but in my real app this was hapenning).
+As you can probably guess, the `beforeEach()` closure runs before every test in its `describe` block, and in this case it resets the `rc` struct so request data does not persist among tests (we only have one test here, but in my real app this was happening).
 
-The `it()` block details how to execute the `default` method in the main controller and how to test that the response is accurate.
+The `it()` block shows how to execute the `default` method in the main controller and how to test that the response is accurate.
 
 There you go! Now we can stick to using Selenium only when and where it's really needed.
 
