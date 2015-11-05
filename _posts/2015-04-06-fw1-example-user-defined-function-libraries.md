@@ -21,7 +21,7 @@ every application (sometimes in several pieces of code).
 As an example, I use this function to "clean" strings before **every** database
 Insert or Update:
 
-{% highlight js %}
+```cfc
         /**
          *  Prepares a string to be inserted (or updated on a DB):
          *  - removes extra espaces
@@ -34,7 +34,7 @@ Insert or Update:
         this.prepara_string = prepara_string;
 
         // more functions implemented below
-{% endhighlight %}
+```
 
 As you can probably guess, the `prepara_string()` function depends on a series
 of other UDFs...those are all on the same `/lib/functions.cfc` file and I'm
@@ -48,7 +48,8 @@ So I createad my function library as a CFC component, and saved an instance in t
 `application scope`:
 
 `/lib/functions.cfc`
-{% highlight cfm %}
+
+```cfm
 
 <cfcomponent cacheUse="read-only" output="false">
 
@@ -74,14 +75,15 @@ So I createad my function library as a CFC component, and saved an instance in t
             .....
     </cfscript>
 </cfcomponent>
-{% endhighlight %}
+```
 
  Here's how this is saved to the application scope:
 
  `Application.cfc`
 
-{% highlight js %}
-    // ------------------------ CALLED WHEN APPLICATION STARTS ------------------------ //
+```cfc
+
+    // ------------------- CALLED WHEN APPLICATION STARTS ----------------- // 
     function setupApplication() {
 
         .....
@@ -93,7 +95,7 @@ So I createad my function library as a CFC component, and saved an instance in t
         .....
         .....
     }
-{% endhighlight %}
+```
 
 Now, I don't want to get into a debate over tight vs loose coupling - using that
 library from the application scope is certainly "tight"; I merelly wanted an easy
@@ -104,7 +106,8 @@ Below, we use our clipping bean as an example:
 
 `home/model/beans/clipping.cfc`
 
-{% highlight js %}
+```cfc
+
 component persistent="true" table="tbl_clipping" accessors="true" {
 
     property name="clipping_id" generator="native" ormtype="integer" fieldtype="id";
@@ -128,7 +131,7 @@ component persistent="true" table="tbl_clipping" accessors="true" {
     }
 }
 
-{% endhighlight %}
+```
 
 Borrowing yet again from the [Django Framework](https://www.djangoproject.com),
 the `clean()` function is applied to fields before an object is saved.
@@ -141,7 +144,8 @@ text entered in form fields, so they become "safe" to go into our database.
 If you want to use a less tightly coupled approach, you could create an instance
 of the UDF library only where and when it's needed:
 
-{% highlight js %}
+```cfc
+
 component persistent="true" table="tbl_clipping" accessors="true" {
 
     property name="clipping_id" generator="native" ormtype="integer" fieldtype="id";
@@ -155,7 +159,7 @@ component persistent="true" table="tbl_clipping" accessors="true" {
     this.setClipping_texto(UDFs.safetext(variables.clipping_texto, true))
 }
 
-{% endhighlight %}
+```
 
  ----
 

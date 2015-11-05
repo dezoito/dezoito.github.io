@@ -44,7 +44,7 @@ method being responsible for:
 3. Loading validation errors, if any
 4. Rendering the "form" view
 
-{% highlight js %}
+```cfc
 function form (struct rc){
 
     // Checks if the form is being displayed after a failed validation
@@ -70,7 +70,7 @@ function form (struct rc){
     }
     // will render clipping.form view from here...
 }
-{% endhighlight %}
+```
 
 The `if(!structKeyExists(rc, "Clipping"))` code checks to see if we previously saved
 an instance of a Clipping on the `Request Context` struct. If we did, it means that we
@@ -88,7 +88,7 @@ Instead of displaying the whole thing, I'll just highlight the important parts:
 Using FW/1 syntax to set the `action` attribute - form data will be handled by
 the `save()` method in the `clipping` controller.
 
-{% highlight cfm %}
+```cfm
 <form action="#buildURL('clipping.save')#"
     method="post"
     role="form"
@@ -98,7 +98,7 @@ the `save()` method in the `clipping` controller.
     <input name="csrftoken" type="hidden" value="#request.csrfToken#">
 
     ........
-{% endhighlight %}
+```
 
 Noticed that we also set a hidden field with the `request.csrfToken` we
 defined in the `application.cfc`.
@@ -108,7 +108,8 @@ This value will be checked to avoid CSRF attacks.
 
 Below, we check the RC struct for validation errors and display them in a
 dismissable alert box.
-{% highlight cfm %}
+
+```cfm
 <!---    display alert if there were errors     --->
 <cfif structKeyExists(rc, "stErrors") and (structCount(rc.stErrors) gt 0)>
     <div class="alert alert-danger">
@@ -118,7 +119,7 @@ dismissable alert box.
     </div>
 </cfif>
 
-{% endhighlight %}
+```
 
 
 This is how the form fields are setup.
@@ -126,7 +127,7 @@ This is how the form fields are setup.
 They'll be filled with existing data
 (or whatever data the user attempted to use before submission).
 
-{% highlight cfm %}
+```cfm
     <div class="form-group">
         <label for="clipping_titulo" class="control-label col-sm-2">Title <span class="required">*</span></label>
         <div class="col-sm-9">
@@ -137,19 +138,19 @@ They'll be filled with existing data
         </div>
     </div>
 
-{% endhighlight %}
+```
 
 
 We also invoke the `helpers/_field_error`, passing the fieldname,
 and it will display the appropriate error message if needed:
 
 
-{% highlight cfm %}
+```cfm
 <!--- /home/views/clipping/helpers/_field_error.cfm --->
 <cfif isDefined("rc.stErrors.#local.field#")>
     <cfoutput><p class="alert alert-danger">#rc.stErrors[local.field]#</p></cfoutput>
 </cfif>
-{% endhighlight %}
+```
 
 -----
 
@@ -176,7 +177,7 @@ clipping controller
 
 **Clipping controller**: `save()`:
 
-{% highlight js %}
+```cfc
 function save( struct rc ) {
     framework.frameworkTrace( "<b>Save Method on Clipping Controller</b>");
 
@@ -199,7 +200,7 @@ function save( struct rc ) {
         framework.redirect("clipping.form", "all");
     }
 }
-{% endhighlight %}
+```
 The controller verifies the CSRF token (aborts on failure) then invokes the `clippingService`,
 attempting to save the form's data.
 
@@ -207,7 +208,7 @@ It will return to the main page if succssfull, or reload the form if validation 
 
 **ClippingService**: `save()`:
 
-{% highlight js %}
+```cfc
 public any function save(struct rc) {
     transaction {
 
@@ -241,7 +242,7 @@ public any function save(struct rc) {
     }
     return c;
 }
-{% endhighlight %}
+```
 
 In the code above, we instantiate and populate a Clipping object
 using the submitted data and then run two methods:
@@ -259,7 +260,7 @@ These methods are defined in the Clipping bean:`/home/models/beans/clipping.cfc`
 
 **Clipping Bean**:
 
-{% highlight js %}
+```cfc
 component persistent="true" table="tbl_clipping" accessors="true" {
 
     property name="clipping_id" generator="native" ormtype="integer" fieldtype="id";
@@ -298,7 +299,7 @@ component persistent="true" table="tbl_clipping" accessors="true" {
         return stValidation;
     }
 }
-{% endhighlight %}
+```
 
 Having a `clean()` and `validate()` defined in the model is <del>stolen</del>borrowed from the
 Django framework and makes it easier to keep rules consistent across different

@@ -74,7 +74,7 @@ allowing TestBox to record what went as expected or not, and displaying the resu
 
 The basic anatomy of a test can be seen in `Test_1_ExampleSpec.cfc`
 
-{% highlight js %}
+```cfc
 component extends="testbox.system.BaseSpec"{
 
     // executes before all suites
@@ -94,7 +94,7 @@ component extends="testbox.system.BaseSpec"{
         });
     }
 }
-{% endhighlight %}
+```
 
 TestBox has excellent reference material at [http://wiki.coldbox.org/wiki/TestBox.cfm](http://wiki.coldbox.org/wiki/TestBox.cfm),
 but to make things clear, here's what's happening:
@@ -131,7 +131,7 @@ other tests we've done.
 
 Here's how we set it up in `tests/specs/Test_6_Integration_Selenium.cfc`:
 
-{% highlight js %}
+```cfc
 component extends="testbox.system.BaseSpec"{
 
     // executes before all suites
@@ -163,7 +163,7 @@ component extends="testbox.system.BaseSpec"{
         selenium.stop();
         selenium.stopServer();
     }
-{% endhighlight %}
+```
 
 Function `beforeAll()` creates an instance of Selenium, telling it what browser
 to use and what URL to start with (it also sets some variables that will be used
@@ -175,7 +175,7 @@ displayed in the report.
 The first actual tests makes sure that the starting page is titled "Clippings"
 (please note the BDD style language):
 
-{% highlight js %}
+```cfc
 describe("Loading home page", function(){
 
     it("Should load and have the correct title", function(){
@@ -185,7 +185,7 @@ describe("Loading home page", function(){
     });
 });
 
-{% endhighlight %}
+```
 
 Selenium opens the start URL and waits for the page to load. We then use
 `selenium.getTitle()` to extract the page's title so we can compare it to our
@@ -195,7 +195,7 @@ Simple, right?
 
 Here's a little more complex interaction:
 
-{% highlight js %}
+```cfc
 //----------------------------------------------------------------------
 // Testing forms
 //----------------------------------------------------------------------
@@ -221,7 +221,7 @@ describe("Testing the clipping form:", function(){
         expect( selenium.isTextPresent("Your article could not be posted!") ).toBe( true );
     });
 
-{% endhighlight %}
+```
 
  - First test makes Selenium "click" on a link and sees if a "New Article" form
 was loaded.

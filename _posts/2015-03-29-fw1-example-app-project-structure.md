@@ -87,7 +87,8 @@ You should not use this configuration in a web-accessible environment.
 
 Here's the interesting bits of code:
 
-{% highlight js %}
+```cfc
+
 // ------------------------ APPLICATION SETTINGS ------------------------ //
 this.name = "clipping_app";
 this.sessionManagement = true;
@@ -103,26 +104,27 @@ this.ormsettings = {
     logsql="true",
     flushAtRequestEnd = "false"
 };
-{% endhighlight %}
+
+```
 
 Seems pretty straight forward, right? Notice that we also set a `'test_datasource'` variable
 (that should point to a mirror database), to be used exclusively when running tests.
 This is **completely optional**, and I'll write about some pros and cons in the "running tests" article.
 
 
-{% highlight js %}
+```cfc
     // mappings and other settings
     this.mappings["/root"] = getDirectoryFromPath(getCurrentTemplatePath());
     this.customTagPaths = this.mappings["/root"] & "customtags"
     this.triggerDataMember = true // so we can access properties directly (no need for getters and setters)
-{% endhighlight %}
+```
 
 The second mapping tells our application server to look for custom tags in this
 app's specific folder (I like this approach since it makes source control and distribution easier)
 
 Framework settings below:
 
-{% highlight js %}
+```cfc
 // ------------------------ FW/1 SETTINGS ------------------------ //
 variables.framework = {
     reloadApplicationOnEveryRequest = true, //use only in dev
@@ -139,7 +141,7 @@ variables.framework = {
     // changes for FW/1 3.0
     diLocations = "./home/model/"
 }
-{% endhighlight %}
+```
 
 `unhandled paths` is a list of subdirectories where we don't want to use FW/1.
 In this case it's only the `tests` folder, but I can see this being used when
@@ -152,7 +154,7 @@ In this case, it's referencing the path to the models in the 'home' subsystem.
 
 Here's a way to define settings according to environment:
 
-{% highlight js %}
+```cfc
 // ------------------------ ENVIRONMENT DEFINITIONS ------------------------ //
 public function getEnvironment() {
    if ( findNoCase( "localhost", CGI.SERVER_NAME ) ) return "prod";
@@ -164,11 +166,11 @@ variables.framework.environments = {
    dev = { reloadApplicationOnEveryRequest = true,  trace = true,},
    prod = { password = "supersecret" }
 }
-{% endhighlight %}
+```
 
 Setting application scoped variables when the app starts:
 
-{% highlight js %}
+```cfc
 function setupApplication() {
 
     // copy dsn names to application scope
@@ -185,7 +187,7 @@ function setupApplication() {
     application.testsRootMapping = "/clipping/tests/specs";
     application.testsBrowseURL = "http://" & CGI.HTTP_HOST & "/clipping";
 }
-{% endhighlight %}
+```
 
 Please notice how the line `application.UDFs = createObject("component", "lib.functions");`
 saves an instance of the 'functions' library to the application scope,
@@ -193,12 +195,12 @@ so those functions can be used anywhere.
 
 Finally:
 
-{% highlight js %}
+```cfc
     function setupRequest() {
         // CSRF Token, unique for each user/request
         request.csrftoken = CSRFGenerateToken();
     }
-{% endhighlight %}
+```
 
 This generates a CSRF Token at the start of the every request.
 We are going to be using this when forms are submitted, to prevent
