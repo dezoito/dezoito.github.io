@@ -1,6 +1,6 @@
 ---
 layout: post
-comments: false
+comments: true
 title: FW/1 Example Application - Forms and Validation
 excerpt_separator: <!--more-->
 ---

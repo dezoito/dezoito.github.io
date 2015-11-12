@@ -1,6 +1,6 @@
 ---
 layout: post
-comments: false
+comments: true
 title: Starting Tests for Flask Apps - Integration and PhantomJS Examples
 excerpt_separator: <!--more-->
 ---

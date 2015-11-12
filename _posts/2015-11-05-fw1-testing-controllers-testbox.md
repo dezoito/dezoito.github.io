@@ -1,6 +1,6 @@
 ---
 layout: post
-comments: false
+comments: true
 title: ColdFusion - Testing FW/1 Controllers with TestBox
 excerpt_separator: <!--more-->
 ---

@@ -1,6 +1,6 @@
 ---
 layout: post
-comments: false
+comments: true
 title: Ready to use Structure for Django Tests + Examples (Pt. 2)
 excerpt_separator: <!--more-->
 ---
