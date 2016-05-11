@@ -1,12 +1,12 @@
-# Dependencies
-markdown:            redcarpet
-highlighter:         pygments
+# Dependencies # deprecated in Jekyll 3.0
+# markdown:            redcarpet
+# highlighter:         pygments
 
-# Permalinks
+# Permalinks # deprecated in Jekyll 3.0
 #
 # Use of `relative_permalinks` ensures post links from the index work properly.
 # permalink:           pretty
-# relative_permalinks: false # deprecated in Jekyll 3.0
+# relative_permalinks: false
 
 # Setup
 title:               'Analyst 18'
