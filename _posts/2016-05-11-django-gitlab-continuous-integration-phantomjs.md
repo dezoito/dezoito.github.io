@@ -71,7 +71,7 @@ Assuming you add a similar  `.gitlab-ci.yml` to your project and pushed the comm
 
 Click on the build, and when the status changes to "running", you should see a console-like display showing what's going on:
 
-![](https://github.com/dezoito/dezoito.github.io/blob/master/public/images/gitlab_build1.png?raw=true)
+![GitLab's Build Interface](https://github.com/dezoito/dezoito.github.io/blob/master/public/images/gitlab-build1.png?raw=true)
 
 I think it's a good idea to follow it closely during the first runs, so you can see any problems and error messages that may pop up along the way.
 
