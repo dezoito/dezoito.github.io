@@ -12,8 +12,10 @@ This article is similar to the [Ready to use Structure for Django Tests](/2015/0
 
 We'll use my [Flask App to generate summaries](https://github.com/dezoito/flask_Summarizer/) as the test target (feel free to clone it).
 
+<!--more-->
 
 ---
+
 ## Structure
 The proposed structure allows developers to:
 
@@ -423,6 +425,7 @@ You can also run individual test suites:
 ```
 
 ---
+
 ## References
 
 [Miguel Grinberg's Mega Flask Tutorial](http://blog.miguelgrinberg.com/post/the-flask-mega-tutorial-part-i-hello-world)

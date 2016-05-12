@@ -7,6 +7,8 @@ excerpt_separator: <!--more-->
 
 This article builds up on the [Structure for Django Tests](/2015/09/21/how-to-test-django-applications_pt1/) and shows how you can easily display individual running times for each test in a group or suite - and you can use in Flask tests too! - check out my [Flask App to generate summaries](https://github.com/dezoito/flask_Summarizer/).
 
+<!--more-->
+
 ## The Problem
 By default, Django will only display the execution time for the entire series of tests ran, for example:
 

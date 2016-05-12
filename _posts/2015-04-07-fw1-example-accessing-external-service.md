@@ -14,6 +14,8 @@ The external service, in this case, is [flask_Summarizer](https://github.com/dez
 - an API written in Python/Flask, that receives
 paragraphs of text, and returns a string with a summary of that content.
 
+<!--more-->
+
 ### Interacting with a Remote Service
 To make this project a little more challenging and interesting, I used an ajax call to load the
 summary into a modal window, when the user clicks on the "View Summary" link:

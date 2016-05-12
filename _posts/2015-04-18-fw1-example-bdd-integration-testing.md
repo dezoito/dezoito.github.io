@@ -17,6 +17,8 @@ BDD, specifically, encompasses much more than just the tests -
 learning and implementing these concepts was incredibly rewarding, as it changed
 some of my stubborn ways of approaching development!
 
+<!--more-->
+
 ### Getting Technical (Starting with Dependencies)
 
 This project has two dependencies: [testBox](http://wiki.coldbox.org/wiki/TestBox.cfm)

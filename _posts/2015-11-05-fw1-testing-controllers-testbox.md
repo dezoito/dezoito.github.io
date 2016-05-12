@@ -11,6 +11,8 @@ I decided to try that for a new FW/1 app, but since I could only find discussion
 
 This picks up where my [FW/1 Example Application Articles](/2015/04/18/fw1-example-bdd-integration-testing/) left... I suggest you read that in case any of the code seems confusing.
 
+<!--more-->
+
 ### A Test Spec for controllers
 
 **`Test_7_Controllers.cfc`** [[view full source](https://github.com/dezoito/fw1-clipping/blob/master/tests/specs/Test_7_Controllers.cfc)]:

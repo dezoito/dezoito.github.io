@@ -10,6 +10,7 @@ This is the second in a series of articles on how to build a
 and it discusses the topic of creating forms and validating submitted data
 in an efficient and [DRY](http://programmer.97things.oreilly.com/wiki/index.php/Don%27t_Repeat_Yourself) (Don't Repeat Yourself) way.
 
+<!--more-->
 
 ### Patterns for Forms and Validation
 

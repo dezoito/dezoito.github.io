@@ -19,6 +19,8 @@ using a single model/database table, but handling a series of interesting topics
  - [Interaction with a Remote Service](/2015/04/07/fw1-example-accessing-external-service/)
  - [BDD and Integration Tests](/2015/04/18/fw1-example-bdd-integration-testing/)
 
+<!--more-->
+
  The project also has several examples on how to implement
  [BDD style testing](http://wiki.coldbox.org/wiki/TestBox.cfm)
  and [integration tests](http://cfselenium.riaforge.org/).

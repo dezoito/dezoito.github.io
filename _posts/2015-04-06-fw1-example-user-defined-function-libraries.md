@@ -11,6 +11,7 @@ and it discusses how you can structure your User Defined Functions in libraries
 that can be **easily** accessed in any part of your project, whether it's a view,
 controller, service or model.
 
+<!--more-->
 
 ### Structuring and Accessing Function Libraries.
 
