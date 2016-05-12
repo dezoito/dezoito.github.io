@@ -65,7 +65,7 @@ Going line by line, here's what we are doing:
 
 The reason for that is just a personal choice for the moment, but I left it in the article as it shows how you can perform different actions depending on what branch code is being pushed too - you can also ommit it completely if you want things to run regardless of branch.
 
-### Going for a run
+### Going for a Run
 
 Assuming you add a similar  `.gitlab-ci.yml` to your project and pushed the commited changes to "dev", you should be able to go to GitLab's Dashboard for your project, click on the "Builds" tab and see a new "pending" or "running" build on your list.
 
@@ -75,9 +75,7 @@ Click on the build, and when the status changes to "running", you should see a c
 
 I think it's a good idea to follow it closely during the first runs, so you can see any problems and error messages that may pop up along the way.
 
-> Tip: I like to add some attention starved "echo" statements before each section of my install script, to make the process easier to follow (again, see the examples ahead).
-
-#### Failed?
+#### **Failed?**
 
 ![GitLab's Build Failed](https://github.com/dezoito/dezoito.github.io/blob/master/public/images/gitlab-build-fail.png?raw=true)
 
@@ -85,11 +83,91 @@ Sometimes your build will fail not because there's anything wrong with your scri
 
 I've had builds that would fail three or four times in a row, then "automagically" work a few minutes later - this can be frustrating when you are just trying to get started.
 
-After some troubleshooting and bearing no inaccessible dependency hosts, you should see something like this: 
+#### **Success?**
+
+After some troubleshooting and bearing no inaccessible dependency hosts, you should see something indicated that your project was built and all tests passed: 
 
 ![GitLab's Build Passed](https://github.com/dezoito/dezoito.github.io/blob/master/public/images/gitlab-build-passed.png?raw=true)
 
-> Tip: I added a `pip freeze` statement at the end of my install script, so I could see which python dependencies were actually installed and where the build failed.
+
+### Install Script Example
+
+Here's a redacted example fo the script I use to install all OS, Python and Django dependencies, along with PhantomJS - You should probably be using similar if you are using Docker or Vagrant.
+
+`   - sh ./sh_scripts/install.sh`
+
+```sh
+#!/usr/bin/env bash
+echo "***********************************************"
+echo "***************** install *********************"
+echo "***********************************************"
+
+echo "***********************************************"
+echo "---apt update e upgrade---"
+echo "***********************************************"
+apt-get -y update
+
+echo "***********************************************"
+echo "---OS dependencies---"
+echo "***********************************************"
+apt-get -y install python3-pip
+apt-get -y install python3-dev python3-setuptools
+apt-get -y install git
+apt-get -y install supervisor
+# .....
+# .....
+# .....
+# .....
+
+echo "***********************************************"
+echo "---install dependencies (including django)  ---"
+echo "***********************************************"
+pip install --upgrade pip
+pip install -r requirements.txt
+
+echo "***********************************************"
+echo "--- PhantomJS (for tests)                   ---"
+echo "***********************************************"
+
+if [[ $EUID -ne 0 ]]; then
+    echo "This script must be run as root" 1>&2
+    exit 1
+fi
+
+PHANTOM_VERSION="phantomjs-1.9.8"
+ARCH=$(uname -m)
+
+if ! [ $ARCH = "x86_64" ]; then
+    $ARCH="i686"
+fi
+
+PHANTOM_JS="$PHANTOM_VERSION-linux-$ARCH"
+
+# apt-get update
+apt-get install build-essential chrpath libssl-dev libxft-dev -y
+apt-get install libfreetype6 libfreetype6-dev -y
+apt-get install libfontconfig1 libfontconfig1-dev -y
+
+cd ~
+wget https://bitbucket.org/ariya/phantomjs/downloads/$PHANTOM_JS.tar.bz2
+tar xvjf $PHANTOM_JS.tar.bz2
+
+mv $PHANTOM_JS /usr/local/share
+ln -sf /usr/local/share/$PHANTOM_JS/bin/phantomjs /usr/local/bin
+echo "--- PhantomJS Finished          ---"
+
+echo "***********************************************"
+echo "--- Sone Installing Stuff                   ---"
+echo "***********************************************"
+
+pip freeze
+```
+
+Some tips:
+
+- I like to add some attention starved "echo" statements before each section of my install script, making things easier to follow during the build process..
+
+- The `pip freeze` statement at the end of the  script is there so I could see which python dependencies were actually installed up to the point where the build failed.
 
 
 
