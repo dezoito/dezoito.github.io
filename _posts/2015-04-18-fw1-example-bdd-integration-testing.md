@@ -8,7 +8,7 @@ excerpt_separator: <!--more-->
 This final article is probably the most interesting (**and important!**) in the series
 and details how to implement [Behaviour Driven Development](http://dannorth.net/introducing-bdd/)
 tests and [Integration Tests](http://programmers.stackexchange.com/questions/48237/what-is-an-integration-test-exactly)
-on the [Example Application using FW/1](https://dezoito.github.io/2015/03/26/fw1-example-app-released/).
+on the [Example Application using FW/1](https://dezoito.github.io/2015/03/26/fw1-example-app-released.html).
 
 The links above provide excellent definitions on these different concepts, so
 I strongly suggest the reader to become familiar with them.
@@ -35,7 +35,7 @@ tools at your webserver's root:
  - [testBox Download](http://www.coldbox.org/download/testbox)
  - [CFSelenium Download](https://github.com/teamcfadvance/CFSelenium)
 
-When in doubt, check the the [Project Structure](/2015/03/29/fw1-example-app-project-structure/)
+When in doubt, check the the [Project Structure](/2015/03/29/fw1-example-app-project-structure.html)
 article.
 You can also choose another location if you want, but then you'll have to create
 appropriate mappings.
@@ -246,10 +246,10 @@ dealt with several issues that showed up during development.
 
 For more detailed information on this project, follow the other articles in this series:
 
- - [Project Structure](/2015/03/29/fw1-example-app-project-structure/)
- - [Forms and Validation Patterns](/2015/03/30/fw1-example-app-forms_validation/)
- - [Use of User Defined Function Libraries](/2015/04/06/fw1-example-user-defined-function-libraries/)
- - [Interaction with a Remote Service](/2015/04/07/fw1-example-accessing-external-service/)
+ - [Project Structure](/2015/03/29/fw1-example-app-project-structure.html)
+ - [Forms and Validation Patterns](/2015/03/30/fw1-example-app-forms_validation.html)
+ - [Use of User Defined Function Libraries](/2015/04/06/fw1-example-user-defined-function-libraries.html)
+ - [Interaction with a Remote Service](/2015/04/07/fw1-example-accessing-external-service.html)
  - BDD and Integration Tests.
 
 For the full source code, please visit the **[fw1-clipping](https://github.com/dezoito/fw1-clipping)**

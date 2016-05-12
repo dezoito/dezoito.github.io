@@ -6,14 +6,14 @@ excerpt_separator: <!--more-->
 ---
 
 This article talks about the topic of project structure in a
-[ColdFusion and FW/1 Example Application](https://dezoito.github.io/2015/03/26/fw1-example-app-released/)
+[ColdFusion and FW/1 Example Application](https://dezoito.github.io/2015/03/26/fw1-example-app-released.html)
 and is the first one in the following series:
 
  - Project Structure
- - [Forms and Validation Patterns](/2015/03/30/fw1-example-app-forms_validation/)
- - [Use of User Defined Function Libraries](/2015/04/06/fw1-example-user-defined-function-libraries/)
- - [Interaction with a Remote Service](/2015/04/07/fw1-example-accessing-external-service/)
- - [BDD and Integration Tests](/2015/04/18/fw1-example-bdd-integration-testing/)
+ - [Forms and Validation Patterns](/2015/03/30/fw1-example-app-forms_validation.html)
+ - [Use of User Defined Function Libraries](/2015/04/06/fw1-example-user-defined-function-libraries.html)
+ - [Interaction with a Remote Service](/2015/04/07/fw1-example-accessing-external-service.html)
+ - [BDD and Integration Tests](/2015/04/18/fw1-example-bdd-integration-testing.html)
 
 It assumes you are not new to CFML, so don't take this as a detailed guide or
 tutorial, but more of a 'getting started' reference on using this MVC framework

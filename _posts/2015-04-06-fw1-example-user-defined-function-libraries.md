@@ -6,7 +6,7 @@ excerpt_separator: <!--more-->
 ---
 
 This is the third in a series of articles on how to build a
-[ColdFusion and FW/1 Example Application](https://dezoito.github.io/2015/03/26/fw1-example-app-released/),
+[ColdFusion and FW/1 Example Application](https://dezoito.github.io/2015/03/26/fw1-example-app-released.html),
 and it discusses how you can structure your User Defined Functions in libraries
 that can be **easily** accessed in any part of your project, whether it's a view,
 controller, service or model.
@@ -167,11 +167,11 @@ component persistent="true" table="tbl_clipping" accessors="true" {
 
 For more detailed information on this project, follow the other articles in this series:
 
- - [Project Structure](/2015/03/29/fw1-example-app-project-structure/)
- - [Forms and Validation Patterns](/2015/03/30/fw1-example-app-forms_validation/)
+ - [Project Structure](/2015/03/29/fw1-example-app-project-structure.html)
+ - [Forms and Validation Patterns](/2015/03/30/fw1-example-app-forms_validation.html)
  - Use of User Defined Function Libraries
- - [Interaction with a Remote Service](/2015/04/07/fw1-example-accessing-external-service/)
- - [BDD and Integration Tests](/2015/04/18/fw1-example-bdd-integration-testing/)
+ - [Interaction with a Remote Service](/2015/04/07/fw1-example-accessing-external-service.html)
+ - [BDD and Integration Tests](/2015/04/18/fw1-example-bdd-integration-testing.html)
 
 For the full source code, please visit the **[fw1-clipping](https://github.com/dezoito/fw1-clipping)**
 github project page.
