@@ -76,7 +76,7 @@ allowing TestBox to record what went as expected or not, and displaying the resu
 
 The basic anatomy of a test can be seen in `Test_1_ExampleSpec.cfc`
 
-```cfc
+```js
 component extends="testbox.system.BaseSpec"{
 
     // executes before all suites
@@ -133,7 +133,7 @@ other tests we've done.
 
 Here's how we set it up in `tests/specs/Test_6_Integration_Selenium.cfc`:
 
-```cfc
+```js
 component extends="testbox.system.BaseSpec"{
 
     // executes before all suites
@@ -177,7 +177,7 @@ displayed in the report.
 The first actual tests makes sure that the starting page is titled "Clippings"
 (please note the BDD style language):
 
-```cfc
+```js
 describe("Loading home page", function(){
 
     it("Should load and have the correct title", function(){
@@ -197,7 +197,7 @@ Simple, right?
 
 Here's a little more complex interaction:
 
-```cfc
+```js
 //----------------------------------------------------------------------
 // Testing forms
 //----------------------------------------------------------------------

@@ -53,7 +53,7 @@ href="javascript: ajaxViewSummary('/clipping/index.cfm?action=clipping.summary',
 
 For your reference, here's the  function in `/static/js/clipping.js`:
 
-```cfc
+```js
 function ajaxViewSummary(url, clipping_id){
   // if no id was passed, set it to zero
   clipping_id = typeof clipping_id !== 'undefined' ? clipping_id : 0;
@@ -89,7 +89,7 @@ with the results, like storing summaries in the database.
 
 `/home/controllers/clipping.cfc`:
 
-```cfc
+```js
 component accessors="true" {
 
     /**
@@ -144,7 +144,7 @@ Here's a detailed breakdown:
  The summary service is written in `/home/models/services/summaryService.cfc` and
  is actually quite simple:
 
-```cfc
+```js
 component {
 
     public function getSummary(string clipping_texto){

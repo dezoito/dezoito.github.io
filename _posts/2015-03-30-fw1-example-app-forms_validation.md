@@ -45,7 +45,7 @@ method being responsible for:
 3. Loading validation errors, if any
 4. Rendering the "form" view
 
-```cfc
+```js
 function form (struct rc){
 
     // Checks if the form is being displayed after a failed validation
@@ -178,7 +178,7 @@ clipping controller
 
 **Clipping controller**: `save()`:
 
-```cfc
+```js
 function save( struct rc ) {
     framework.frameworkTrace( "<b>Save Method on Clipping Controller</b>");
 
@@ -209,7 +209,7 @@ It will return to the main page if succssfull, or reload the form if validation 
 
 **ClippingService**: `save()`:
 
-```cfc
+```js
 public any function save(struct rc) {
     transaction {
 
@@ -261,7 +261,7 @@ These methods are defined in the Clipping bean:`/home/models/beans/clipping.cfc`
 
 **Clipping Bean**:
 
-```cfc
+```js
 component persistent="true" table="tbl_clipping" accessors="true" {
 
     property name="clipping_id" generator="native" ormtype="integer" fieldtype="id";

@@ -17,7 +17,7 @@ This picks up where my [FW/1 Example Application Articles](/2015/04/18/fw1-examp
 
 **`Test_7_Controllers.cfc`** [[view full source](https://github.com/dezoito/fw1-clipping/blob/master/tests/specs/Test_7_Controllers.cfc)]:
 
-```cfc
+```js
 /**
  * Tests the Application's controllers
  *
@@ -60,7 +60,7 @@ We also create a mock `rc` struct that will be used to pass data to and from the
 
 Now for the test proper:
 
-```cfc
+```js
 
 
     function run( testResults, testBox ){

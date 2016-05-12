@@ -87,7 +87,7 @@ You should not use this configuration in a web-accessible environment.
 
 Here's the interesting bits of code:
 
-```cfc
+```js
 
 // ------------------------ APPLICATION SETTINGS ------------------------ //
 this.name = "clipping_app";
@@ -112,7 +112,7 @@ Seems pretty straight forward, right? Notice that we also set a `'test_datasourc
 This is **completely optional**, and I'll write about some pros and cons in the "running tests" article.
 
 
-```cfc
+```js
     // mappings and other settings
     this.mappings["/root"] = getDirectoryFromPath(getCurrentTemplatePath());
     this.customTagPaths = this.mappings["/root"] & "customtags"
@@ -124,7 +124,7 @@ app's specific folder (I like this approach since it makes source control and di
 
 Framework settings below:
 
-```cfc
+```js
 // ------------------------ FW/1 SETTINGS ------------------------ //
 variables.framework = {
     reloadApplicationOnEveryRequest = true, //use only in dev
@@ -154,7 +154,7 @@ In this case, it's referencing the path to the models in the 'home' subsystem.
 
 Here's a way to define settings according to environment:
 
-```cfc
+```js
 // ------------------------ ENVIRONMENT DEFINITIONS ------------------------ //
 public function getEnvironment() {
    if ( findNoCase( "localhost", CGI.SERVER_NAME ) ) return "prod";
@@ -170,7 +170,7 @@ variables.framework.environments = {
 
 Setting application scoped variables when the app starts:
 
-```cfc
+```js
 function setupApplication() {
 
     // copy dsn names to application scope
@@ -195,7 +195,7 @@ so those functions can be used anywhere.
 
 Finally:
 
-```cfc
+```js
     function setupRequest() {
         // CSRF Token, unique for each user/request
         request.csrftoken = CSRFGenerateToken();

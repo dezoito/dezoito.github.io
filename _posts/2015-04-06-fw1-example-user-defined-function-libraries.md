@@ -22,7 +22,7 @@ every application (sometimes in several pieces of code).
 As an example, I use this function to "clean" strings before **every** database
 Insert or Update:
 
-```cfc
+```js
         /**
          *  Prepares a string to be inserted (or updated on a DB):
          *  - removes extra espaces
@@ -82,7 +82,7 @@ So I createad my function library as a CFC component, and saved an instance in t
 
  `Application.cfc`
 
-```cfc
+```js
 
     // ------------------- CALLED WHEN APPLICATION STARTS ----------------- // 
     function setupApplication() {
@@ -107,7 +107,7 @@ Below, we use our clipping bean as an example:
 
 `home/model/beans/clipping.cfc`
 
-```cfc
+```js
 
 component persistent="true" table="tbl_clipping" accessors="true" {
 
@@ -145,7 +145,7 @@ text entered in form fields, so they become "safe" to go into our database.
 If you want to use a less tightly coupled approach, you could create an instance
 of the UDF library only where and when it's needed:
 
-```cfc
+```js
 
 component persistent="true" table="tbl_clipping" accessors="true" {
 
