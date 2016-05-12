@@ -25,7 +25,7 @@ See the "References" section if you need more complicated options, because this 
 
 2. Your Django project should have scripts describing how to set it up and install its dependencies (I used Pydanny's excellent [Django Cookiecutter](https://github.com/pydanny/cookiecutter-django) project template, but I'll go into a little more detail ahead).
 
-3. It also needs to have some automated unit or integration tests (check my [Ready to use Structure for Django Tests + Examples](/2015/09/21/how-to-test-django-applications_pt1/) entry for some ideas).
+3. It also needs to have some automated unit or integration tests (check my [Ready to use Structure for Django Tests + Examples](/2015/09/21/how-to-test-django-applications_pt1.html) entry for some ideas).
 
 ### Configuration
 First thing we need to do is to tell the GitLab Runner what it should do whenever you push code to your repository.
@@ -171,8 +171,6 @@ Some tips:
 
 - Using PhantomJS is easier (and, IME faster) than using headless Firefox to run integration tests - I wrote an entry on how to run [Integration Tests with Selenium and PhantomJS](http://dezoito.github.io/2015/10/14/flask-test-examples-phantomjs.html), if you need help with that.
 
-
----
 
 ## References
 

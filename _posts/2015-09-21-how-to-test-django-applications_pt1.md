@@ -19,12 +19,11 @@ This structure allows developers to:
 
  - Populate your test database programmatically.
 
- - Get the [elapsed running time for individual tests](/2015/09/26/how-to-test-django-applications_pt2/) [see part 2].
+ - Get the [elapsed running time for individual tests](/2015/09/26/how-to-test-django-applications_pt2.html) [see part 2].
 
 This should get your tests up and running quickly, so think of it as a **starting point** (I encourage you to do your own research once you find its limitations).
 
----
-##Folder Structure
+## Folder Structure
 
 Starting with a basic Django App structure, we can use a `/tests` folder to store different tests and utilities:
 
@@ -50,7 +49,6 @@ Starting with a basic Django App structure, we can use a `/tests` folder to stor
 
 ```
 
----
 ## Different Test Types
 
 For the purpose of this article, here's my rule of the thumb for different tests types - from fastest to slowest:
@@ -78,7 +76,7 @@ Since they are **much** slower than everything else, they are used only to test 
 
 Following the KISS principle, I'm keeping the Functional tests in their own folder, and everything else in the `/unit` folder, but of course you separate things even further as your app grows.
 
----
+
 ## Code Examples and Explanations
 
 First, let's start by describing a possible `testing_utilities.py` file.
@@ -382,7 +380,7 @@ Again, we create a class - `FunctionalTest` - that groups our tests and helper m
 `test_ajax_search_thing()` - "Types" text in the Search Box and asserts that the
  application finds the expected result.
 
----
+
 ## Running Tests
 
 First, CD into your App's root folder (the one where you can find `manage.py`)
@@ -418,9 +416,9 @@ Running a SINGLE test (notice that we specify the `FormTests` class before the t
 
 See [this section](https://docs.djangoproject.com/en/1.8/topics/testing/tools/#liveservertestcase) of the Django docs for more information.
 
-Be sure to read [Part 2](/2015/09/26/how-to-test-django-applications_pt2/) to see how to get individual test times.
+Be sure to read [Part 2](/2015/09/26/how-to-test-django-applications_pt2.html) to see how to get individual test times.
 
----
+
 ## References
 [Django's Official Tutorial](https://docs.djangoproject.com/en/1.8/intro/tutorial05/) and [Django's Testing Tools Docs](https://docs.djangoproject.com/en/1.8/topics/testing/tools/) - Comprehensive resources, but they made more sense to me after I understood the different test types.
 

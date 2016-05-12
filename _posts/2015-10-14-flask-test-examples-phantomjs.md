@@ -5,7 +5,7 @@ title: Starting Tests for Flask Apps - Integration and PhantomJS Examples
 excerpt_separator: <!--more-->
 ---
 
-This article is similar to the [Ready to use Structure for Django Tests](/2015/09/21/how-to-test-django-applications_pt1/) and the main goals are:
+This article is similar to the [Ready to use Structure for Django Tests](/2015/09/21/how-to-test-django-applications_pt1.html) and the main goals are:
 
  - get your tests up and running quickly
  - provide a starting point for more complex tests
@@ -13,8 +13,6 @@ This article is similar to the [Ready to use Structure for Django Tests](/2015/0
 We'll use my [Flask App to generate summaries](https://github.com/dezoito/flask_Summarizer/) as the test target (feel free to clone it).
 
 <!--more-->
-
----
 
 ## Structure
 The proposed structure allows developers to:
@@ -49,7 +47,7 @@ So starting with a basic Flask App structure, we can use a `/tests` folder to st
                     └── utils.py
 ```
 
----
+
 ## Different Test Types
 
 For the purpose of this article, here's my rule of the thumb for different tests types - from fastest to slowest:
@@ -71,7 +69,7 @@ Since they are **much** slower than everything else, they are used only to test 
 
 In this example, tests are grouped according to their category, so you can run only what you need at a moment.
 
----
+
 ## Code Examples and Explanations
 
 First, let's start by describing a possible `utils.py` file.
@@ -399,9 +397,7 @@ OK
 ```
 
 This is incredibly useful and simple to implement, and you can read more about it
-in this [Django Testing Article](/2015/09/26/how-to-test-django-applications_pt2/).
-
-
+in this [Django Testing Article](/2015/09/26/how-to-test-django-applications_pt2.html).
 
 ### Running Tests
 
@@ -424,7 +420,6 @@ You can also run individual test suites:
 
 ```
 
----
 
 ## References
 
