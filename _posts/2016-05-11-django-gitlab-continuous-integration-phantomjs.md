@@ -63,7 +63,7 @@ Going line by line, here's what we are doing:
 
 `only:` and `- dev` - Tells the runner to run this stage only if the push was made to the "dev" branch.
 
-> The reason for that is just a personal choice for the moment, but I left it in the article as it shows how you can perform different actions depending on what branch code is being pushed too - you can also ommit it completely if you want things to run regardless of branch.
+The reason for that is just a personal choice for the moment, but I left it in the article as it shows how you can perform different actions depending on what branch code is being pushed too - you can also ommit it completely if you want things to run regardless of branch.
 
 ### Going for a run
 
@@ -79,9 +79,15 @@ I think it's a good idea to follow it closely during the first runs, so you can 
 
 #### Failed?
 
+![GitLab's Build Failed](https://github.com/dezoito/dezoito.github.io/blob/master/public/images/gitlab-build-fail.png?raw=true)
+
 Sometimes your build will fail not because there's anything wrong with your scripts or tests, **but because the docker machine wasn't able to download and install some dependency** - pay attention to the job execution and rerun the build if you think that was the case.
 
-I've had builds that would fail three or four times in a row, then automagically work a few minutes later - this can be frustrating when you are just trying to get started.
+I've had builds that would fail three or four times in a row, then "automagically" work a few minutes later - this can be frustrating when you are just trying to get started.
+
+After some troubleshooting and bearing no inaccessible dependency hosts, you should see something like this: 
+
+![GitLab's Build Passed](https://github.com/dezoito/dezoito.github.io/blob/master/public/images/gitlab-build-passed.png?raw=true)
 
 > Tip: I added a `pip freeze` statement at the end of my install script, so I could see which python dependencies were actually installed and where the build failed.
 
