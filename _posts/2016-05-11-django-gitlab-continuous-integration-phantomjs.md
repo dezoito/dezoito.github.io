@@ -190,4 +190,3 @@ gitlab and openshift 3](http://davidmburke.com/2016/04/01/building-a-continuous-
 
 
 
-
