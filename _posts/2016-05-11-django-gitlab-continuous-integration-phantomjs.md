@@ -1,11 +1,11 @@
 ---
 layout: post
 comments: true
-title: Django and GitLab - Running Continous Integration and tests with your FREE account
+title: Django and GitLab - Running Continuous Integration and tests with your FREE account
 excerpt_separator: <!--more-->
 ---
 
-This article atempts to explain how to setup your Django project so you can leverage [GitLab.com's](https://www.gitlab.com) **free** Continuous Integration features - they are available on their hosted environment, for their free account tier, on top of unlimited private repositories!
+This article attempts to explain how to setup your Django project so you can leverage [GitLab.com's](https://www.gitlab.com) **free** Continuous Integration features - available on their hosted environment, for their free account tier, on top of unlimited private repositories!
 
 The TLDR version is:
 
@@ -25,7 +25,7 @@ See the "References" section if you need more complicated options, because this 
 
 2. Your Django project should have scripts describing how to set it up and install its dependencies (I used Pydanny's excellent [Cookiecutter-Django](https://github.com/pydanny/cookiecutter-django) project template, but I'll go into a little more detail ahead).
 
-3. It also needs to have some automated unit or integration tests (check my [Ready to use Structure for Django Tests + Examples](/2015/09/21/how-to-test-django-applications_pt1/) entry for some ideas).
+3. It also needs to have some automated unit or integration tests (check my [Ready to use Structure for Django Tests + Examples](/2015/09/21/how-to-test-django-applications_pt1.html) entry for some ideas).
 
 ### Configuration
 First thing we need to do is to tell the GitLab Runner what it should do whenever you push code to your repository.
@@ -57,17 +57,17 @@ Going line by line, here's what we are doing:
 
 `   - sh ./sh_scripts/install.sh` - This is the Shell Script that provisions the Docker machine, installing dependencies, running pip to install requirements and setting up PhantomJS - the headless browser we use to run integration tests (see examples ahead).
 
-`   - python3 manage.py test -k` - **If** the previous step is successful, this will simply use Django's test runner to run all tests defined withing the project (the "-k" switch tells Django to keep the test database across tests, speeding things up a bit.)
+`   - python3 manage.py test -k` - **If** the previous step is successful, this will simply use Django's test runner to run all tests defined within the project (the "-k" switch tells Django to keep the test database across tests, speeding things up a bit.)
 
 `  when: on_success` - Tells the runner that the actions should only run when the previous one succeeded.
 
 `only:` and `- dev` - Tells the runner to run this stage only if the push was made to the "dev" branch.
 
-> The reason for that is just a personal choice for the moment, but I left it in the article as it shows how you can perform different actions depending on what branch code is being pushed too - you can also ommit it completely if you want things to run regardless of branch.
+The reason for that is just a personal choice for the moment, but I left it in the article as it shows how you can perform different actions depending on what branch code is being pushed too - you can also omit it completely if you want things to run regardless of branch.
 
-### Going for a run
+### Going for a Run
 
-Assuming you add a similar  `.gitlab-ci.yml` to your project and pushed the commited changes to "dev", you should be able to go to GitLab's Dashboard for your project, click on the "Builds" tab and see a new "pending" or "running" build on your list.
+Assuming you add a similar  `.gitlab-ci.yml` to your project and pushed the committed changes to "dev", you should be able to go to GitLab's Dashboard for your project, click on the "Builds" tab and see a new "pending" or "running" build on your list.
 
 Click on the build, and when the status changes to "running", you should see a console-like display showing what's going on:
 
@@ -75,15 +75,115 @@ Click on the build, and when the status changes to "running", you should see a c
 
 I think it's a good idea to follow it closely during the first runs, so you can see any problems and error messages that may pop up along the way.
 
-> Tip: I like to add some attention starved "echo" statements before each section of my install script, to make the process easier to follow (again, see the examples ahead).
+#### **Failed?**
 
-#### Failed?
+![GitLab's Build Failed](https://github.com/dezoito/dezoito.github.io/blob/master/public/images/gitlab-build-fail.png?raw=true)
 
 Sometimes your build will fail not because there's anything wrong with your scripts or tests, **but because the docker machine wasn't able to download and install some dependency** - pay attention to the job execution and rerun the build if you think that was the case.
 
-I've had builds that would fail three or four times in a row, then automagically work a few minutes later - this can be frustrating when you are just trying to get started.
+I've had builds that would fail three or four times in a row, then "automagically" work a few minutes later - this can be frustrating when you are just trying to get started.
 
-> Tip: I added a `pip freeze` statement at the end of my install script, so I could see which python dependencies were actually installed and where the build failed.
+#### **Success?**
+
+After some troubleshooting and bearing no inaccessible dependency hosts, you should see something indicating that your project was built and all tests passed: 
+
+![GitLab's Build Passed](https://github.com/dezoito/dezoito.github.io/blob/master/public/images/gitlab-build-passed.png?raw=true)
+
+
+### Install Script Example
+
+Here's a redacted example of the script I use to install all OS, Python and Django dependencies, along with PhantomJS - You should probably be using similar if you are using Docker or Vagrant.
+
+`   - sh ./sh_scripts/install.sh`
+
+```sh
+#!/usr/bin/env bash
+echo "***********************************************"
+echo "***************** install *********************"
+echo "***********************************************"
+
+echo "***********************************************"
+echo "---apt update e upgrade---"
+echo "***********************************************"
+apt-get -y update
+
+echo "***********************************************"
+echo "---OS dependencies---"
+echo "***********************************************"
+apt-get -y install python3-pip
+apt-get -y install python3-dev python3-setuptools
+apt-get -y install git
+apt-get -y install supervisor
+# .....
+# .....
+# .....
+# .....
+
+echo "***********************************************"
+echo "---install dependencies (including django)  ---"
+echo "***********************************************"
+pip install --upgrade pip
+pip install -r requirements.txt
+
+echo "***********************************************"
+echo "--- PhantomJS (for tests)                   ---"
+echo "***********************************************"
+
+if [[ $EUID -ne 0 ]]; then
+    echo "This script must be run as root" 1>&2
+    exit 1
+fi
+
+PHANTOM_VERSION="phantomjs-1.9.8"
+ARCH=$(uname -m)
+
+if ! [ $ARCH = "x86_64" ]; then
+    $ARCH="i686"
+fi
+
+PHANTOM_JS="$PHANTOM_VERSION-linux-$ARCH"
+
+# apt-get update
+apt-get install build-essential chrpath libssl-dev libxft-dev -y
+apt-get install libfreetype6 libfreetype6-dev -y
+apt-get install libfontconfig1 libfontconfig1-dev -y
+
+cd ~
+wget https://bitbucket.org/ariya/phantomjs/downloads/$PHANTOM_JS.tar.bz2
+tar xvjf $PHANTOM_JS.tar.bz2
+
+mv $PHANTOM_JS /usr/local/share
+ln -sf /usr/local/share/$PHANTOM_JS/bin/phantomjs /usr/local/bin
+echo "--- PhantomJS Finished          ---"
+
+echo "***********************************************"
+echo "--- Sone Installing Stuff                   ---"
+echo "***********************************************"
+
+pip freeze
+```
+
+Some tips:
+
+- I like to add some attention starved "echo" statements before each section of my install script, making things easier to follow during the build process..
+
+- The `pip freeze` statement at the end of the  script is there so I could see which python dependencies were actually installed up to the point where the build failed.
+
+- Using PhantomJS is easier (and, IME faster) than using headless Firefox to run integration tests - I wrote an entry on how to run [Integration Tests with Selenium and PhantomJS](http://dezoito.github.io/2015/10/14/flask-test-examples-phantomjs.html), if you need help with that.
+
+
+## References
+
+[Setting up GitLab Runner 
+For Continuous Integration](https://about.gitlab.com/2016/03/01/gitlab-runner-with-docker/) - Gitlab's article that prompted me to start using this feature.
+
+[Gitlab's Documentation](http://doc.gitlab.com/ce/ci/yaml/README.html) - Goes into a lot more detail on how to write the `.gitlab-ci.yml` file and the available options.
+
+[Building a continuous integration workflow with 
+gitlab and openshift 3](http://davidmburke.com/2016/04/01/building-a-continuous-integration-workflow-with-gitlab-and-openshift-3/) - The author certainly knows a lot more than I do, and details a much more complex setup that also deals with staging and production deployment.
+
+
+
 
 
 

@@ -13,11 +13,13 @@ built using the FW/1 framework in its latest version:
 It's a simple app to store articles and clippings from on and offline sources,
 using a single model/database table, but handling a series of interesting topics:
 
- - [Project Structure](/2015/03/29/fw1-example-app-project-structure/)
- - [Forms and Validation Patterns](/2015/03/30/fw1-example-app-forms_validation/)
- - [Use of User Defined Function Libraries](/2015/04/06/fw1-example-user-defined-function-libraries/)
- - [Interaction with a Remote Service](/2015/04/07/fw1-example-accessing-external-service/)
- - [BDD and Integration Tests](/2015/04/18/fw1-example-bdd-integration-testing/)
+ - [Project Structure](/2015/03/29/fw1-example-app-project-structure.html)
+ - [Forms and Validation Patterns](/2015/03/30/fw1-example-app-forms_validation.html)
+ - [Use of User Defined Function Libraries](/2015/04/06/fw1-example-user-defined-function-libraries.html)
+ - [Interaction with a Remote Service](/2015/04/07/fw1-example-accessing-external-service.html)
+ - [BDD and Integration Tests](/2015/04/18/fw1-example-bdd-integration-testing.html)
+
+<!--more-->
 
  The project also has several examples on how to implement
  [BDD style testing](http://wiki.coldbox.org/wiki/TestBox.cfm)

@@ -13,9 +13,10 @@ This is probably the simplest/fastest way to integrate [BrowserSync](https://www
 
 - Interactions on one device are also synced, any scrolling or typing in one window is simultaneously reflected in the other ones;
 
+<!--more-->
+
 This can easily be used in Flask (or any other framework really), by changing a `proxy` variable appropriately.
 
-<!--more-->
 
 ### Pre-requisites
 

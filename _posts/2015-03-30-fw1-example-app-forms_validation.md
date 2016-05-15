@@ -6,10 +6,11 @@ excerpt_separator: <!--more-->
 ---
 
 This is the second in a series of articles on how to build a
-[ColdFusion and FW/1 Example Application](https://dezoito.github.io/2015/03/26/fw1-example-app-released/),
+[ColdFusion and FW/1 Example Application](https://dezoito.github.io/2015/03/26/fw1-example-app-released.html),
 and it discusses the topic of creating forms and validating submitted data
 in an efficient and [DRY](http://programmer.97things.oreilly.com/wiki/index.php/Don%27t_Repeat_Yourself) (Don't Repeat Yourself) way.
 
+<!--more-->
 
 ### Patterns for Forms and Validation
 
@@ -44,7 +45,7 @@ method being responsible for:
 3. Loading validation errors, if any
 4. Rendering the "form" view
 
-```cfc
+```js
 function form (struct rc){
 
     // Checks if the form is being displayed after a failed validation
@@ -177,7 +178,7 @@ clipping controller
 
 **Clipping controller**: `save()`:
 
-```cfc
+```js
 function save( struct rc ) {
     framework.frameworkTrace( "<b>Save Method on Clipping Controller</b>");
 
@@ -208,7 +209,7 @@ It will return to the main page if succssfull, or reload the form if validation 
 
 **ClippingService**: `save()`:
 
-```cfc
+```js
 public any function save(struct rc) {
     transaction {
 
@@ -260,7 +261,7 @@ These methods are defined in the Clipping bean:`/home/models/beans/clipping.cfc`
 
 **Clipping Bean**:
 
-```cfc
+```js
 component persistent="true" table="tbl_clipping" accessors="true" {
 
     property name="clipping_id" generator="native" ormtype="integer" fieldtype="id";
@@ -307,11 +308,11 @@ services and controllers.
 
 For more detailed information on this project, follow the other articles in this series:
 
- - [Project Structure](/2015/03/29/fw1-example-app-project-structure/)
+ - [Project Structure](/2015/03/29/fw1-example-app-project-structure.html)
  - Forms and Validation Patterns
- - [Use of User Defined Function Libraries](/2015/04/06/fw1-example-user-defined-function-libraries/)
- - [Interaction with a Remote Service](/2015/04/07/fw1-example-accessing-external-service/)
- - [BDD and Integration Tests](/2015/04/18/fw1-example-bdd-integration-testing/)
+ - [Use of User Defined Function Libraries](/2015/04/06/fw1-example-user-defined-function-libraries.html)
+ - [Interaction with a Remote Service](/2015/04/07/fw1-example-accessing-external-service.html)
+ - [BDD and Integration Tests](/2015/04/18/fw1-example-bdd-integration-testing.html)
 
 For the full source code, please visit the **[fw1-clipping](https://github.com/dezoito/fw1-clipping)**
 github project page.

@@ -5,7 +5,9 @@ title: Ready to use Structure for Django Tests + Examples (Pt. 2)
 excerpt_separator: <!--more-->
 ---
 
-This article builds up on the [Structure for Django Tests](/2015/09/21/how-to-test-django-applications_pt1/) and shows how you can easily display individual running times for each test in a group or suite - and you can use in Flask tests too! - check out my [Flask App to generate summaries](https://github.com/dezoito/flask_Summarizer/).
+This article builds up on the [Structure for Django Tests](/2015/09/21/how-to-test-django-applications_pt1.html) and shows how you can easily display individual running times for each test in a group or suite - and you can use in Flask tests too! - check out my [Flask App to generate summaries](https://github.com/dezoito/flask_Summarizer/).
+
+<!--more-->
 
 ## The Problem
 By default, Django will only display the execution time for the entire series of tests ran, for example:
@@ -57,7 +59,7 @@ Time to change dev notebook!
 ## Tracking Time with a Python Decorator
 Sometimes you find solutions in places you were **not** looking for, and in this case I was researching scraping projects when I came upon Lucas Ou-Young's excellent resource on [Article scraping & curation](https://github.com/codelucas/newspaper), where he uses a decorator to produce the detailed output above.
 
-Let's modify the code on the [previous post](/2015/09/21/how-to-test-django-applications_pt1/) to do that:
+Let's modify the code on the [previous post](/2015/09/21/how-to-test-django-applications_pt1.html) to do that:
 
 Open `tests/testing_utilities` and add the decorator code:
 
@@ -121,7 +123,6 @@ class RequestTests(TestCase):
 ```
 
 
----
 ## References
 [Django's Official Tutorial](https://docs.djangoproject.com/en/1.8/intro/tutorial05/) and [Django's Testing Tools Docs](https://docs.djangoproject.com/en/1.8/topics/testing/tools/) - Comprehensive resources, but they made more sense to me after I understood the different test types.
 
