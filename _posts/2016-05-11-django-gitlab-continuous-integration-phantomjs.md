@@ -23,7 +23,7 @@ See the "References" section if you need more complicated options, because this 
 
 1. You have to have an account on [GitLab.com](https://www.gitlab.com).
 
-2. Your Django project should have scripts describing how to set it up and install its dependencies (I used Pydanny's excellent [Django Cookiecutter](https://github.com/pydanny/cookiecutter-django) project template, but I'll go into a little more detail ahead).
+2. Your Django project should have scripts describing how to set it up and install its dependencies (I used Pydanny's excellent [Cookiecutter-Django](https://github.com/pydanny/cookiecutter-django) project template, but I'll go into a little more detail ahead).
 
 3. It also needs to have some automated unit or integration tests (check my [Ready to use Structure for Django Tests + Examples](/2015/09/21/how-to-test-django-applications_pt1/) entry for some ideas).
 
