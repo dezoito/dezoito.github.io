@@ -153,13 +153,13 @@ const runSearch = async (list) => {
 
 The `promises.push(...)` line was written that way so, in the future, we could run the search using more providers (or using functions with different logic).
 
-Had we defined a `asyncSearchGoogle` function, similar to the one we did for Bing, we could modify our code to search each term on both services:
+Had we defined a `asyncSearchAnotherProvider` function, similar to the one we did for Bing, we could modify our code to search each term on both services:
 
 ```js
 
   const promises = []
   promises.push(...list.map(async (entity) => asyncSearchBing(entity)));
-  promises.push(...list.map(async (entity) => asyncSearchGoogle(entity)));
+  promises.push(...list.map(async (entity) => asyncSearchAnotherProvider(entity)));
 
 ```
 Finally, we just execute the searches:
