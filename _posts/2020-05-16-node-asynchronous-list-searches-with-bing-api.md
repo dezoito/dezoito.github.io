@@ -7,20 +7,20 @@ excerpt_separator: <!--more-->
 
 This article explores the issue of running "simultaneous" searches for all entries in a list of terms (in reality, we are running searches [asynchronously](https://stackoverflow.com/questions/748175/asynchronous-vs-synchronous-execution-what-does-it-really-mean)).
 
-I'm also trying to improve on Azure's Search API example a little bit.
+I'm also trying to improve on Azure's Search API example a bit.
 <!--more-->
 
 ### Pre-requisites
 
 1. You have to have an account on [Azure](https://portal.azure.com/) and a subscription key for the Bing Web Search Service  (See docs here: https://azure.microsoft.com/en-us/services/cognitive-services/bing-web-search-api/).
 
-2. Node and npm installed (I was using Node 12.14 and npm 6.14 at the time of writting).
+2. Node and npm installed (I was using Node 12.14 and npm 6.14 at the time of writing).
 
 
 ### The Problem
 I have to run searches on dozen (sometimes hundreds of terms) on occasion, so the first step was to automate that, using Bing's excellent Web Search API.
 
-The second step was taking advantage of Javascript's asynchronous nature so *all* these terms could be searched in parallel (hopefuly yealsing a faster response, instead of on-by-one).
+The second step was taking advantage of Javascript's asynchronous nature so *all* these terms could be searched in parallel (hopefully yealding a faster response, instead of on-by-one).
 
 ### Code
 The first iteration looks like this (I'll break it down and add complexity later):
