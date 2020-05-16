@@ -16,6 +16,12 @@ I'm also trying to improve on Azure's Search API example a bit.
 
 2. Node and npm installed (I was using Node 12.14 and npm 6.14 at the time of writing).
 
+3. Install Azure and Cognitive Services Dependencies:
+
+```sh
+npm install --save azure-cognitiveservices-websearch
+npm install --save ms-rest-azure
+```
 
 ### The Problem
 I have to run searches on dozen (sometimes hundreds of terms) on occasion, so the first step was to automate that, using Bing's excellent Web Search API.
