@@ -25,7 +25,7 @@ The second step was taking advantage of Javascript's asynchronous nature so *all
 ### Code
 The first iteration looks like this (I'll break it down and add complexity later):
 
-```Javascript
+```js
 const CognitiveServicesCredentials = require('ms-rest-azure').CognitiveServicesCredentials;
 const WebSearchAPIClient = require('azure-cognitiveservices-websearch');
 const BING_SEARCH_API_KEY = '<<your_subscription_key_here>>';
@@ -98,7 +98,7 @@ runSearch(myList)
 ### Code Breakdown
 The first 3 lines are boilerplate for setting up Bing's Web Search Client.
 
-```Javascript
+```js
 const CognitiveServicesCredentials = require('ms-rest-azure').CognitiveServicesCredentials;
 const WebSearchAPIClient = require('azure-cognitiveservices-websearch');
 const BING_SEARCH_API_KEY = '<<your_subscription_key_here>>';
@@ -110,7 +110,7 @@ Bing's results are grouped into `properties` such as `images`, `news`, `videos` 
 
 Also, notice we define preferences for market and location and limit the results to 5 entries per term: 
 
-```Javascript
+```js
 const asyncSearchBing = async (entity) => { 
   console.log(`Searching BING for ${entity}`);
   let credentials = new CognitiveServicesCredentials(BING_SEARCH_API_KEY);
@@ -138,7 +138,7 @@ const asyncSearchBing = async (entity) => {
 
 Next we define a way to "map" this function to each search term in our list, and then run all the searches in "parallel":
 
-```Javascript
+```js
 const runSearch = async (list) => { 
   const promises = []
   promises.push(...list.map(async (entity) => asyncSearchBing(entity)));
@@ -155,7 +155,7 @@ The `promises.push(...)` line was written that way so, in the future, we could r
 
 Had we defined a `asyncSearchGoogle` function, similar to the one we did for Bing, we could modify our code to search each term on both services:
 
-```Javascript
+```js
 
   const promises = []
   promises.push(...list.map(async (entity) => asyncSearchBing(entity)));
@@ -164,7 +164,7 @@ Had we defined a `asyncSearchGoogle` function, similar to the one we did for Bin
 ```
 Finally, we just execute the searches:
 
-```Javascript
+```js
 runSearch(myList);
 ```
 
@@ -202,7 +202,7 @@ One way to deal with that is to add a randomized pause before searching each key
 
 Our modified code blocks look like this:
 
-```Javascript
+```js
 
 const CognitiveServicesCredentials = require('ms-rest-azure').CognitiveServicesCredentials;
 const WebSearchAPIClient = require('azure-cognitiveservices-websearch');
