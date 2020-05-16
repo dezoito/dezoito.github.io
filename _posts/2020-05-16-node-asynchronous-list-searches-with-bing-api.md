@@ -136,7 +136,7 @@ const asyncSearchBing = async (entity) => {
 }
 ```
 
-Next we define a way to "map" this function to each search term in our list, and then run all the searches in "parallel":
+Next we define a way to "map" this function to each search term in our list, then run all the searches in "parallel":
 
 ```js
 const runSearch = async (list) => { 
