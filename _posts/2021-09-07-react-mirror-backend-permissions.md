@@ -45,7 +45,7 @@ In terms of React, we want to use this as a way to deny access to **routes**, **
 
 My backend application `/login` endpoint returns the following representation of the current user upon a successfull authentication attempt (simplified for clarity):
 
-```json
+```js
 user: {
     id: 1233,
     is_superuser: false,
