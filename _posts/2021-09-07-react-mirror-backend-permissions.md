@@ -197,7 +197,7 @@ export default ProtectedContent;
 ## Future Improvements
 
 ## References
-- https://gitlab.com/saurabhshah231/reactjs-myapp/
-- https://stackoverflow.com/a/53111155
 - https://www.carlrippon.com/react-children-with-typescript/
 - https://reactrouter.com/web/example/auth-workflow
+- https://gitlab.com/saurabhshah231/reactjs-myapp/
+- https://stackoverflow.com/a/53111155
