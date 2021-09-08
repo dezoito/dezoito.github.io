@@ -3,12 +3,6 @@ layout: post
 comments: true
 title: React and Typescript - How to mirror backend permissions on the frontend app
 excerpt_separator: <!--more-->
-markdown: kramdown
-kramdown:
-    highlighter: rouge
-    syntax_highlighter_opts:
-        block:
-            line_numbers: true
 ---
 
 In this article we explore a way to replicate a backend's authorization system on a React built frontend, so that developers may restrict access to features/pages/controls on the basis of group membership and the logged in user's assigned permissions.
@@ -91,7 +85,7 @@ Let's assume we have a menu component, and that we want to:
 
 -  show the "Create Experiments" option only to users that have the "ml.can_create_experiments" permission;
 
-Here's what the Menu code would look like:
+Here's what the `Menu` code would look like:
 
 ```jsx
 
@@ -126,6 +120,8 @@ import ProtectedContent from "../path/ProtectedContent";
         </ProtectedContent>
       </Menu>
 ```
+
+
 And below is the implementation of `<ProtectedContent/>`
 
 ```jsx
@@ -183,6 +179,25 @@ const ProtectedContent = forwardRef((props: Props, ref): JSX.Element => {
 export default ProtectedContent;
 
 ```
-## Improvements
+--- EXPLAIN NON OBVIOUS CODE BLOCKS:
+- forwardRef
+- useAuth
+- prop types
+
+
+## Advanced Usage
+
+- use in routes
+- use in pages
+- only admins
+- array of groups
+- array of permissions
+- "alt content"
+
+## Future Improvements
 
 ## References
+- https://gitlab.com/saurabhshah231/reactjs-myapp/
+- https://stackoverflow.com/a/53111155
+- https://www.carlrippon.com/react-children-with-typescript/
+- https://reactrouter.com/web/example/auth-workflow
