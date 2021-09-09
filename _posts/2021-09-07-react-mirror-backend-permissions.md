@@ -25,9 +25,9 @@ Although this example is based on a Django backend, it's easily appliable to any
 
 ## The Problem
 
-Frameworks like Django make it easy to assign permissions to users and groups, and let only **authorized** users - the ones that have such permissions or are in those groups - perform certain actions or even see certain content.
+Frameworks like Django make it easy to assign permissions to users and groups, and let only **authorized** users - the ones that have such permissions or are in those groups - perform actions or even see specific content.
 
-Some trivial, generic examples of authorization rules:
+Some trivial examples of authorization rules:
 
 - Only people in the "Moderators" or "Admin" groups can delete posts or ban users in discussion boards.
 
@@ -35,7 +35,7 @@ Some trivial, generic examples of authorization rules:
 
 - Only users with the permission "Run Any experiment" and members of the "Admin" group can list and run all experiments.
 
-As you can see, we want to implement some granularity where we can filter users by **group membership**, **assigned permissions**, or a combination of **both**.
+We want to implement some granularity where we can authorize users by **group membership**, **assigned permissions**, or a combination of **both**.
 
 In terms of React, we want to use this as a way to deny access to **routes**, **pages** or even **simple components**.
 
