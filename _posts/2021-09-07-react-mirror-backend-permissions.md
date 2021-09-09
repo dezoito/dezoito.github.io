@@ -11,6 +11,8 @@ Although this example is based on a Django app, it's easily appliable to any bac
 
 <!--more-->
 
+<br/>
+
 ## Pre-requisites
 
 - A working backend RESTFul or GraphQL application that implements user authorization and permissions ([See Django's doc for a reference](https://docs.djangoproject.com/en/3.2/topics/auth/default/#topic-authorization)).
@@ -18,6 +20,8 @@ Although this example is based on a Django app, it's easily appliable to any bac
 - A React web application as the frontend for the above system.
 
 - The React application has to have some global state management solution (Redux, Zustand, MobX or Context API, for example);
+
+<br/>
 
 ## The Problem
 
@@ -34,6 +38,8 @@ Some trivial, generic examples:
 As you can see, we want to implement some granularity where we can filter users by **group membership**, **assigned permissions**, or a combination of **both**.
 
 In terms of React, we want to use this as a way to deny access to **routes**, **pages** or even **simple components**.
+
+<br/>
 
 ## Protecting Content
 
@@ -74,9 +80,13 @@ import ProtectedContent from "../path/ProtectedContent";
   {/* All logged in users can see this */}
   <MenuItem onClick={handleClose} component={Link} to={"/datasets"}>
     List Datasets
-  </MenuItem>
+  </MenuItem>  
 </Menu>
 ```
+
+> Note that this is just an example. The menu items will be hidden but users would still be able to go directly to their URLs if they knew them in advance (see Advanced Usage for ways to address that). 
+
+<br/>
 
 ## User Representation
 
@@ -119,6 +129,8 @@ This user is a member of two groups: `Classifiers` and `Testers`, and is assigne
 > In django, we use a function called `get_all_permissions()` to generate the list of permissions assigned directly to the user and to the groups they belong to.
 
 The object above is stored in global state and is accessible to any React component in the tree (I really enjoy using [Zustand](https://github.com/pmndrs/zustand) for state management).
+
+<br/>
 
 ## Component Implementation
 
@@ -179,7 +191,9 @@ const ProtectedContent = forwardRef((props: Props, ref): JSX.Element => {
 export default ProtectedContent;
 ```
 
-Let's break down that code and go over the less obvious parts:
+<br/>
+
+Let's break that down and go over the less obvious parts:
 
 ```ts
 interface Props {
@@ -189,6 +203,7 @@ interface Props {
   perms?: string[];
 }
 ```
+
 Here we take advantage of Typescript's typing to define the props the component can accept.
 
 - `children` is the content that we want to display if the user is authorized.
@@ -200,17 +215,21 @@ Both are either a single instance or an array of React nodes (for example, anoth
 
 - `perms` is an **optional** array of permission names - the user will be authorized if they have of at least one of specified groups.
 
+<br/>
 
 ```ts
-const ProtectedContent = forwardRef((props: Props, ref): JSX.Element => {
+const ProtectedContent = forwardRef((props: Props, ref): JSX.Element => { .... }
 
 ```
+
 We need to wrap our component with `forwardRef` so higher level components can access `refs` from the components we are wrapping (in our example, the `<Menu/>` component accesses refs from `<MenuItem/>`).
 
 For a more detailed explanationplease read [Forwarding React Refs with TypeScript](https://www.carlrippon.com/react-forwardref-typescript/).
 
+<br/>
+
 ```ts
-  const { isAuthenticated, user } = useAuth();
+const { isAuthenticated, user } = useAuth();
 ```
 
 `useAuth()` is a custom hook that returns the current user authentication status and the `user` object as described above.
@@ -223,18 +242,121 @@ The rest of the code consists of checking if the user:
 
 if they pass one of these checks the content is rendered, otherwise we will render the contents of the `alt` prop (if it was passed), or nothing at all.
 
+> If the use is an "admin" (`is_superuser === true`), they are automatically authorized. 
 
-
+<br/>
 
 ## Advanced Usage
 
-- use in routes
-- use in pages
-- only admins
-- array of groups
-- array of permissions
-- "alt content"
+Here are some recipes for protecting content in different ways:
 
+Protecting routes:
+
+```jsx
+<Switch>
+  <ProtectedContent groups={["Members"]}>
+    <Route path={/members-only} exact>
+      <MembersClub />
+    </Route>
+  </ProtectedContent>
+</Switch>
+```
+
+Protecting content in a "page":
+
+```jsx
+<div>
+ <p>Anyone can read this</p>
+
+  <ProtectedContent groups={["Members"]}>
+    <div className="special-message">
+      <p>... but only members can see the special message
+    </div>
+  </ProtectedContent>
+</div>
+```
+
+Protecting content in a "page", but display alternative content to unauthorized users:
+
+```jsx
+<div>
+ <p>Anyone can read this</p>
+
+  {/* Displays a link if the user is not a mamber */}
+  <ProtectedContent 
+    groups={["Members"]}
+    alt={<Link to={"/join-us"}>Become a member!</Link>}>
+
+      <div className="special-message">
+        <p>... but only members can see the special message
+      </div>
+  </ProtectedContent>
+</div>
+```
+
+Admins only:
+
+```jsx
+<div>
+ <p>Anyone can read this</p>
+
+  {/* No props needed! */}
+  <ProtectedContent>
+    <button className="dangerous-action">
+      Click here to perform admin action
+    </button>
+  </ProtectedContent>
+</div>
+```
+
+Test for multiple groups
+
+```jsx
+  <ProtectedContent
+    groups={["Members", "Staff"]}>
+    <div>Today's specials!</div>
+  </ProtectedContent>
+
+```
+
+
+Test for different permissions
+
+```jsx
+  <ProtectedContent
+    perms={["can_manage_whisky", "can_see_all_whisky"]}>
+    <div className="whisky-list">
+      <li> Laphroaig Lore
+      <li> Laphroaig PX Cask
+      <li> Hibiki Japanese Harmony
+      <li> Jameson Caskmates
+      <li> Caol Ila Distillers Edition
+      <li> ...
+    </div>
+  </ProtectedContent>
+
+```
+
+Combine Groups and permissions
+
+```jsx
+
+  {/* Allow either "staff" members OR any users with "can_see_all_whisky" */}
+  <ProtectedContent
+    groups={["Staff"]}>
+    perms={["can_see_all_whisky"]}
+    >
+    <div className="whisky-list">
+      <li> Laphroaig Lore
+      <li> Laphroaig PX Cask
+      <li> Hibiki Japanese Harmony
+      <li> Jameson Caskmates
+      <li> Caol Ila Distillers Edition
+      <li> ...
+    </div>
+  </ProtectedContent>
+
+```
 ## Future Improvements
 
 ## References

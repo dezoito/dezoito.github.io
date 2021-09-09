@@ -26,7 +26,7 @@ npm install --save ms-rest-azure
 ### The Problem
 I have to run searches on dozen (sometimes hundreds of terms) on occasion, so the first step was to automate that, using Bing's excellent Web Search API.
 
-The second step was taking advantage of Javascript's asynchronous nature so *all* these terms could be searched in parallel (hopefully yealding a faster response, instead of on-by-one).
+The second step was taking advantage of Javascript's asynchronous nature so *all* these terms could be searched in parallel (hopefully yielding a faster response, instead of on-by-one).
 
 ### Code
 The first iteration looks like this (I'll break it down and add complexity later):
@@ -39,7 +39,7 @@ const BING_SEARCH_API_KEY = '<<your_subscription_key_here>>';
 // list of search terms/wish-list
 const myList = ['Lagavulin Offerman Edition',
   'Laphroaig Lore',
-  'Laphroaig PX CAsk',
+  'Laphroaig PX Cask',
   'Hibiki Japanese Harmony',
   'Jameson Caskmates',
   'Caol Ila Distillers Edition',
