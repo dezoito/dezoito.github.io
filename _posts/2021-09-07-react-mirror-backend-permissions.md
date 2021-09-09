@@ -7,7 +7,7 @@ excerpt_separator: <!--more-->
 
 In this article we explore a way to replicate a backend's authorization system on a React built SPA, so that developers may restrict access to features pages or components based on the users group memberships and permissions.
 
-Although this example is based on a Django backend, it's easily appliable to any backend framework that can return a `user` object by REST or GraphQL API calls.
+Although this example is based on a Django backend, it's easily applicable to any backend framework that can return a `user` object by REST or GraphQL API calls.
 
 <!--more-->
 
@@ -91,7 +91,7 @@ import ProtectedContent from "../path/ProtectedContent";
 
 Before we can implement `<ProtectedContent/>`, we need to understand how the `user` object is structured.
 
-The backend application's `/login` endpoint returns the following representation of the current user upon a successfull authentication (simplified for clarity):
+The backend application's `/login` endpoint returns the following representation of the current user upon a successful authentication (simplified for clarity):
 
 ```js
 user: {
@@ -285,7 +285,7 @@ Protecting content in a "page", but display alternative content to unauthorized 
 <div>
  <p>Anyone can read this</p>
 
-  {/* Displays a link if the user is not a mamber */}
+  {/* Displays a link if the user is not a member */}
   <ProtectedContent
     groups={["Members"]}
     alt={<Link to={"/join-us"}>Become a member!</Link>}>
