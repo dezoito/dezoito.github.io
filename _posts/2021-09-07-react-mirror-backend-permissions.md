@@ -19,7 +19,7 @@ Although this example is based on a Django app, it's easily appliable to any bac
 
 ### The Problem
 
-Frameworks like Django make it easy to assign permissions to users/groups, and let only authorized users - the ones thatnhave such permissions or are in those groups - perform certain actions or even see certain content.
+Frameworks like Django make it easy to assign permissions to users/groups, and let only authorized users - the ones that have such permissions or are in those groups - perform certain actions or even see certain content.
 
 Some trivial, generic examples:
 
