@@ -5,7 +5,7 @@ title: Mirror backend permissions on a React frontend
 excerpt_separator: <!--more-->
 ---
 
-In this article we explore a way to replicate a backend's authorization system on a React built SPA, so that developers may restrict access to features pages or components based on the users group memberships and permissions.
+In this article we explore a way to replicate a backend's authorization system on a React SPA, so that developers can restrict access to features, pages or components based on group memberships or user permissions.
 
 Although this example is based on a Django backend, it's easily applicable to any backend framework that can return a `user` object by REST or GraphQL API calls.
 
