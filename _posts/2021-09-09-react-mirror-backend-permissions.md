@@ -9,6 +9,16 @@ In this article we explore a way to replicate a backend's authorization system o
 
 Although this example is based on a Django backend, it's easily applicable to any backend framework that can return a `user` object by REST or GraphQL API calls.
 
+<br/>
+
+> IMPORTANT
+> 
+>This is not an end all security solution, as any content or data sent to the browser might be accessible to a knowledgeable or malicious user.
+>
+> Permission checks **have** to be enforced at the backend.
+>
+> The goal is to prevent users from seeing content that is not useful to them, like buttons or menu options that would just throw an "UNAUTHORIZED" error at the server. </li>
+
 <!--more-->
 
 <br/>
@@ -326,12 +336,12 @@ Allow different permissions:
   <ProtectedContent
     perms={["can_manage_whisky", "can_see_all_whisky"]}>
     <div className="whisky-list">
-      <li> Laphroaig Lore
-      <li> Laphroaig PX Cask
-      <li> Hibiki Japanese Harmony
-      <li> Jameson Caskmates
-      <li> Caol Ila Distillers Edition
-      <li> ...
+      <li> Laphroaig Lore </li>
+      <li> Laphroaig PX Cask </li>
+      <li> Hibiki Japanese Harmony </li>
+      <li> Jameson Caskmates </li>
+      <li> Caol Ila Distillers Edition </li>
+      <li> ... </li>
     </div>
   </ProtectedContent>
 
@@ -347,12 +357,12 @@ Combine Groups and permissions:
     perms={["can_see_all_whisky"]}
     >
     <div className="whisky-list">
-      <li> Laphroaig Lore
-      <li> Laphroaig PX Cask
-      <li> Hibiki Japanese Harmony
-      <li> Jameson Caskmates
-      <li> Caol Ila Distillers Edition
-      <li> ...
+      <li> Laphroaig Lore </li>
+      <li> Laphroaig PX Cask </li>
+      <li> Hibiki Japanese Harmony </li>
+      <li> Jameson Caskmates </li>
+      <li> Caol Ila Distillers Edition </li>
+      <li> ... </li>
     </div>
   </ProtectedContent>
 
