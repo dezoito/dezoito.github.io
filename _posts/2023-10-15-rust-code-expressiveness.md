@@ -5,7 +5,7 @@ title: Expressiveness in Rust code
 excerpt_separator: <!--more-->
 ---
 
-After a quick (and failed) attempt to build a desktop application using [Tauri](https://tauri.app/), I decided to learn Rust and started by using the excellent [Rustlings](https://github.com/rust-lang/rustlings) resource.
+After a quick attempt to build a desktop application using [Tauri](https://tauri.app/), I decided to learn Rust and started by using the excellent [Rustlings](https://github.com/rust-lang/rustlings) resource.
 
 <!--more-->
 
