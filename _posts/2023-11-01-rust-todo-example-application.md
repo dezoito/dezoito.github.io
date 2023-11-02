@@ -11,7 +11,7 @@ Coming across "[Top 15 Rust Projects To Elevate Your Skills](https://zerotomaste
 - Minimize the use of `unwrap()` and `expect()` calls.
 - Include relevant working test cases, even if they are not 100% necessary.
 
-![](https://github.com/dezoito/dezoito.github.io/blob/dev/public/images/todo-demo?raw=true)
+![](https://github.com/dezoito/dezoito.github.io/blob/dev/public/images/todo-demo.gif?raw=true)
 
 This article is a walk through the process of building the app and some of the choices made.
 
