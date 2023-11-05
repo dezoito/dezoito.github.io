@@ -330,7 +330,7 @@ fn main() -> Result<()> {
 
 Notice we added a call to `get_connection()` and an `Ok(())` after the match statement to satisfy the `Result<()>` return type.
 
-Commited code up to this point can be seen at [https://github.com/dezoito/rust-todo-list/tree/part2](https://github.com/dezoito/rust-todo-list/tree/part2).s
+Commited code up to this point can be seen at [https://github.com/dezoito/rust-todo-list/tree/part2](https://github.com/dezoito/rust-todo-list/tree/part2).
 
 ---
 
