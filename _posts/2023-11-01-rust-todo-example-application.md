@@ -1,7 +1,7 @@
 ---
 layout: post
 comments: true
-title: Rust Todo SQL Example Application - Part 1
+title: Rust Todo SQL Example Application
 excerpt_separator: <!--more-->
 ---
 
