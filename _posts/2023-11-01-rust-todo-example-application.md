@@ -133,7 +133,7 @@ fn main() {
 
 In summary, we parse the command line arguments into `command` and `suffix` variables.
 
-Is the user types `todo add Write a Tutorial`, `add` would be the command and `Write a tutorial` would be the suffix.
+Is the user types `todo add Write a Tutorial`, `add` would be the command and `"Write a tutorial"` would be the suffix.
 
 We then match the `command` to the corresponding function, and if there's no match we call `help()` from our `lib.rs` file below:
 
