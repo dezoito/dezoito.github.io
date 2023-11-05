@@ -61,6 +61,10 @@ At first I was going to use a key/value store called [SLED](https://crates.io/cr
 
 Turns out that was a great choice for the scope of a first project, as all your data can be stored in a single file and you can even use an "in memory" database when running tests with very little configuration.
 
+---
+
+<p>&nbsp;</p>
+
 ## Part 1: Getting started
 
 Init the Rust project by running
