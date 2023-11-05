@@ -195,7 +195,7 @@ In Part 2 we'll define the properties of a todo entry, and see how we can wire u
 
 ## Part 2: Struct and Database Definitions
 
-We need to define the properties of a `todo` entry first, and one way to do that is by defining a `struc`:
+We need to define the properties of a `todo` entry first, and one way to do that is by defining a `struct`:
 
 ```rs
 #[derive(Debug)]
