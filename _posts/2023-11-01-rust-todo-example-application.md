@@ -17,7 +17,12 @@ This article is a walk through the process of building the app and some of the c
 
 The resulting source code is available at [https://github.com/dezoito/rust-todo-list](https://github.com/dezoito/rust-todo-list).
 
-> > > Article TOC here <<<<
+# Table of Contents
+
+- [Part 1: Getting Started](#part-1-getting-started)
+- [Part 2: Struct and Database Definitions](#part-2-struct-and-database-definitions)
+- [Part 3: Adding Functionality](#part-3-adding-functionality)
+- [Part 3: Testing the Application](#part-3-testing-the-application)
 
 <!--more-->
 
@@ -56,7 +61,7 @@ At first I was going to use a key/value store called [SLED](https://crates.io/cr
 
 Turns out that was a great choice for the scope of a first project, as all your data can be stored in a single file and you can even use an "in memory" database when running tests with very little configuration.
 
-## Gettin started
+## Part 1: Getting started
 
 Init the Rust project by running
 
@@ -181,6 +186,16 @@ cargo watch -c -x "run -- help"
 
 The last option reloads the app every time we make changes to our code.
 
+In Part 2 we'll define the properties of a todo entry, and see how we can wire up the SQLite database.
+
 ---
 
-In Part 2 we'll define the properties of a todo entry, and see how we can wire up the SQLite database.
+## Part 2: Struct and Database definitions
+
+---
+
+## Part 3: Adding Functionality
+
+---
+
+## Part 3: Testing the Application
