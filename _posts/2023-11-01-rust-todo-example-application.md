@@ -309,7 +309,7 @@ pub fn get_connection() -> Result<Connection> {
 
 The `verify_db` function is also interesting in that it shows the SQL table definitions for `todos` and the datatypes used for that particular DB flavour.
 
-It's noteworthy that each one of these functions returns a `Result<>` (in this case defined in `rusqlite` crate).
+It's worth noting that most of these functions returns a `Result<>` (in this case defined in `rusqlite` crate), so they'll either propagate an error to the caller, or return an unwrapped value.
 
 We need to update the code in `main.rs` to expect that return type as well:
 
