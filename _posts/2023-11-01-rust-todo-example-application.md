@@ -212,13 +212,13 @@ To make matching the datatypes available in SQLite (which lacks date-time and bo
 
 We also need a way to:
 
-1- Check if we have a database file where it's expected and create one otherwise;
+1. Check if we have a database file where it's expected and create one otherwise;
 
-2- Connect to the database;
+2. Connect to the database;
 
-3- Check if it has the expected table or create it;
+3. Check if it has the expected table or create it;
 
-4- Return a database conncection reference that we can use in other parts of the code;
+4. Return a database conncection reference that we can use in other parts of the code;
 
 We solve this by adding the following code to `lib.rs`
 
