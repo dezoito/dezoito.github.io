@@ -101,6 +101,7 @@ extern crate todo;
 use std::env;
 use todo::*;
 
+#[allow(unused)] // Remove later
 fn main() {
     let args: Vec<String> = env::args().collect();
 
@@ -186,11 +187,150 @@ cargo watch -c -x "run -- help"
 
 The last option reloads the app every time we make changes to our code.
 
+FUll code for this section can be seen at [https://github.com/dezoito/rust-todo-list/tree/part1](https://github.com/dezoito/rust-todo-list/tree/part1)
+
 In Part 2 we'll define the properties of a todo entry, and see how we can wire up the SQLite database.
 
 ---
 
-## Part 2: Struct and Database definitions
+## Part 2: Struct and Database Definitions
+
+We need to define the properties of a `todo` entry first, and one way to do that is by defining a `struc`:
+
+```rs
+#[derive(Debug)]
+pub struct Todo {
+    pub id: i32,
+    pub name: String,
+    pub date_added: String,
+    pub is_done: i32,
+}
+
+```
+
+To make matching the datatypes available in SQLite (which lacks date-time and boolan fields), `data_added` is defined as string, and `is_done` is defined as an integer.
+
+We also need a way to:
+
+1- Check if we have a database file where it's expected and create one otherwise;
+
+2- Connect to the database;
+
+3- Check if it has the expected table or create it;
+
+4- Return a database conncection reference that we can use in other parts of the code;
+
+We solve this by adding the following code to `lib.rs`
+
+```rs
+
+use console::style;
+use rusqlite::{Connection, Result};
+use std::env;
+use std::fs;
+use std::path::Path;
+use std::path::PathBuf;
+
+...
+
+// Get the user's home directory for each platform
+fn get_home() -> String {
+    let home_dir = match env::var("HOME") {
+        Ok(path) => PathBuf::from(path),
+        Err(_) => {
+            // Fallback for Windows and macOS
+            if cfg!(target_os = "windows") {
+                if let Some(userprofile) = env::var("USERPROFILE").ok() {
+                    PathBuf::from(userprofile)
+                } else if let Some(homedrive) = env::var("HOMEDRIVE").ok() {
+                    let homepath = env::var("HOMEPATH").unwrap_or("".to_string());
+                    PathBuf::from(format!("{}{}", homedrive, homepath))
+                } else {
+                    panic!("Could not determine the user's home directory.");
+                }
+            } else if cfg!(target_os = "macos") {
+                let home = env::var("HOME").unwrap_or("".to_string());
+                PathBuf::from(home)
+            } else {
+                panic!("Could not determine the user's home directory.");
+            }
+        }
+    };
+
+    // Convert the PathBuf to a &str
+    match home_dir.to_str() {
+        Some(home_str) => home_str.to_string(),
+        None => panic!("Failed to convert home directory to a string."),
+    }
+}
+
+// Aux function that creates the folder where the DB should be stored
+// if it doesn't exist
+pub fn verify_db_path(db_folder: &str) -> Result<()> {
+    if !Path::new(db_folder).exists() {
+        // Check if the folder doesn't exist
+        match fs::create_dir(db_folder) {
+            Ok(_) => println!("Folder '{}' created.", db_folder),
+            Err(e) => eprintln!("Error creating folder: {}", e),
+        }
+    }
+    Ok(())
+}
+
+// Aux function that creates tables if they don't exist
+pub fn verify_db(conn: &Connection) -> Result<()> {
+    conn.execute(
+        "CREATE TABLE IF NOT EXISTS todo (
+    	id	        INTEGER NOT NULL,
+    	name	    TEXT NOT NULL,
+    	date_added	REAL NOT NULL DEFAULT current_timestamp,
+    	is_done	    NUMERIC NOT NULL DEFAULT 0,
+    	    PRIMARY KEY(id AUTOINCREMENT)
+    )",
+        [], // no params for this query
+    )?;
+    Ok(())
+}
+
+
+// Returns a connection, creating the database if needed
+pub fn get_connection() -> Result<Connection> {
+    let db_folder = get_home() + "/" + "todo_db/";
+    let db_file_path = db_folder.clone() + "todo.sqlite";
+    verify_db_path(&db_folder)?;
+    let conn = Connection::open(db_file_path)?;
+    verify_db(&conn)?;
+    Ok(conn)
+}
+
+```
+
+It's noteworthy that each one of these functions returns a `Result<>` (in this case defined in `rusqlite` crate) .
+
+We need to update the code in `main.rs` to expect that return type as well:
+
+```rs
+
+fn main() -> Result<()> {
+    let args: Vec<String> = env::args().collect();
+
+    // Get a connection to the DB
+    let conn = get_connection()?;
+
+    ...
+
+    match command.as_str() {
+        ...
+    };
+
+    Ok(())
+}
+
+```
+
+Notice we added a call to `get_connection()` and an `Ok(())` after the match statement to satisfy the `Result<()>` return type.
+
+Commited code up to this point can be seen at [https://github.com/dezoito/rust-todo-list/tree/part2](https://github.com/dezoito/rust-todo-list/tree/part2).s
 
 ---
 
