@@ -193,6 +193,8 @@ In Part 2 we'll define the properties of a todo entry, and see how we can wire u
 
 ---
 
+<p>&nbsp;</p>
+
 ## Part 2: Struct and Database Definitions
 
 We need to define the properties of a `todo` entry first, and one way to do that is by defining a `struct`:
@@ -233,7 +235,7 @@ use std::path::PathBuf;
 
 ...
 
-// Get the user's home directory for each platform
+// Get the user's home directory whether they use Linux, MacOS or Windows
 fn get_home() -> String {
     let home_dir = match env::var("HOME") {
         Ok(path) => PathBuf::from(path),
@@ -305,7 +307,9 @@ pub fn get_connection() -> Result<Connection> {
 
 ```
 
-It's noteworthy that each one of these functions returns a `Result<>` (in this case defined in `rusqlite` crate) .
+The `verify_db` function is also interesting in that it shows the SQL table definitions for `todos` and the datatypes used for that particular DB flavour.
+
+It's noteworthy that each one of these functions returns a `Result<>` (in this case defined in `rusqlite` crate).
 
 We need to update the code in `main.rs` to expect that return type as well:
 
@@ -334,8 +338,12 @@ Commited code up to this point can be seen at [https://github.com/dezoito/rust-t
 
 ---
 
+<p>&nbsp;</p>
+
 ## Part 3: Adding Functionality
 
 ---
+
+<p>&nbsp;</p>
 
 ## Part 3: Testing the Application
