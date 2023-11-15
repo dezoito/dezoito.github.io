@@ -639,6 +639,6 @@ TODO List (sorted by id):
 
 ---
 
-The final source code for this article is available in the project's [Github](https://github.com/dezoito/rust-todo-list).
+The final source code for this article is available in the project's [Github page](https://github.com/dezoito/rust-todo-list).
 
 If you've made this far, please feel free to use the comments to ask questions or suggest improvements!
