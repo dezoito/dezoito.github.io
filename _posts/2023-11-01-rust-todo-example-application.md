@@ -634,7 +634,7 @@ After running the build script, I can run the application simply by typing the `
 TODO List (sorted by id):
   24 | Task 1                                       Pending  2023-11-15 15:39:54
   25 | Task 2                                       Pending  2023-11-15 15:39:54
-❯
+
 ```
 
 ---
