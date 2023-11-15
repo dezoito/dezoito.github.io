@@ -23,7 +23,7 @@ The resulting source code is available at [https://github.com/dezoito/rust-todo-
 - [Part 2: Struct and Database Definitions](#part-2-struct-and-database-definitions)
 - [Part 3: Adding Functionality](#part-3-adding-functionality)
 - [Part 4: Testing the Application](#part-4-testing-the-application)
-- [Part 5: Building the executable](#part-5-building-the-executable)
+- [Part 5: Building the Executable](#part-5-building-the-executable)
 
 <!--more-->
 
