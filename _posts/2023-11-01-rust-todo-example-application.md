@@ -636,3 +636,9 @@ TODO List (sorted by id):
   25 | Task 2                                       Pending  2023-11-15 15:39:54
 ❯
 ```
+
+---
+
+The final source code for this article is available in the project's [Github](https://github.com/dezoito/rust-todo-list).
+
+If you've made this far, please feel free to use the comments to ask questionsor suggest improvements!
