@@ -351,24 +351,6 @@ Commited code up to this point can be seen at [https://github.com/dezoito/rust-t
 
 We now have to flesh out the functions that `add`, `remove`, `list`, `sort`, `toggle` the todo items or `reset` our database.
 
-But first we need to define the shape of a `Todo` "object":
-
-```rs
-#[derive(Debug)]
-pub struct Todo {
-    pub id: i32,
-    pub name: String,
-    pub date_added: String,
-    pub is_done: i32,
-}
-```
-
-The data types chosen above are a little different than what you would normally expect because they have to match the data returned by the SQLite database.
-
-If you check the `verify_db()` function above, you'll notice that we had to use `REAL` for the `date_added`, since the DB doesn't support a `datetime` field, and for our purpose here, the `String` type is the best match.
-
-SQLite doesn't have a `boolean` field either, so we use `0` or `1` to indicate whether a task is pending or completed.
-
 We can start to implement the methods for the `Todo` struct:
 
 ```rs
