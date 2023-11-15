@@ -22,7 +22,7 @@ The resulting source code is available at [https://github.com/dezoito/rust-todo-
 - [Part 1: Getting Started](#part-1-getting-started)
 - [Part 2: Struct and Database Definitions](#part-2-struct-and-database-definitions)
 - [Part 3: Adding Functionality](#part-3-adding-functionality)
-- [Part 3: Testing the Application](#part-3-testing-the-application)
+- [Part 4: Testing the Application](#part-4-testing-the-application)
 
 <!--more-->
 
@@ -437,4 +437,4 @@ cargo list
 
 <p>&nbsp;</p>
 
-## Part 3: Testing the Application
+## Part 4: Testing the Application
