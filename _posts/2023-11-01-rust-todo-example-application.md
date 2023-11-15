@@ -23,6 +23,7 @@ The resulting source code is available at [https://github.com/dezoito/rust-todo-
 - [Part 2: Struct and Database Definitions](#part-2-struct-and-database-definitions)
 - [Part 3: Adding Functionality](#part-3-adding-functionality)
 - [Part 4: Testing the Application](#part-4-testing-the-application)
+- [Part 5: Building the executable](#part-5-building-the-executable)
 
 <!--more-->
 
@@ -444,11 +445,13 @@ TODO List (sorted by id):
    2 | Task 2                                       Pending  2023-11-01 15:39:54
 ```
 
+---
+
 <p>&nbsp;</p>
 
 ## Part 4: Testing the Application
 
-The idiomatic way to test your Rust app seems to be writing your tests and assertions in the same file where the code that is being tested resides.
+The idiomatic way to test your Rust app is commonly done by writing your tests and assertions in the same file where the code that is being tested resides.
 
 In this block, we will add tests for the CRUD functions defined in `lib.rs`:
 
@@ -465,4 +468,171 @@ mod tests {
     // Tests and assertions
 }
 
+```
+
+### Creating a Temporary Test Database
+
+To test our CRUD and database related functions we could use the same SQLite file used in development, but that's ugly and less than ideal.
+
+SQLite lets us create "in memory" databases, and we are going to use those when our test starts:
+
+Our testing module will look like this:
+
+```rs
+#[cfg(test)]
+mod tests {
+    // "use" statements
+    use super::*;
+    use lazy_static::lazy_static;
+    use std::sync::Mutex;
+
+    // Auxiliary functions
+    // Creates a persistant in memory db connection
+    // creates tables if necessary
+    lazy_static! {
+        static ref DATABASE_CONNECTION: Mutex<Connection> = {
+            let conn = Connection::open_in_memory().expect("Failed to create in-memory database");
+            verify_db(&conn).expect("Cannot create tables");
+            Mutex::new(conn)
+        };
+    }
+
+    fn reset_db(conn: &Connection) -> Result<()> {
+        conn.execute("DELETE FROM todo", ())?;
+        Ok(())
+    }
+
+    // ....
+}
+```
+
+In the `use super::*;` gives this module access to code defined in the parent scope.
+
+The `lazy` and `mutex` imports are used to create a `lazy_static` database connection.
+
+The `lazy_static!` macro block will allow the connection to be instantiated the first time the constant `DATABASE_CONNECTION` is accessed, and will persist in the global scope for the duration of the tests.
+
+That block creates the connection to the in memory database and creates the tables if they don't exist, using `verify_db()`.
+
+Finally, the database connection `conn`is wrapped in a `Mutex` before being returned, ensuring that only one thread can access the database connection at a time.
+
+You can read more about `lazy_static` here: [Demystifying Rust’s lazy_static pattern](https://blog.logrocket.com/rust-lazy-static-pattern/)
+
+We also added a `reset_db()` method, that "cleans" the database, so we can make sure that each test uses only data that was added in its own scope.
+
+### Adding tests
+
+Let's now add the first test to this module:
+
+```rs
+#[cfg(test)]
+mod tests {
+    // "use" statements
+    use super::*;
+    use lazy_static::lazy_static;
+    use std::sync::Mutex;
+
+    // Auxiliary functions
+
+    // ...
+
+    // Tests and assertions
+    #[test]
+    fn test_add_todo() {
+        let conn = DATABASE_CONNECTION.lock().expect("Mutex lock failed");
+        reset_db(&conn).expect("Messed up resetting the db");
+
+        // Call the add function to add a todo
+        let name = "Test Todo";
+        Todo::add(&conn, name).expect("Failed to add todo");
+
+        // Query the database to check if the todo was added
+        let mut stmt = conn
+            .prepare("SELECT COUNT(*) FROM todo WHERE name = ?")
+            .expect("Failed to prepare statement");
+        let count: i32 = stmt
+            .query_row(&[name], |row| row.get(0))
+            .expect("Failed to query database");
+
+        assert_eq!(count, 1, "Todo was not added to the database");
+    }
+
+
+}
+```
+
+The `#[test]` attribute indicates to the Rust compiler that the associated function is a test function. When you run the test suite using a testing framework like `cargo test`, Rust will identify and execute functions marked with this attribute as part of the testing process.
+
+In the following test, we are verifying whether our code can successfully add a todo.
+
+Notice that we follow the Arrange, Act and Assert pattern of testing:
+
+#### Arrange
+
+We invoke our lazily initiated static database connection, then use it to reset the database to a clean state.
+
+In some tests we can also add data and todo instances at this stage.
+
+#### Act
+
+This is where we perform the action that needs to be tested, such as adding a new `todo`:
+
+```rs
+    let name = "Test Todo";
+    Todo::add(&conn, name).expect("Failed to add todo");
+```
+
+#### Assert
+
+We perform a query to verify the addition of the todo to the database,
+
+```rs
+let mut stmt = conn
+    .prepare("SELECT COUNT(*) FROM todo WHERE name = ?")
+    .expect("Failed to prepare statement");
+let count: i32 = stmt
+    .query_row(&[name], |row| row.get(0))
+    .expect("Failed to query database");
+```
+
+And then perform our assertion (there should be only a single row):
+
+```rs
+assert_eq!(count, 1, "Todo was not added to the database");
+```
+
+Displaying all tests here would ruin this article, but if you are curious they can be seen [here](https://github.com/dezoito/rust-todo-list/blob/c48060685748fb39a870ca84736f9665c3f42b6b/src/lib.rs#L212).
+
+### Running tests
+
+We can run our tests after manually using the `cargo test` command, but I prefer having a terminal open on my screen and having the tests run in `watch` mode as I develop, which reruns the tests whenever the code is saved:
+
+```sh
+cargo watch -c -x test
+```
+
+---
+
+<p>&nbsp;</p>
+
+## Part 5: Building the Executable
+
+You can build the app by running
+
+```sh
+cargo build --release
+```
+
+This will create a release version of the `todo` executable in your projects `target/release` folder.
+
+In the repository, I added a convenient `build.sh` script that moves it to the PATH folder (in Linux). You can do something similar on your own for your particular OS.
+
+After running the build script, I can run the application simply by typing the `todo` command, followed by the desired action, on the terminal:
+
+```sh
+❯ todo list
+TODO List (sorted by id):
+  24 | Task 1                                       Pending  2023-11-15 15:39:54
+  25 | Task 2                                       Pending  2023-11-15 15:39:54
+❯
 ```
