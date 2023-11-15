@@ -623,7 +623,7 @@ You can build the app by running
 cargo build --release
 ```
 
-This will create a release version of the `todo` executable in your projects `target/release` folder.
+This will create a release version of the `todo` executable in your projects `./target/release` folder.
 
 In the repository, I added a convenient `build.sh` script that moves it to the PATH folder (in Linux). You can do something similar on your own for your particular OS.
 
