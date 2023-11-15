@@ -226,7 +226,7 @@ We also need a way to:
 
 4. Return a database conncection reference that we can use in other parts of the code;
 
-We solve this by adding the following code to `lib.rs`
+We solve this by adding the following functions to `lib.rs`:
 
 ```rs
 
@@ -311,7 +311,7 @@ pub fn get_connection() -> Result<Connection> {
 
 ```
 
-The `verify_db` function is also interesting in that it shows the SQL table definitions for `todos` and the datatypes used for that particular DB flavour.
+The function blocks are pretty self explanatory, so I won't go into too much detail over them, but the `verify_db` function is interesting in that it shows the SQL table definitions for `todos` and the datatypes used for that particular DB flavour - it conveniently creates that table if it doesn't exist (i.e.: the first time this program is run).
 
 It's worth noting that most of these functions returns a `Result<>` (in this case defined in `rusqlite` crate), so they'll either propagate an error to the caller, or return an unwrapped value.
 
@@ -338,6 +338,8 @@ fn main() -> Result<()> {
 
 Notice we added a call to `get_connection()` and an `Ok(())` after the match statement to satisfy the `Result<()>` return type.
 
+A successfull call to `get_connection()` returns a database connection instance, that will be passed to the functions that perform database operations.
+
 Commited code up to this point can be seen at [https://github.com/dezoito/rust-todo-list/tree/part2](https://github.com/dezoito/rust-todo-list/tree/part2).
 
 ---
@@ -346,7 +348,92 @@ Commited code up to this point can be seen at [https://github.com/dezoito/rust-t
 
 ## Part 3: Adding Functionality
 
----
+We now have to flesh out the functions that `add`, `remove`, `list`, `sort`, `toggle` the todo items or `reset` our database.
+
+But first we need to define the shape of a `Todo` "object":
+
+```rs
+#[derive(Debug)]
+pub struct Todo {
+    pub id: i32,
+    pub name: String,
+    pub date_added: String,
+    pub is_done: i32,
+}
+```
+
+The data types chosen above are a little different than what you would normally expect because they have to match the data returned by the SQLite database.
+
+If you check the `verify_db()` function above, you'll notice that we had to use `REAL` for the `date_added`, since the DB doesn't support a `datetime` field, and for our purpose here, the `String` type is the best match.
+
+SQLite doesn't have a `boolean` field either, so we use `0` or `1` to indicate whether a task is pending or completed.
+
+We can start to implement the methods for the `Todo` struct:
+
+```rs
+impl Todo {
+    // Constructor for a new Todo instance
+    pub fn new(id: i32, name: String, date_added: String, is_done: i32) -> Self {
+        Todo {
+            id,
+            name,
+            date_added,
+            is_done,
+        }
+    }
+
+    // Add a new todo to the database
+    pub fn add(conn: &Connection, name: &str) -> Result<()> {
+        conn.execute("INSERT INTO todo (name) VALUES (?)", &[name])?;
+        Ok(())
+    }
+
+    // Other methods below
+    // ...
+}
+
+```
+
+The `new()` method accepts the data for each field and creates a new `Todo` instance.
+
+The `add()` method performs a database operation, and, therefore expects a reference to a database `Connection object`. It also accepts the name for the `todo` (the remaining fields are handled automatically by the database).
+
+We can now update `main()` with the proper call to `add()`:
+
+```rs
+
+fn main() -> Result<()> {
+    // ...r().cloned().collect::<Vec<_>>().join(" ");
+
+    match command.as_str() {
+        "add" => {
+            if suffix.as_str().is_empty() {
+                help()?;
+                std::process::exit(1);
+            } else {
+                Todo::add(&conn, suffix.as_str())?;
+            }
+            Ok(())
+        }
+        // ...
+    }
+}
+```
+
+To recap, if the user typed "`todo add go to class`" in the terminal, the match statement would route the execution to the `add()` method (the the `prefix` would be the strings left after the "add" command).
+
+In this block we verify if the user effectively typed the name for a new `todo` (printing the "help" instructions otherwise), and call the `add()` implementation for a `Todo`, passing the connection reference and the `name`.
+
+The other CRUD and auxiliary functions follow a similar pattern, so they won't be detailed here, but the complete source code for this part is available on this [Github Branch](https://github.com/dezoito/rust-todo-list/tree/part3).
+
+Feel free to comment or ask questions if you don't understand how they work.
+
+You can test the application by running the following commands:
+
+```sh
+cargo run add Task 1
+cargo list
+```
 
 <p>&nbsp;</p>
 
