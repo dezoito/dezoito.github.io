@@ -432,9 +432,37 @@ You can test the application by running the following commands:
 
 ```sh
 cargo run add Task 1
-cargo list
+cargo run add Task 2
+cargo -q run list
+```
+
+... and you should get a result similar to:
+
+```sh
+TODO List (sorted by id):
+   1 | Task 1                                       Pending  2023-11-01 15:39:54
+   2 | Task 2                                       Pending  2023-11-01 15:39:54
 ```
 
 <p>&nbsp;</p>
 
 ## Part 4: Testing the Application
+
+The idiomatic way to test your Rust app seems to be writing your tests and assertions in the same file where the code that is being tested resides.
+
+In this block, we will add tests for the CRUD functions defined in `lib.rs`:
+
+We start by adding a `test` module at the end of the file:
+
+```rs
+
+#[cfg(test)]
+mod tests {
+    // "use" statements
+
+    // Auxiliary functions
+
+    // Tests and assertions
+}
+
+```
