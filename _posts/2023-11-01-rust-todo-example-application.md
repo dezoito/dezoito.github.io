@@ -288,10 +288,10 @@ pub fn verify_db_path(db_folder: &str) -> Result<()> {
 pub fn verify_db(conn: &Connection) -> Result<()> {
     conn.execute(
         "CREATE TABLE IF NOT EXISTS todo (
-    	id	        INTEGER NOT NULL,
-    	name	    TEXT NOT NULL,
-    	date_added	REAL NOT NULL DEFAULT current_timestamp,
-    	is_done	    NUMERIC NOT NULL DEFAULT 0,
+    	id	            INTEGER NOT NULL,
+    	name	        TEXT NOT NULL,
+    	date_added	    REAL NOT NULL DEFAULT current_timestamp,
+    	is_done	        NUMERIC NOT NULL DEFAULT 0,
     	    PRIMARY KEY(id AUTOINCREMENT)
     )",
         [], // no params for this query
