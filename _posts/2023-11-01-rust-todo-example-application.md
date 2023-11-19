@@ -210,7 +210,7 @@ pub struct Todo {
     pub id: i32,
     pub name: String,
     pub date_added: String,
-    pub is_done: i32,
+    pub is_done: u8,
 }
 
 ```
@@ -356,7 +356,7 @@ We can start to implement the methods for the `Todo` struct:
 ```rs
 impl Todo {
     // Constructor for a new Todo instance
-    pub fn new(id: i32, name: String, date_added: String, is_done: i32) -> Self {
+    pub fn new(id: i32, name: String, date_added: String, is_done: u8) -> Self {
         Todo {
             id,
             name,
@@ -423,8 +423,8 @@ cargo -q run list
 
 ```sh
 TODO List (sorted by id):
-   1 | Task 1                                       Pending  2023-11-01 15:39:54
-   2 | Task 2                                       Pending  2023-11-01 15:39:54
+   1 | Task 1                                 Pending  2023-11-01 15:39:54
+   2 | Task 2                                 Pending  2023-11-01 15:39:54
 ```
 
 ---
