@@ -215,7 +215,7 @@ pub struct Todo {
 
 ```
 
-To make matching the datatypes available in SQLite (which lacks date-time and boolan fields), `data_added` is defined as string, and `is_done` is defined as an integer.
+To make matching the datatypes available in SQLite (which lacks date-time and boolan fields), `data_added` is defined as string, and `is_done` is defined as an unsigned integer.
 
 We also need a way to:
 
@@ -225,7 +225,7 @@ We also need a way to:
 
 3. Check if it has the expected table or create it;
 
-4. Return a database conncection reference that we can use in other parts of the code;
+4. Return a database connection reference that we can use in other parts of the code;
 
 We solve this by adding the following functions to `lib.rs`:
 
