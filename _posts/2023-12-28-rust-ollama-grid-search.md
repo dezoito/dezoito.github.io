@@ -66,7 +66,7 @@ More importantly, trying different combinations and annotating results was a ted
 
 ![](https://github.com/dezoito/dezoito.github.io/blob/master/public/images/grid-tool-view.png?raw=true)
 
-Please check the project's README for a more in-depth look at this tool and its usage.
+Please check the project's README for a more in-depth look at the tool and its usage.
 
 ## Experiments
 
@@ -80,7 +80,7 @@ These differences caused the quality of the results to vary wildly, using the de
 Is there a set of model params that yields good results for all document types?
 </blockquote>
 
-<IMAGE OF Params>
+![](https://github.com/dezoito/dezoito.github.io/blob/master/public/images/grid-script-params.png?raw=true)
 
 For each document we performed an experiment, using the same prompt but iterating over the possible combinations of parameters:
 
