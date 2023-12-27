@@ -78,13 +78,13 @@ These differences caused the quality of the results to vary wildly, using the de
 
 <blockquote>
 Is there a set of model params that yields good results for all document types?
-</blockquote>
+</blockquote><br/>
 
 ![](https://github.com/dezoito/dezoito.github.io/blob/master/public/images/grid-script-params.png?raw=true)
 
 For each document we performed an experiment, using the same prompt but iterating over the possible combinations of parameters:
 
-<IMAGE OF Results>
+![](https://github.com/dezoito/dezoito.github.io/blob/master/public/images/grid-results.png?raw=true)
 
 At a quick glance, you can tell which configurations generated good summaries for that particular prompt/model, but it’s still hard to determine which ones were good across all types of documents.
 
