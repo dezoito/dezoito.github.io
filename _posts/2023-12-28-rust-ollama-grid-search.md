@@ -33,9 +33,9 @@ Since external APIs were out of the question, this required efforts on a few dif
 
 But now I can use Ollama to conveniently host and serve different LLM models.
 
-![](https://github.com/dezoito/dezoito.github.io/blob/master/public/images/grid-llm-service.png?raw=true)
-
 For each task, all I have to do is carefully craft a prompt, make a post request, and Ollama will return a nicely formatted response.
+
+![](https://github.com/dezoito/dezoito.github.io/blob/master/public/images/grid-llm-service.png?raw=true)
 
 No need to build Fast API servers, muck with datasets or choose and train models.
 
@@ -60,7 +60,7 @@ There are a ton of resources on the first three factors, so let's focus on the l
 
 Ollama let's you define a [comprehensive list of parameters](https://github.com/jmorganca/ollama/blob/main/docs/modelfile.md#parameter) when creating or prompting LLMs, but I found it difficult to understand how some of them affected the model performance.
 
-<PARAMETER IMAGE>
+![](https://github.com/dezoito/dezoito.github.io/blob/master/public/images/grid-ollama-params.png?raw=true)
 
 More importantly, trying different combinations and annotating results was a tedious and time consuming process, so I made [Ollama Grid Search](https://github.com/dezoito/ollama-grid-search), a Rust based tool that automates prompt testing, iterating over combinations of parameters and allowing the user to visually inspect results and stats.
 
