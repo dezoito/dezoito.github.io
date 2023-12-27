@@ -15,7 +15,7 @@ Our goal is to streamline parameter tuning for enhanced inference efficiency, co
 
 I recently built a [multilabel classifier](https://en.wikipedia.org/wiki/Multi-label_classification) API - you post text to the endpoint and it returns an array of zero or more topics related to the text, selected from a taxonomy of subjects.
 
-<MULTILABEL CLASSIFIER IMAGE>
+![](https://github.com/dezoito/dezoito.github.io/blob/dev/public/images/grid-multilable-classifier.png?raw=true)
 
 Due to the classified nature of the data, ALL steps had to be performed "on premises".
 
