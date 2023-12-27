@@ -41,9 +41,9 @@ No need to build Fast API servers, muck with datasets or choose and train models
 
 Right?
 
-## The Caveats
-
 Not so fast.
+
+## The Caveats
 
 While the conclusions above sound promising, the fact is that LLMs tend (for now) to consume sigificantly more resources - and take longer to process - compared to the previous method.
 
