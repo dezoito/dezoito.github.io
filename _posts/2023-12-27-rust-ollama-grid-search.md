@@ -33,7 +33,7 @@ Since external APIs were out of the question, this required efforts on a few dif
 
 But now I can use Ollama to conveniently host and serve different LLM models.
 
-For each task, all I have to do is carefully craft a prompt, make a post request, and Ollama will return a nicely formatted response.
+For each task, all I have to do is carefully craft a prompt, make a POST request, and Ollama will return a nicely formatted response.
 
 ![](https://github.com/dezoito/dezoito.github.io/blob/master/public/images/grid-llm-service.png?raw=true)
 
