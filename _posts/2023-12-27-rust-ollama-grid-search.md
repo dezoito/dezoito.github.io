@@ -62,11 +62,11 @@ Ollama let's you define a [comprehensive list of parameters](https://github.com/
 
 ![](https://github.com/dezoito/dezoito.github.io/blob/master/public/images/grid-ollama-params.png?raw=true)
 
-More importantly, trying different combinations and annotating results was a tedious and time consuming process, so I made [Ollama Grid Search](https://github.com/dezoito/ollama-grid-search), a Rust based tool that automates prompt testing, iterating over combinations of parameters and allowing the user to visually inspect results and stats.
+More importantly, trying different combinations and annotating results was a tedious and time consuming process, so I made **[Ollama Grid Search](https://github.com/dezoito/ollama-grid-search)**, a Rust based tool that automates prompt testing, iterating over combinations of parameters and allowing the user to visually inspect results and stats.
 
 ![](https://github.com/dezoito/dezoito.github.io/blob/master/public/images/grid-tool-view.png?raw=true)
 
-Please check the project's README for a more in-depth look at the tool and its usage.
+Please check the [project's README](https://github.com/dezoito/ollama-grid-search) for a more in-depth look at the tool and its usage.
 
 ## Experiments
 
@@ -112,4 +112,4 @@ We can clearly see that the quantized model did not perform as well as the other
 
 ## Conclusion
 
-In conclusion, the process above, assisted by Ollama Grid Search, was very useful in determining the optimal model parameters for a given task, but also to test different models and prompts, to visually compare results, and make an informed decision.
+In conclusion, the process above, assisted by **[Ollama Grid Search](https://github.com/dezoito/ollama-grid-search)**, was very useful in determining the optimal model parameters for a given task, but also to test different models and prompts, to visually compare results, and make an informed decision.
