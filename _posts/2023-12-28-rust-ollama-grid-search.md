@@ -96,17 +96,17 @@ Simply, the image above displays a spreadsheet where each cell represents a comb
 
 If that combination generated good results for a particular document type, we added its name to the cell.
 
-Cells were collored according to the number of documents, producing a "heatmap" and clearly indicating that the params in cells (CELL NUMBERS HERE) generalized best for this application.
+Cells were collored according to the number of documents, producing a "heatmap" and clearly indicating that the params in cells 18, 20 and 43 generalized best for this application.
 
 We can even repeat the same process, across different models:
 
-<image of spreadsheets>
+![](https://github.com/dezoito/dezoito.github.io/blob/master/public/images/grid-spreadsheets.png?raw=true)
 
 In the image above we test three different models:
 
-- dolphin2.2-mistral:latest (custom SYSTEM prompt)
-- dolphin2.2-mistral:latest (default SYSTEM prompt)
 - dolphin2.2-mistral:7b-q4_0 (default SYSTEM prompt)
+- dolphin2.2-mistral:latest (default SYSTEM prompt)
+- dolphin2.2-mistral:latest (custom SYSTEM prompt)
 
 We can clearly see that the quantized model did not perform as well as the other ones.
 
