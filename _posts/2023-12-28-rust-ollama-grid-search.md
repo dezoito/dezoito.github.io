@@ -64,7 +64,7 @@ Ollama let's you define a [comprehensive list of parameters](https://github.com/
 
 More importantly, trying different combinations and annotating results was a tedious and time consuming process, so I made [Ollama Grid Search](https://github.com/dezoito/ollama-grid-search), a Rust based tool that automates prompt testing, iterating over combinations of parameters and allowing the user to visually inspect results and stats.
 
-<IMAGE OF SCRIPT AND RESULTS>
+![](https://github.com/dezoito/dezoito.github.io/blob/master/public/images/grid-tool-view.png?raw=true)
 
 Please check the project's README for a more in-depth look at this tool and its usage.
 
