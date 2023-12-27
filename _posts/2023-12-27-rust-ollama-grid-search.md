@@ -108,7 +108,7 @@ In the image above we test three different models:
 - dolphin2.2-mistral:latest (default SYSTEM prompt)
 - dolphin2.2-mistral:latest (custom SYSTEM prompt)
 
-We can clearly see that the quantized model did not perform as well as the other ones.
+We can clearly see that, in this case, the quantized model did not perform as well as the other ones.
 
 ## Conclusion
 
