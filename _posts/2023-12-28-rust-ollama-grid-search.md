@@ -70,7 +70,7 @@ Please check the project's README for a more in-depth look at the tool and its u
 
 ## Experiments
 
-Consider the task of generating "**clear and concise**" summaries for classified text in a foreign language.
+Consider the task of generating "**clear and concise**" summaries for different document types in a database.
 
 After deciding on a particular model, we selected 4 different types of commonly used documents that vary in style.
 
@@ -82,15 +82,15 @@ Is there a set of model params that yields good results for all document types?
 
 ![](https://github.com/dezoito/dezoito.github.io/blob/master/public/images/grid-script-params.png?raw=true)
 
-For each document we performed an experiment, using the same prompt but iterating over the possible combinations of parameters:
+For each document we performed an experiment, using the same prompt but iterating over the possible combinations of parameters.
+
+At a quick glance, you can tell which configurations generated good summaries for that particular prompt/model, but it’s still hard to determine which ones were good across all types of documents:
 
 ![](https://github.com/dezoito/dezoito.github.io/blob/master/public/images/grid-results.png?raw=true)
 
-At a quick glance, you can tell which configurations generated good summaries for that particular prompt/model, but it’s still hard to determine which ones were good across all types of documents.
-
 A way to visually detect the best performing parameters was to manually annotate results on a grid:
 
-<Single spreadsheet>
+![](https://github.com/dezoito/dezoito.github.io/blob/master/public/images/grid-spreadsheet.png?raw=true)
 
 Simply, the image above displays a spreadsheet where each cell represents a combination of parameters.
 
