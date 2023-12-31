@@ -1,7 +1,7 @@
 ---
 layout: post
 comments: true
-title: Performing Grid Search on LLMs using Ollama and Rust
+title: Grid Search on Large Langage Models using Ollama and Rust
 excerpt_separator: <!--more-->
 ---
 
