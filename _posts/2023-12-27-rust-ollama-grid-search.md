@@ -9,6 +9,8 @@ This article explores the process of optimizing Large Language Models (LLMs) for
 
 Our goal is to streamline parameter tuning for enhanced inference efficiency, complementing prompt engineering efforts, using models hosted in an [Ollama](https://www.ollama.ai) instance and an interface built in Rust.
 
+> [01-MAR-2024] Note, this article was written before we released a Desktop version of **[Ollama Grid Search](https://github.com/dezoito/ollama-grid-search)**!
+
 <!--more-->
 
 ## Why use LLMs
