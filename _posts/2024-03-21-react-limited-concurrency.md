@@ -27,7 +27,7 @@ The **Tanstack-query** libray makes implementing requirement #2 trivial (by usin
 
 Inference calls are processed one at a time, but each combination of parameters can be requeried individually.
 
-## The Solution (and credit to [anton](https://stackoverflow.com/users/6090489/anton))
+## The Solution (and credit to [anton](https://stackoverflow.com/users/8571434/anton) and [spaceoso](https://stackoverflow.com/users/6090489/spaceoso))
 
 We were having a little trouble marrying and implementation of the Semaphore protocol with the library (and no AI was able to help), but luckly we came across this [StackOverflow answer](https://stackoverflow.com/a/76953016).
 
@@ -56,8 +56,10 @@ The gist of it is:
 
 1- Create an array of **disabled** queries.
 
-2- Do not enable a query until the previous one is finished.
+2- Wait until one query is finished to start the next one.
 
 While it didn't work right out of the box for our use case, it eventually led us to the correct implementation! Keep reading!
 
 ## An example
+
+To better explain this concept we created a [React Limited Concurrency Demo Application](https://github.com/dezoito/react-limited-concurrency-queries):
