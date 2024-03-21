@@ -62,4 +62,6 @@ While it didn't work right out of the box for our use case, it eventually led us
 
 ## An example
 
-To better explain this concept we created a [React Limited Concurrency Demo Application](https://github.com/dezoito/react-limited-concurrency-queries):
+To better explain this concept we created a [React Limited Concurrency Demo Application](https://github.com/dezoito/react-limited-concurrency-queries).
+
+<!-- Add animations -->
