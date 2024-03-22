@@ -21,15 +21,15 @@ In developing [Ollama Grid Search](https://github.com/dezoito/ollama-grid-search
 
 2. Users needed a way to re-run a single inference call (a combination of a model and several params), without having to perform an entire experiment again.
 
-The **Tanstack-query** libray makes implementing requirement #2 trivial (by using a function called `refetchQueries()`) and, with a little help, also makes the first one easily attainable too!
+The **Tanstack-query** library makes implementing requirement #2 trivial (by using a function called `refetchQueries()`) and, with a little help, also makes the first one easily attainable too!
 
 <img src="https://raw.githubusercontent.com/dezoito/ollama-grid-search/main/screenshots/main.png" alt="Ollama Grid Search interface" width="720">
 
-Inference calls are processed one at a time, but each combination of parameters can be requeried individually.
+Inference calls are processed one at a time, but each combination of parameters can be re-queried individually.
 
 ## The Solution (and credit to [anton](https://stackoverflow.com/users/8571434/anton) and [spaceoso](https://stackoverflow.com/users/6090489/spaceoso) from StackOverflow)
 
-We were having a little trouble marrying and implementation of the Semaphore protocol with the library (and no AI was able to help), but luckly we came across this [StackOverflow post](https://stackoverflow.com/a/76953016).
+We were having a little trouble with an implementation of the Semaphore protocol, but luckily we came across this [StackOverflow post](https://stackoverflow.com/a/76953016).
 
 ```js
 const [selection, setSelection] = React.useState([])
@@ -64,7 +64,7 @@ While it didn't work right out of the box for our use case, it eventually led us
 
 To better explain this concept we created a [React Limited Concurrency Demo Application](https://github.com/dezoito/react-limited-concurrency-queries).
 
-Let's say we have a list of clients, and for each client we use a complex and expensive AI process to decide whether they are elegible for a discount or not:
+Let's say we have a list of clients, and for each client we use a complex and expensive AI process to decide whether they are eligible for a discount or not:
 
 <img src="https://raw.githubusercontent.com/dezoito/react-limited-concurrency-queries/main/images/demo.gif" alt="Client Processing Animation" />
 
@@ -145,7 +145,7 @@ const results = useQueries({ queries: queries });
 const lastFetched = results.filter((r) => r.isFetched);
 ```
 
-In `(i <= noCompleted + concurrentRequests && noCompleted !== names.length)`, if `concurrentRequests` is set to `0`, we only allow a single new query to run at a time.
+In `(i <= noCompleted + concurrentRequests && noCompleted !== names.length)`, if `concurrentRequests` is set to `0`, only a single new query is allowed to run at a time.
 
 Setting the value of `concurrentRequests` to anything higher than `0` "enables" more queries to run at a single time, with higher values allowing for a higher number of concurrent queries.
 
