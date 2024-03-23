@@ -27,7 +27,7 @@ The **Tanstack-query** library makes implementing requirement #2 trivial (by usi
 
 Inference calls are processed one at a time, but each combination of parameters can be re-queried individually.
 
-## The Solution (and credit to [anton](https://stackoverflow.com/users/8571434/anton) and [spaceoso](https://stackoverflow.com/users/6090489/spaceoso) from StackOverflow)
+## The Solution
 
 We were having a little trouble with an implementation of the Semaphore protocol, but luckily we came across this [StackOverflow post](https://stackoverflow.com/a/76953016).
 
@@ -59,6 +59,8 @@ The gist of it is:
 2- Wait until one query is finished to start the next one.
 
 While it didn't work right out of the box for our use case, it eventually led us to the correct implementation! Keep reading!
+
+(All credit to [anton](https://stackoverflow.com/users/8571434/anton) and [spaceoso](https://stackoverflow.com/users/6090489/spaceoso) from StackOverflow!)
 
 ## An Example Application
 
