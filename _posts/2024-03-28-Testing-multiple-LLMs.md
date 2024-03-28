@@ -5,13 +5,11 @@ title: Testing Multiple LLMs in one Pass
 excerpt_separator: <!--more-->
 ---
 
+This article aims to demonstrate how Ollama Grid Search can streamline the process of comparing and selecting Large Language Models (LLMs) for various tasks and provide answers to common questions such as:
+
 > _**What is the best** model for for story telling?_
 
 > _I want to use LLMs to generate RPG scripts, **which model** should I use?_
-
-Users making such inquiries can usually receive good advice, but when you need to compare different (perhaps similar) models, the process can **take a lot of effort**, and the **results can remain inconclusive**.
-
-In this article we explore some ways to automate the process, **testing several models in a single operation**, visually inspecting results and comparing data such as **generated tokens** and **throughput**.
 
 <!--more-->
 
@@ -159,7 +157,7 @@ Starling-lm:7b, for example, returned some really verbose output:
 
 For most combinations, **Tinydolphin:1.1b-v2.8-q4_0** still returns good responses and is still the fastest model!
 
-We could now perform similar experiments using a different prompt, or focus on that single model and perform a grid search to determine its optimal combination of parameters (as discussed in **[Grid Search on Large Language Models using Ollama and Rust](https://dezoito.github.io/2023/12/27/rust-ollama-grid-search.html)**).
+We could now perform similar experiments using a different prompt, or focus on that single model and perform a "grid search" experiment to determine its optimal combination of parameters (as discussed in **[Grid Search on Large Language Models using Ollama and Rust](https://dezoito.github.io/2023/12/27/rust-ollama-grid-search.html)**).
 
 ## Conclusion
 
@@ -167,4 +165,4 @@ Manually testing multiple models can be a time drain and produce confusing resul
 
 An automation tool like **[Ollama Grid Search](https://github.com/dezoito/ollama-grid-search)** helps us perform dozens of iterations in a single run, allowing us to see not only how models compare to each other, but also how they behave under a range of different parameters.
 
-When we are pretty sure to have "winner" model, "grid search" can be used to determine what set of parameters produces the best output for that model, and again save us from the hell of manual experiments.
+When we are pretty sure to have "winner" model, "grid search" experiments can be used to determine what set of parameters produces the best output for that model, and again save us from the hell of manual experiments.
