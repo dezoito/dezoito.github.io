@@ -165,6 +165,6 @@ We could now perform similar experiments using a different prompt, or focus on t
 
 Manually testing multiple models can be a time drain and produce confusing results... there must be a method to the madness (this is a whisky reference, by the way)!
 
-Using an automation tool like Ollama Grid Search helps us perform dozen of iterations in a single run, allowing us to see not only how models compare to each other, but also how they behave under a range of different parameters.
+An automation tool like **[Ollama Grid Search](https://github.com/dezoito/ollama-grid-search)** helps us perform dozens of iterations in a single run, allowing us to see not only how models compare to each other, but also how they behave under a range of different parameters.
 
 When we are pretty sure to have "winner" model, "grid search" can be used to determine what set of parameters produces the best output for that model, and again save us from the hell of manual experiments.
