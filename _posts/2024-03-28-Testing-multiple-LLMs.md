@@ -43,9 +43,7 @@ Write a list of three concise prompts that can complement the query above.
 
 When we fire up Ollama Grid Search, it let's us select the models we want to use, from a list of those installed on the server:
 
-![Model Selection](https://github.com/dezoito/dezoito.github.io/blob/dev/public/images/ogs-model-selector.png&raw=true)
-
-![](https://github.com/dezoito/dezoito.github.io/blob/dev/public/images/todo-demo.gif?raw=true)
+![Model Selection](https://github.com/dezoito/dezoito.github.io/blob/master/public/images/ogs-model-selector.png&raw=true)
 
 Let's select the following models to see how they stack up:
 
