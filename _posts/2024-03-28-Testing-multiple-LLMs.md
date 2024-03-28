@@ -46,8 +46,12 @@ Write a list of three concise prompts that can complement the query above.
 
 ![Model Selection](https://raw.githubusercontent.com/dezoito/dezoito.github.io/master/public/images/ogs-model-selector.png)
 
-After selecting the three models above, we can enter the prompt
+After selecting the three models above, we can enter the prompt:
 
 ![Prompt input](https://raw.githubusercontent.com/dezoito/dezoito.github.io/master/public/images/ogs-prompt.png)
+
+We can also click on the "gear icon" and use the "settings" options to set a custom system prompt:
+
+![Settings](https://raw.githubusercontent.com/dezoito/dezoito.github.io/master/public/images/ogs-settings.png)
 
 ## Conclusion
