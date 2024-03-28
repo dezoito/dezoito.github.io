@@ -9,18 +9,18 @@
 # relative_permalinks: false
 
 # Setup
-title:               'Analyst 18'
-tagline:             '&nbsp; Software Engineering and other random() subjects'
-description:         'Articles on web-centric development using Python, Django, , FastAPI, Flask and ColdFusion, the i2 suite, and custom Intelligence Analysis software.'
-url:                 https://dezoito.github.io
-baseurl:             /
-paginate:            7
+title: "Analyst 18"
+tagline: "&nbsp; Software Engineering and other random() subjects"
+description: "Articles on web-centric development that may or may not be related to Intelligence Analysis software."
+url: https://dezoito.github.io
+baseurl: /
+paginate: 7
 
 # About/contact
 author:
   name:
-  url:               https://dezoito.github.io
+  url: https://dezoito.github.io
   email:
 
 # Custom vars
-version:             1.0.0
+version: 1.0.0
