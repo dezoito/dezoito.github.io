@@ -39,16 +39,15 @@ Consider the initial prompt:
 
 The person above may or may not be connected to criminal activities.
 Write a list of three concise prompts that can complement the query above.
+
 ```
 
-When we fire up Ollama Grid Search, it let's us select the models we want to use, from a list of those installed on the server:
+**[Ollama Grid Search](https://github.com/dezoito/ollama-grid-search)** is a Large Large Language Model testing desktop application. It let's us select the models we want to use, from a list of those installed on the server:
 
-![Model Selection](https://github.com/dezoito/dezoito.github.io/blob/master/public/images/ogs-model-selector.png)
+![Model Selection](https://raw.githubusercontent.com/dezoito/dezoito.github.io/master/public/images/ogs-model-selector.png)
 
-Let's select the following models to see how they stack up:
+After selecting the three models above, we can enter the prompt
 
-- genna:2b-instruct
-- starling-lm:7b
-- tinydolphin:1.1b-v2.8-q4_0
+![Model Selection](https://raw.githubusercontent.com/dezoito/dezoito.github.io/master/public/images/ogs-promp.png)
 
 ## Conclusion
