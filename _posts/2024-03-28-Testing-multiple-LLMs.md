@@ -43,6 +43,6 @@ Write a list of three concise prompts that can complement the query above.
 
 When we fire up Ollama Grid Search, it let's us select the models we want to use, from a list of those installed on the server:
 
-<img src="https://raw.githubusercontent.com/dezoito/ollama-grid-search/main/screenshots/ogs-model_selector.png" alt="Ollama Grid Search model Selection">
+<img src="images/ogs-model_selector.png" alt="Ollama Grid Search model Selection">
 
 ## Conclusion
