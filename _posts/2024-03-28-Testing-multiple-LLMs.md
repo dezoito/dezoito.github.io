@@ -137,7 +137,7 @@ For this particular experiment, tinydolphin's throughput (the rate at which the 
 
 But what if the results above were just a fluke?
 
-Ollama Grid Search gives us the option of re-running iterations or experiments, but we can also set **multiple combinations of parameters**.
+**Ollama Grid Search** gives us the option of re-running iterations or experiments, but we can also set **multiple combinations of parameters**.
 
 Let's make the following changes:
 
