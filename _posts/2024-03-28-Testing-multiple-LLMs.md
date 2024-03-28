@@ -24,7 +24,7 @@ Both dependencies above are **free** and can be installed in all major platforms
 
 Finally:
 
-- The models for comparison need to have been pulled into the Ollama server
+- The models for comparison need to have been pulled into the Ollama server.
 
 ## Running tests
 
@@ -54,7 +54,7 @@ We can also click on the "gear icon" and use the "settings" options to set a cus
 
 Skip the temptation of messing with other parameters and hit "Start Experiment".
 
-The software will send the prompt (along with the system prompt and default inference paramenter) to each of the selected models sequentially and, in this experiment, present the following output (edited for clarity):
+The software will send the prompt (along with the system prompt and default inference paramenter) to each of the selected models sequentially and present an output similar to:
 
 ```txt
 1/3 - gemma:2b-instruct
@@ -90,7 +90,9 @@ Sure, here are three complementary prompts that can be used to gather more relev
 
 ```
 
-**At first glance** all results look pretty good! But if we click on the "Expand Inference metadata" option (or in "Results Metadata", below each result), we can get a little more insight on how each model performed:
+**At first glance** all results look pretty good!
+
+But if we click on the "Expand Inference metadata" option (or in "Results Metadata", below each result), we can get a little more insight on how each model performed:
 
 ```sh
 1/3 - gemma:2b-instruct
@@ -129,13 +131,13 @@ Throughput: 13.29 tokens/s
 
 ```
 
-For this particular experiment, tinydolphin's throughput was 3 to 5x higher than the other models, while still delivering competitive results!
+For this particular experiment, tinydolphin's throughput (the rate at which the model produces output) was 3 to 5x higher than the other models, while still delivering competitive results!
 
 ## Running a lot more tests
 
 But what if the results above were just a fluke?
 
-Ollama Grid Search gives us the option of runningre-running each inference individually, or the entire experiment again, but we can also set **multiple combinations of parameters**.
+Ollama Grid Search gives us the option of re-running iterations or experiments, but we can also set **multiple combinations of parameters**.
 
 Let's make the following changes:
 
@@ -143,21 +145,21 @@ Let's make the following changes:
 - set **Repeat Penalty List** to `1.1, 1.5`
 - set **Top_K List** to `20,40`
 
-That's 2 x 2 x 2 combinations of parameters for each of the 3 selected models, so we can expect 24 iterations for this new experiment!
+That's 2 x 2 x 2 combinations of parameters for each of the 3 selected models, so we can expect 24 iterations for this new experiment.
 
-Hit the "Start Experiment" button, optionally go get a cup of coffee, and then wait for all iterations to run:
+Hit the "Start Experiment" button, optionally go get a cup of coffee, and wait for all iterations to run:
 
 ![final experiment](https://raw.githubusercontent.com/dezoito/dezoito.github.io/master/public/images/ogs-experiment.png)
 
-After inspecting the results we can see that throughputfor all models stays consistent, but the quality and lenght of the output varies quite a lot, depending on the parameter combination selected for each iteration.
+After inspecting the results we can see that throughput for all models stays consistent, but the quality and length of the output varies quite a lot, depending on the parameter combination selected for each iteration.
 
 Starling-lm:7b, for example, returned some really verbose output:
 
 ![StarlingLM](https://raw.githubusercontent.com/dezoito/dezoito.github.io/master/public/images/ogs-starling.png)
 
-For most combinations, **Tinydolphin:1.1b-v2.8-q4_0** still returns good responses and is still the fastest model!
+For most combinations, however, **Tinydolphin:1.1b-v2.8-q4_0** still returns good responses while remaining the fastest model!
 
-We could now perform similar experiments using a different prompt, or focus on that single model and perform a "grid search" experiment to determine its optimal combination of parameters (as discussed in **[Grid Search on Large Language Models using Ollama and Rust](https://dezoito.github.io/2023/12/27/rust-ollama-grid-search.html)**).
+We could now perform similar tests using a different prompt, or focus on that single model and perform a "grid search" experiment to determine its optimal combination of parameters (as discussed in **[Grid Search on Large Language Models using Ollama and Rust](https://dezoito.github.io/2023/12/27/rust-ollama-grid-search.html)**).
 
 ## Conclusion
 
