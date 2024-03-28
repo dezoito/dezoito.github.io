@@ -54,4 +54,105 @@ We can also click on the "gear icon" and use the "settings" options to set a cus
 
 ![Settings](https://raw.githubusercontent.com/dezoito/dezoito.github.io/master/public/images/ogs-settings.png)
 
+Skip the temptation of messing with other parameters and hit "Start Experiment".
+
+The software will send the prompt (along with the system prompt and default inference paramenter) to each of the selected models sequentially and, in this experiment, present the following output (edited for clarity):
+
+```sh
+1/3 - gemma:2b-instruct
+
+Sure, here are three complementary prompts that can be used to gather more relevant information about John Doe:
+
+1. **What are John Doe's known affiliations and social media presence?**
+2. **What are John Doe's past criminal records and legal cases?**
+3. **What are John Doe's current whereabouts and living conditions?**
+
+```
+
+---
+
+```sh
+2/3 - starling-lm:7b
+
+1. "Determine if John Doe has any known affiliations with criminal organizations."
+2. "Investigate John Doe's financial and employment history for irregularities."
+3. "Analyze John Doe's online presence and social media activity for potential threats or suspicious behavior."<|end_of_turn|>
+
+
+```
+
+---
+
+```sh
+3/3 - tinydolphin:1.1b-v2.8-q4_0
+
+1. Who is John Doe, and what are his primary areas of interest?
+2. What sources of information do you have on John's activities?
+3. What conclusions can we draw from the available data regarding John's involvement in criminal activities?<|im_end|>
+
+```
+
+**At first glance** all results look pretty good! But if we click on the "Expand Inference metadata" option (or in "Results Metadate, below each result), we can get a little more insight on how each model performed:
+
+```sh
+1/3 - gemma:2b-instruct
+...
+Created at: Thu, 28 Mar 2024 18:52:35 GMT
+Eval Count: 74 tokens
+Eval Duration: 0 hours, 0 minutes, 8 seconds
+Total Duration: 0 hours, 0 minutes, 13 seconds
+Throughput: 5.64 tokens/s
+
+```
+
+---
+
+```sh
+2/3 - starling-lm:7b
+...
+Created at: Thu, 28 Mar 2024 18:52:57 GMT
+Eval Count: 65 tokens
+Eval Duration: 0 hours, 0 minutes, 12 seconds
+Total Duration: 0 hours, 0 minutes, 21 seconds
+Throughput: 3.04 tokens/s
+
+```
+
+---
+
+```sh
+3/3 - tinydolphin:1.1b-v2.8-q4_0
+...
+Created at: Thu, 28 Mar 2024 18:53:01 GMT
+Eval Count: 58 tokens
+Eval Duration: 0 hours, 0 minutes, 2 seconds
+Total Duration: 0 hours, 0 minutes, 4 seconds
+Throughput: 13.29 tokens/s
+
+```
+
+For this particular experiment, tinydolphin's throughput was 3 to 5x higher than the other models, while still delivering competitive results!
+
+## Running a lot more tests
+
+But what if the results above were just a fluke?
+
+Ollama Grid Search gives us the option of runningre-running each inference individually, or the entire experiment again, but we can also set **multiple combinations of parameters**.
+
+Let's make the following changes:
+
+- set **Temperature List** to `0.5, 0.7`
+- set **Repeat Penalty List** to `1.1, 1.5`
+- set **Top_K List** to `20,40`
+
+Thats 2 x 2 x 2 combinations of parameters for each of the 3 selected models, so we can expect 24 iterations for this new experiment!
+
+Hit the "Start Experiment" button optionally go get a cup of coffee and wait for all iterations to run:
+
+![Iterations](https://raw.githubusercontent.com/dezoito/dezoito.github.io/master/public/images/ogs-iterations.png)
+
 ## Conclusion
+
+```
+
+```
