@@ -149,7 +149,7 @@ Thats 2 x 2 x 2 combinations of parameters for each of the 3 selected models, so
 
 Hit the "Start Experiment" button optionally go get a cup of coffee and wait for all iterations to run:
 
-![Iterations](https://raw.githubusercontent.com/dezoito/dezoito.github.io/master/public/images/ogs-iterations.png)
+![final experiment](https://raw.githubusercontent.com/dezoito/dezoito.github.io/master/public/images/ogs-xperiment.png)
 
 After inspecting the results we can see that thoroughputfor all models stays consistent, but the quality and lenght of the output varies quite a lot, depending on the parameter combination selected for each iteration.
 
