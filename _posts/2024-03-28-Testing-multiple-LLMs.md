@@ -92,7 +92,7 @@ Sure, here are three complementary prompts that can be used to gather more relev
 
 **At first glance** all results look pretty good!
 
-But if we click on the "Expand Inference metadata" option (or in "Results Metadata", below each result), we can get a little more insight on how each model performed:
+But if we click on the `"Expand Inference metadata"` option (or in `"Results Metadata"`, below each result), we can get a little more insight on how each model performed:
 
 ```sh
 1/3 - gemma:2b-instruct
