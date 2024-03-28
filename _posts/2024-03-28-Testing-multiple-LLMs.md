@@ -48,6 +48,6 @@ Write a list of three concise prompts that can complement the query above.
 
 After selecting the three models above, we can enter the prompt
 
-![Model Selection](https://raw.githubusercontent.com/dezoito/dezoito.github.io/master/public/images/ogs-promp.png)
+![Prompt input](https://raw.githubusercontent.com/dezoito/dezoito.github.io/master/public/images/ogs-prompt.png)
 
 ## Conclusion
