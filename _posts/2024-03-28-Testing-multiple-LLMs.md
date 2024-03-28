@@ -153,7 +153,7 @@ Hit the "Start Experiment" button, optionally go get a cup of coffee, and wait f
 
 After inspecting the results we can see that throughput for all models stays consistent, but the quality and length of the output varies quite a lot, depending on the parameter combination selected for each iteration.
 
-Starling-lm:7b, for example, returned some really verbose output:
+**Starling-lm:7b**, for example, returned some really verbose output:
 
 ![StarlingLM](https://raw.githubusercontent.com/dezoito/dezoito.github.io/master/public/images/ogs-starling.png)
 
