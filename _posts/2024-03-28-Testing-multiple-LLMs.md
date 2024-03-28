@@ -1,7 +1,7 @@
 ---
 layout: post
 comments: true
-title: Testing Nultiple LLMs in one Pass
+title: Testing Multiple LLMs in one Pass
 excerpt_separator: <!--more-->
 ---
 
@@ -11,7 +11,7 @@ excerpt_separator: <!--more-->
 
 Users making such inquiries can usually receive good advice, but when you need to compare different (perhaps similar) models, the process can **take a lot of effort**, and the **results can remain inconclusive**.
 
-In this article we explore some ways to automate the process, **testing several models in a single operation**, visually inspecting results and comparing data such as **generated tokens** and **thoroughput**.
+In this article we explore some ways to automate the process, **testing several models in a single operation**, visually inspecting results and comparing data such as **generated tokens** and **throughput**.
 
 <!--more-->
 
@@ -42,7 +42,7 @@ Write a list of three concise prompts that can complement the query above.
 
 ```
 
-**[Ollama Grid Search](https://github.com/dezoito/ollama-grid-search)** is a Large Large Language Model testing desktop application. It let's us select the models we want to use, from a list of those installed on the server:
+**[Ollama Grid Search](https://github.com/dezoito/ollama-grid-search)** is a Large Large Language Model testing desktop application. It lets us select the models we want to use, from a list of those installed on the server:
 
 ![Model Selection](https://raw.githubusercontent.com/dezoito/dezoito.github.io/master/public/images/ogs-model-selector.png)
 
@@ -145,13 +145,13 @@ Let's make the following changes:
 - set **Repeat Penalty List** to `1.1, 1.5`
 - set **Top_K List** to `20,40`
 
-Thats 2 x 2 x 2 combinations of parameters for each of the 3 selected models, so we can expect 24 iterations for this new experiment!
+That's 2 x 2 x 2 combinations of parameters for each of the 3 selected models, so we can expect 24 iterations for this new experiment!
 
-Hit the "Start Experiment" button optionally go get a cup of coffee and wait for all iterations to run:
+Hit the "Start Experiment" button, optionally go get a cup of coffee, and then wait for all iterations to run:
 
 ![final experiment](https://raw.githubusercontent.com/dezoito/dezoito.github.io/master/public/images/ogs-experiment.png)
 
-After inspecting the results we can see that thoroughputfor all models stays consistent, but the quality and lenght of the output varies quite a lot, depending on the parameter combination selected for each iteration.
+After inspecting the results we can see that throughputfor all models stays consistent, but the quality and lenght of the output varies quite a lot, depending on the parameter combination selected for each iteration.
 
 Starling-lm:7b, for example, returned some really verbose output:
 
@@ -159,10 +159,12 @@ Starling-lm:7b, for example, returned some really verbose output:
 
 For most combinations, **Tinydolphin:1.1b-v2.8-q4_0** still returns good responses and is still the fastest model!
 
-We could now perform similar experiments using a different prompt, or focus on that single model and perform a grid search to determine its optimal combination of paramenters (as discussed in **[Grid Search on Large Langage Models using Ollama and Rust](https://dezoito.github.io/2023/12/27/rust-ollama-grid-search.html)**).
+We could now perform similar experiments using a different prompt, or focus on that single model and perform a grid search to determine its optimal combination of parameters (as discussed in **[Grid Search on Large Language Models using Ollama and Rust](https://dezoito.github.io/2023/12/27/rust-ollama-grid-search.html)**).
 
 ## Conclusion
 
-```
+Manually testing multiple models can be a time drain and produce confusing results... there must be a method to the madness (this is a whisky reference, by the way)!
 
-```
+Using an automation tool like Ollama Grid Search helps us perform dozen of iterations in a single run, allowing us to see not only how models compare to each other, but also how they behave under a range of different parameters.
+
+When we are pretty sure to have "winner" model, "grid search" can be used to determine what set of parameters produces the best output for that model, and again save us from the hell of manual experiments.
