@@ -151,6 +151,12 @@ Hit the "Start Experiment" button optionally go get a cup of coffee and wait for
 
 ![Iterations](https://raw.githubusercontent.com/dezoito/dezoito.github.io/master/public/images/ogs-iterations.png)
 
+After inspecting the results we can see that thoroughputfor all models stays consistent, but the quality and lenght of the output varies quite a lot, depending on the parameter combination selected for each iteration.
+
+Starling-lm:7b, for example, returned some really verbose output:
+
+![StarlingLM](https://raw.githubusercontent.com/dezoito/dezoito.github.io/master/public/images/ogs-starling.png)
+
 ## Conclusion
 
 ```
