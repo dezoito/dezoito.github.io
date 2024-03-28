@@ -5,7 +5,7 @@ title: Testing Multiple LLMs in one Pass
 excerpt_separator: <!--more-->
 ---
 
-This article aims to demonstrate how Ollama Grid Search can streamline the process of comparing and selecting Large Language Models (LLMs) for various tasks and provide answers to common questions such as:
+This article aims to demonstrate how [Ollama Grid Search](https://github.com/dezoito/ollama-grid-search) can streamline the process of comparing and selecting Large Language Models (LLMs) for various tasks and provide answers to common questions such as:
 
 > _**What is the best** model for for story telling?_
 
