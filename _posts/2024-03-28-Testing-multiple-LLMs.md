@@ -58,7 +58,7 @@ Skip the temptation of messing with other parameters and hit "Start Experiment".
 
 The software will send the prompt (along with the system prompt and default inference paramenter) to each of the selected models sequentially and, in this experiment, present the following output (edited for clarity):
 
-```sh
+```txt
 1/3 - gemma:2b-instruct
 
 Sure, here are three complementary prompts that can be used to gather more relevant information about John Doe:
@@ -71,7 +71,7 @@ Sure, here are three complementary prompts that can be used to gather more relev
 
 ---
 
-```sh
+```txt
 2/3 - starling-lm:7b
 
 1. "Determine if John Doe has any known affiliations with criminal organizations."
@@ -83,7 +83,7 @@ Sure, here are three complementary prompts that can be used to gather more relev
 
 ---
 
-```sh
+```txt
 3/3 - tinydolphin:1.1b-v2.8-q4_0
 
 1. Who is John Doe, and what are his primary areas of interest?
@@ -92,7 +92,7 @@ Sure, here are three complementary prompts that can be used to gather more relev
 
 ```
 
-**At first glance** all results look pretty good! But if we click on the "Expand Inference metadata" option (or in "Results Metadate, below each result), we can get a little more insight on how each model performed:
+**At first glance** all results look pretty good! But if we click on the "Expand Inference metadata" option (or in "Results Metadata", below each result), we can get a little more insight on how each model performed:
 
 ```sh
 1/3 - gemma:2b-instruct
@@ -156,6 +156,10 @@ After inspecting the results we can see that thoroughputfor all models stays con
 Starling-lm:7b, for example, returned some really verbose output:
 
 ![StarlingLM](https://raw.githubusercontent.com/dezoito/dezoito.github.io/master/public/images/ogs-starling.png)
+
+For most combinations, **Tinydolphin:1.1b-v2.8-q4_0** still returns good responses and is still the fastest model!
+
+We could now perform similar experiments using a different prompt, or focus on that single model and perform a grid search to determine its optimal combination of paramenters (as discussed in **[Grid Search on Large Langage Models using Ollama and Rust](https://dezoito.github.io/2023/12/27/rust-ollama-grid-search.html)**).
 
 ## Conclusion
 
