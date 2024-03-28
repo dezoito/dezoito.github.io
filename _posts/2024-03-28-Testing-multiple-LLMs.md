@@ -9,7 +9,7 @@ excerpt_separator: <!--more-->
 
 > _I want to use LLMs to generate RPG scripts, **which model** should I use?_
 
-Those types of questions are pretty common in forums where Large Language Models are discussed, and - most of the time - the users making such inquiries receive good advice, but when you need to compare different (perhaps similar) models, the process can **take a lot of effort**, and the **results can remain inconclusive**.
+Users making such inquiries can usually receive good advice, but when you need to compare different (perhaps similar) models, the process can **take a lot of effort**, and the **results can remain inconclusive**.
 
 In this article we explore some ways to automate the process, **testing several models in a single operation**, visually inspecting results and comparing data such as **generated tokens** and **thoroughput**.
 
@@ -43,6 +43,12 @@ Write a list of three concise prompts that can complement the query above.
 
 When we fire up Ollama Grid Search, it let's us select the models we want to use, from a list of those installed on the server:
 
-<img src="./public/images/ogs-model_selector.png" alt="Ollama Grid Search model Selection">
+![Model Selection](https://github.com/dezoito/dezoito.github.io/blob/dev/public/images/ogs-model_selector.png&raw=true)
+
+Let's select the following models to see how they stack up:
+
+- genna:2b-instruct
+- starling-lm:7b
+- tinydolphin:1.1b-v2.8-q4_0
 
 ## Conclusion
