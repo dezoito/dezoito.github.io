@@ -1,7 +1,7 @@
 ---
 layout: post
 comments: true
-title: Testing Multiple LLMs in one Pass
+title: Comparing Multiple Large Language Models in one Pass
 excerpt_separator: <!--more-->
 ---
 
