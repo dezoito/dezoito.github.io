@@ -28,6 +28,10 @@ Finally:
 
 ## Running tests
 
+### UPDATE:
+
+> As of v0.0.3, Ollama Grid Search lets you generate multiple responses for each single combination of parameters!
+
 In this example, I'm building a [RAG Fusion](https://arxiv.org/abs/2402.03367) agent, and I need to decide between three models, which is the best at generating alternative, complementary queries to a prompt such as:
 
 ```
