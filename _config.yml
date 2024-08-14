@@ -13,7 +13,7 @@ title: "Analyst 18"
 tagline: "&nbsp; Software Engineering and other random() subjects"
 description: "Articles on web-centric development that may or may not be related to Intelligence Analysis software."
 url: https://dezoito.github.io
-baseurl: https://dezoito.github.io
+baseurl: https://dezoito.github.io/
 paginate: 7
 
 # About/contact
