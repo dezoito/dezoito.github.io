@@ -2,7 +2,12 @@
 layout: default
 ---
 <script>
-  posthog.capture('Post Hit', { property: '{{ page.title }}' })
+  // posthog.capture('Post Hit', { property: '{{ page.title }}' })
+  posthog.capture('blog_post_view', {
+    title: document.title,
+    path: window.location.pathname,
+    url: window.location.href
+  })
 </script>
 
 <div class="post">
