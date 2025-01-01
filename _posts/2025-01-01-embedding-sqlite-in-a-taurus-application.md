@@ -36,8 +36,76 @@ Let's look at how we implemented these tools in practice.
 
 ## Implementation
 
-- Database module architecture
-- Schema design and migrations
+The database integration starts with adding SQLx to our project's dependencies in `Cargo.toml`, specifying SQLite support and required features:
+
+```toml
+sqlx = { version = "0.8.1", features = ["runtime-tokio", "sqlite", "chrono"] }
+```
+
+In `db.rs`, we define our database architecture: a `Database` struct manages the SQLite connection pool, with its location determined by the application's data directory. The implementation ensures the database file is created if it doesn't exist and uses Write-Ahead Logging for better concurrent access:
+
+```rust
+// From db.rs
+let connection_options = sqlx::sqlite::SqliteConnectOptions::new()
+    .filename(&db_path)
+    .create_if_missing(true)
+    .journal_mode(sqlx::sqlite::SqliteJournalMode::Wal);
+```
+
+The database is initialized in `main.rs` before setting up the rest of the application:
+
+```rust
+// From main.rs
+fn main() {
+
+  ...
+
+  let app = builder.setup(|app| {
+      let handle = app.handle();
+      // Initialize database
+      tauri::async_runtime::block_on(async move {
+          let database = db::Database::new(&handle)
+              .await
+              .expect("failed to initialize database");
+          // Store database pool in app state
+          app.manage(db::DatabaseState(database.pool));
+      });
+      Ok(())
+  });
+
+  ...
+```
+
+For schema management, SQLx's migration system provides version control of our database structure. Migrations are SQL files stored in the `./migrations` directory, named with a timestamp prefix. These are automatically run during database initialization in `db.rs`:
+
+```rust
+sqlx::migrate!("./migrations").run(&pool).await?;
+```
+
+Here's our first migration file (`./migrations/20240101_initial_schema.sql`), which creates the tables for storing prompts:
+
+```sql
+-- Create prompts table
+CREATE TABLE IF NOT EXISTS prompts (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    title TEXT NOT NULL,
+    content TEXT NOT NULL,
+    system_prompt TEXT,
+    category TEXT,
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    updated_at DATETIME DEFAULT CURRENT_TIMESTAMP
+);
+
+-- Create index on title for faster searches
+CREATE INDEX idx_prompts_title ON prompts(title);
+```
+
+The complete set of migrations can be found in the [project's repository](https://github.com/dezoito/ollama-grid-search/tree/main/src-tauri/migrations).
+
+To sum it up, when the application starts, it checks for a SQLite database file in the application's data directory. If the file doesn't exist, it creates one automatically. Then, regardless of whether the database is new or existing, it runs any pending migrations to ensure the schema is up to date. This setup provides a zero-configuration experience for users while maintaining a robust database structure. The whole process happens transparently during application initialization, requiring no user intervention.
+
+====
+
 - CRUD operations implementation
 - Practical example: prompt archive feature
   - Backend code (Rust/SQLx)
@@ -51,3 +119,7 @@ Let's look at how we implemented these tools in practice.
   - Performance implications
 - Implementation recommendations
 - Future improvements
+
+```
+
+```
