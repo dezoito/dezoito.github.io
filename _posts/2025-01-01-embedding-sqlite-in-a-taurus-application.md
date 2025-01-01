@@ -185,10 +185,22 @@ export async function get_all_prompts(): Promise<IPrompt[]> {
 
 For the complete list of CRUD operations and working examples of parametrized queries, please refer to [the prompt.rs module](https://github.com/dezoito/ollama-grid-search/blob/main/src-tauri/src/commands/prompt.rs).
 
+## Compile-time verification (or not)
+
+When using sqlx, we generally want to use the macro `query!` since it performs compile-time verification of your SQL queries against your database schema.
+
+This option has some [requirements](https://github.com/launchbadge/sqlx/blob/HEAD/sqlx-cli/README.md#enable-building-in-offline-mode-with-query) that did not work well with the dynamic location of the SQLite database, so after much experimentation we decided not to use it, opting for the `query()` and `query_as()` variations instead.
+
 ## Results & Insights
 
-- Technical trade-offs
-  - Compile-time verification considerations
-  - Performance implications
-- Implementation recommendations
-- Future improvements
+The combination of SQLite and SQLx provided:
+
+- Zero-configuration database setup for end users
+- Reliable storage of prompts and (later) experiment results
+- Type-safe database operations with minimal boilerplate
+- Simple migration system for schema updates
+- Improved extensibility over file storage.
+
+The resulting implementation is robust, maintainable, and enhances the application's functionality without compromising its desktop-first nature.
+
+For the complete implementation, visit the [project repository](https://github.com/dezoito/ollama-grid-search).
