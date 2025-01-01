@@ -102,15 +102,100 @@ CREATE INDEX idx_prompts_title ON prompts(title);
 
 The complete set of migrations can be found in the [project's repository](https://github.com/dezoito/ollama-grid-search/tree/main/src-tauri/migrations).
 
-To sum it up, when the application starts, it checks for a SQLite database file in the application's data directory. If the file doesn't exist, it creates one automatically. Then, regardless of whether the database is new or existing, it runs any pending migrations to ensure the schema is up to date. This setup provides a zero-configuration experience for users while maintaining a robust database structure. The whole process happens transparently during application initialization, requiring no user intervention.
+To sum it up:
 
-====
+- On startup, the app checks for a SQLite database in its data directory
+- Creates it if missing, runs any pending migrations if needed
+- Users get a working database without any configuration or intervention
 
-- CRUD operations implementation
-- Practical example: prompt archive feature
-  - Backend code (Rust/SQLx)
-  - Frontend integration (TypeScript/React)
-  - Error handling patterns
+<blockquote>
+Note: The SQLite database will be stored in your system's application data directory:
+
+Windows: `C:\Users\<Username>\AppData\Roaming\com.github.dezoito.gridsearch`
+
+macOS: `~/Library/Application Support/com.github.dezoito.gridsearch`
+
+Linux: `~/.local/share/com.github.dezoito.gridsearch`
+
+</blockquote>
+
+## Database Operations
+
+Now that we have a database setup, we can implement the "Prompt Archive" feature. This allows users to store and manage reusable prompt templates.
+
+<blockquote>
+Our migration scripts include a set of pre-configured prompts that can be read by the application immediatelly.
+
+</blockquote>
+<br/>
+
+In `src-tauri/src/commands/prompt.rs`, we first define a struct that represents our prompt data:
+
+```rust
+#[derive(Debug, FromRow, Serialize)]
+pub struct Prompt {
+    pub uuid: String,
+    pub name: String,
+    pub slug: String,
+    pub prompt: String,
+    pub date_created: i64,   // Unix timestamp
+    pub last_modified: i64,  // Unix timestamp
+}
+```
+
+This struct maps to our database schema, though for simplicity we've omitted some fields like `category` and `system_prompt`. The `FromRow` derive macro allows SQLx to automatically convert database rows into `Prompt` structs.
+
+The function to retrieve prompts is implemented as a Tauri command:
+
+```rust
+#[tauri::command]
+pub async fn get_all_prompts(state: tauri::State<'_, DatabaseState>) -> Result<Vec<Prompt>, Error> {
+    let stmt = r#"
+        SELECT
+            uuid,
+            name,
+            slug,
+            prompt,
+            date_created,
+            last_modified
+        FROM prompts
+        ORDER BY lower(name) ASC
+    "#;
+
+    let query = sqlx::query_as::<_, Prompt>(stmt);
+    let pool = &state.0;
+    let prompts = query.fetch_all(pool).await?;
+
+    Ok(prompts)
+}
+```
+
+The key line `let query = sqlx::query_as::<_, Prompt>(stmt);` tells SQLx to map each row from our SQL query to a `Prompt` struct. The `_` placeholder lets SQLx infer the database type (SQLite in our case) from the context.
+
+The command is registered in `main.rs`:
+
+```rust
+app.invoke_handler(tauri::generate_handler![
+    commands::get_all_prompts,
+    // other commands...
+])
+```
+
+Data from the above command is serialized as `JSON` and read by our React application (see [the source code](https://github.com/dezoito/ollama-grid-search/blob/main/src/components/queries/index.ts) for the complete implementation):
+
+```tsx
+import { invoke } from "@tauri-apps/api/tauri";
+
+...
+
+export async function get_all_prompts(): Promise<IPrompt[]> {
+  const prompts = await invoke<IPrompt[]>("get_all_prompts");
+  return prompts;
+}
+
+```
+
+For the complete list of CRUD operations and working examples of parametrized queries, please refer to [the prompt.rs module](https://github.com/dezoito/ollama-grid-search/blob/main/src-tauri/src/commands/prompt.rs).
 
 ## Results & Insights
 
@@ -119,6 +204,10 @@ To sum it up, when the application starts, it checks for a SQLite database file 
   - Performance implications
 - Implementation recommendations
 - Future improvements
+
+```
+
+```
 
 ```
 
