@@ -1,44 +1,53 @@
 ---
 layout: post
 comments: true
-title: Embedding a SQLite database in a Taurus application
+title: Embedding a SQLite database in a Taurus Application
 excerpt_separator: <!--more-->
 ---
 
-In this text we discuss a straightforward method for adding data persistance to a Tauri application, using a SQLite database and the popular [SQLx crate](https://crates.io/crates/sqlx).
+In this text we discuss implementing SQLite storage in a Tauri application using the [SQLx crate](https://crates.io/crates/sqlx), demonstrating practical approaches and solutions for local data persistence.
 
 <!--more-->
 
-## Introduction
+## The Problem
 
-- Quickly present the [Ollama Grid Search](https://github.com/dezoito/ollama-grid-search) project, and why it needed a database.
+[Ollama Grid Search](https://github.com/dezoito/ollama-grid-search) helps users evaluate LLM models by running experiments that compare different prompts and inference parameters. Built with Tauri and Rust, it provides an interface for testing multiple configurations and analyzing their results.
 
-  - Store prompt templates
-  - Store experiment results
+Initially, the experiment results were stored in JSON files and there was no way for the user to store the prompts they used the most.
 
-- Explain why we chose SQLite and SQLx.
+Clearly, the application needed a proper database to handle prompt templates and experiment results with better organization, concurrent access, and data integrity. The next section explains our choice of SQLite and SQLx as the technical solution.
 
-- Visually present the result: prompt archive
+[<img src="https://raw.githubusercontent.com/dezoito/ollama-grid-search/refs/heads/main/screenshots/prompt-archive.png" alt="Settings" width="720">](https://github.com/dezoito/ollama-grid-search?tab=readme-ov-file#prompt-archive)
 
-## Setup
+## Solution Design
 
-- Explain the database.rs module, how it is integrated with main.rs, and how the SQLite database file is created.
+SQLite is a natural fit for Tauri applications: it's serverless, requires zero configuration, and the database is contained in a single file. This matches Tauri's goal of creating lightweight, distributable desktop applications.
 
-- Explain how to setup migrations to create database structures like tables and indexes.
+SQLx was chosen as our Rust SQL toolkit because it provides:
 
-## Coding CRUD operations
+- Native SQL support without requiring a custom query syntax.
+- Async support out of the box.
+- Database migrations can be implemented easily.
+- A clean API for parameterized queries.
 
-- show the Tauri command that reads the list of prompts, and how it relates to the Typescript code
+While alternatives like Diesel and SeaORM offer similar features, SQLx's straightforward approach made it ideal for our needs.
 
-- show the code that creates a new prompt, both on the Tauri and React side of the application.
+Let's look at how we implemented these tools in practice.
 
-- point the user to other relevant functions in the repository.
+## Implementation
 
-## Compile-time verification
+- Database module architecture
+- Schema design and migrations
+- CRUD operations implementation
+- Practical example: prompt archive feature
+  - Backend code (Rust/SQLx)
+  - Frontend integration (TypeScript/React)
+  - Error handling patterns
 
-- Explain what this feature does and why we did not use it.
+## Results & Insights
 
-## Conclusion
-
-- Reiterate the advantages of the technology choices
-- Mention alternative crates like Diesel and SeaORM
+- Technical trade-offs
+  - Compile-time verification considerations
+  - Performance implications
+- Implementation recommendations
+- Future improvements
