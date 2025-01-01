@@ -108,26 +108,19 @@ To sum it up:
 - Creates it if missing, runs any pending migrations if needed
 - Users get a working database without any configuration or intervention
 
-<blockquote>
-Note: The SQLite database will be stored in your system's application data directory:
+> Note: The SQLite database will be stored in your system's application data directory:
 
-Windows: `C:\Users\<Username>\AppData\Roaming\com.github.dezoito.gridsearch`
+> Windows: `C:\Users\<Username>\AppData\Roaming\com.github.dezoito.gridsearch`
 
-macOS: `~/Library/Application Support/com.github.dezoito.gridsearch`
+> macOS: `~/Library/Application Support/com.github.dezoito.gridsearch`
 
-Linux: `~/.local/share/com.github.dezoito.gridsearch`
-
-</blockquote>
+> Linux: `~/.local/share/com.github.dezoito.gridsearch`
 
 ## Database Operations
 
 Now that we have a database setup, we can implement the "Prompt Archive" feature. This allows users to store and manage reusable prompt templates.
 
-<blockquote>
-Our migration scripts include a set of pre-configured prompts that can be read by the application immediatelly.
-
-</blockquote>
-<br/>
+> Our migration scripts include a set of pre-configured prompts that can be read by the application immediately.
 
 In `src-tauri/src/commands/prompt.rs`, we first define a struct that represents our prompt data:
 
@@ -161,11 +154,9 @@ pub async fn get_all_prompts(state: tauri::State<'_, DatabaseState>) -> Result<V
         FROM prompts
         ORDER BY lower(name) ASC
     "#;
-
     let query = sqlx::query_as::<_, Prompt>(stmt);
     let pool = &state.0;
     let prompts = query.fetch_all(pool).await?;
-
     Ok(prompts)
 }
 ```
@@ -181,18 +172,15 @@ app.invoke_handler(tauri::generate_handler![
 ])
 ```
 
-Data from the above command is serialized as `JSON` and read by our React application (see [the source code](https://github.com/dezoito/ollama-grid-search/blob/main/src/components/queries/index.ts) for the complete implementation):
+Data from the above command is serialized as JSON and read by our React application (see [the source code](https://github.com/dezoito/ollama-grid-search/blob/main/src/components/queries/index.ts) for the complete implementation):
 
-```tsx
+```typescript
 import { invoke } from "@tauri-apps/api/tauri";
-
 ...
-
 export async function get_all_prompts(): Promise<IPrompt[]> {
-  const prompts = await invoke<IPrompt[]>("get_all_prompts");
-  return prompts;
+    const prompts = await invoke<IPrompt[]>("get_all_prompts");
+    return prompts;
 }
-
 ```
 
 For the complete list of CRUD operations and working examples of parametrized queries, please refer to [the prompt.rs module](https://github.com/dezoito/ollama-grid-search/blob/main/src-tauri/src/commands/prompt.rs).
@@ -204,11 +192,3 @@ For the complete list of CRUD operations and working examples of parametrized qu
   - Performance implications
 - Implementation recommendations
 - Future improvements
-
-```
-
-```
-
-```
-
-```
