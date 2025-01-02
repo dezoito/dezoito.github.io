@@ -1,7 +1,7 @@
 ---
 layout: post
 comments: true
-title: Embedding a SQLite database in a Taurus Application
+title: Rust: Embedding a SQLite database in a Taurus Application
 excerpt_separator: <!--more-->
 ---
 
@@ -137,7 +137,7 @@ To sum it up:
 
 > Windows: `C:\Users\<Username>\AppData\Roaming\com.github.dezoito.gridsearch`
 
-> macOS: `~/Library/Application Support/com.github.dezoito.gridsearch`
+> macOS: `~/Library/Application SuppRort/com.github.dezoito.gridsearch`
 
 > Linux: `~/.local/share/com.github.dezoito.gridsearch`
 
