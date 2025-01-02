@@ -42,7 +42,7 @@ The database integration starts with adding SQLx to our project's dependencies i
 sqlx = { version = "0.8.1", features = ["runtime-tokio", "sqlite", "chrono"] }
 ```
 
-In `db.rs`, we define our database architecture: a `Database` struct manages the SQLite connection pool, with its location determined by the application's data directory. The implementation ensures the database file is created if it doesn't exist and uses Write-Ahead Logging for better concurrent access:
+In [`db.rs`](https://github.com/dezoito/ollama-grid-search/blob/main/src-tauri/src/db.rs), we define our database architecture: a `Database` struct manages the SQLite connection pool, with its location determined by the application's data directory. The implementation ensures the database file is created if it doesn't exist and uses Write-Ahead Logging for better concurrent access:
 
 ```rust
 // From db.rs
