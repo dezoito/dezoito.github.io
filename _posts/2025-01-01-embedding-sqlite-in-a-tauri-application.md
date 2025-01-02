@@ -36,6 +36,27 @@ Let's look at how we implemented these tools in practice.
 
 ## Implementation
 
+Here's a simplified view of the project's directory tree, starting at `/src-tauri`, where the relevant Rust code is stored:
+
+```sh
+.
+├── build.rs
+├── Cargo.toml
+├── migrations
+│   ├── 20241101000000_create_prompts_table.sql
+│   └── ...
+├── src
+│   ├── commands
+│   │   ├── experiment.rs
+│   │   ├── llm.rs
+│   │   ├── mod.rs
+│   │   └── prompt.rs
+│   ├── db.rs
+│   ├── lib.rs
+│   └── main.rs
+└── tauri.conf.json
+```
+
 The database integration starts with adding SQLx to our project's dependencies in `Cargo.toml`, specifying SQLite support and required features:
 
 ```toml
