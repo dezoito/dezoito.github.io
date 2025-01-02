@@ -1,7 +1,7 @@
 ---
 layout: post
 comments: true
-title: Rust - Embedding a SQLite database in a Taurus Application
+title: Rust - Embedding a SQLite database in a Tauri Application
 excerpt_separator: <!--more-->
 ---
 
